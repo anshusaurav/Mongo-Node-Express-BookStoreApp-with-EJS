@@ -21,10 +21,12 @@ router.post('/', async function(req, res, next) {
     next(error);
   }
 });
-
+router.get('/login', async(req, res, next) => { 
+  res.render('signup');
+})
 
 //login
-router.post('/login', async function(req, res, next) {
+router.post('/login', async (req, res, next) =>{
   console.log(req.body);
   var {email, password}= req.body.user;
   if(!email || !password){
