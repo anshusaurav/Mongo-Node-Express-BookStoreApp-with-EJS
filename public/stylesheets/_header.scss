@@ -7,11 +7,10 @@
   $color-text: #555;
   $shadow: 2px 9px 49px -17px rgba(0,0,0,0.3);
   
-  header {
-    padding: 0;
-    margin: 0;
-    font-family: $font;
-  }
+//   header {
+//     padding: 0;
+//     margin: 0;
+//     
   
   strong {
     padding: 0;
@@ -34,6 +33,7 @@
     top: 0;
     width: 100%;
     z-index:  10;
+    font-family: $font;
   }
   // content top
   .header-content-top {
@@ -62,7 +62,7 @@
     }
   }
   // inner container 
-  .container {
+  .header-container {
     align-items: center;
     display: flex;
     height: 70px;
