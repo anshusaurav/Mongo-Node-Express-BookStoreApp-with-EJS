@@ -1,40 +1,26 @@
-var jwt = require('jsonwebtoken');
-exports.generateJWT = async(user) =>{
-    //scret should be passed via .env
-    try{
-        var token = await jwt.sign({userId: user.id},"Secret-Key");
-        return token;
-    }
-    catch(error){
-        return error;
-    }
+const User = require("../models/user");
 
+//  handle Access
+exports.isLoggedin = (req,res,next) => { 
+  if (req.session && req.session.userId) {
+    next()
+  } else {
+    res.redirect("/users/login");
+  }
 }
 
-exports.verifyToken = async (req, res, next) =>{
-    var token = req.headers.authorization || "";
-    try{
-        if(token) {
-            var payload = await jwt.verify(token,"Secret-Key");
-            console.log(payload);
-            var user = {
-                userId: payload.userId,
-                token: token
-            };
-            req.user = user;
-            next();
-        }
-        else{
-            return res.status(401).json({
-                success: false,
-                error: "Unauthorized"
-            });
-        }
-    }
-    catch(error){
-        return res.status(422).json({
-            success: false,
-            error: "Unexpected error"
-        });
-    }
-};
+exports.loggedSession = (req,res,next)=> {
+  if(req.session && req.session.userId){
+      let userId = req.session.userId;
+      User.findById(userId, '-password', (err, user)=> {
+          if(err) return next("invalid userId in schema");
+          req.user = user;
+          res.locals.user = user;
+          next();
+      })
+  } else {
+      req.loggedSession = null;
+      res.locals.user = null;
+      next();
+  }
+}
