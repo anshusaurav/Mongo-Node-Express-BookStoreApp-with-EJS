@@ -1,61 +1,42 @@
-var mongoose = require('mongoose');
-var {hash, compare} = require('bcrypt');
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt");
 
-var userSchema = new Schema({
-    email:{
-        type: String,
-        required: true,
-        unique: true
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true
     },
-    username:{
-        type: String,
-        required: true,
-        unique: true
+    email: {
+      type: String,
+      required: true,
+      unique:true,
+      match: /@/
     },
-    password:{
-        type: String,
-        required: true,
+    password: {
+      type: String,
+      minlength: 6,
+      maxlength: 18,
+      unique:true
     },
-    bio: String,
-    image: String,
-    articles: [{
-        type: Schema.Types.ObjectId,
-        ref: "Article",
-    }],
-    comments: [{
-        type: Schema.Types.ObjectId,
-        ref: "Comment",
-    }],
+  },
+  { timestamps: true }
+);
 
-    favoriteArticles: [{
-        type: Schema.Types.ObjectId,
-        ref: "Article",
-    }],
-
-    followers: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }],
-    following: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }]
-
-}, {timestamps: true});
-userSchema.pre('save', async function(next){
-    try{
-        if(this.password && this.isModified('password')) {
-            this.password = await hash(this.password, 10);
-            return next();
-        }
-    }
-    catch(error) {
-        return next(error);
-    }
+userSchema.pre("save", function(next) {
+  if (this.password && this.isModified("password")) {
+    bcrypt.hash(this.password, 10, (err, password) => {
+      err ? next(err) : (this.password = password);
+      next();
+    });
+  } else {
+      next();
+  }
 });
 
-userSchema.methods.verifyPassword = async function(pwd) {
-    return await compare(pwd, this.password); 
-}
+userSchema.methods.verifyPassword = function (password){
+    return bcrypt.compareSync(password,this.password);
+  }
+
 module.exports = mongoose.model("User", userSchema);

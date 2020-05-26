@@ -4,7 +4,7 @@ var User = require('../models/user');
 var auth = require('../middlewares/auth');
 /* GET users listing. */
 router.get("/register", (req, res) => {
-  res.render("register");
+  res.render("signup");
 });
 
 router.post("/register", (req, res, next) => {

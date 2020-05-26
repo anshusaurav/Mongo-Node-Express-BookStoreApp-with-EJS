@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require("dotenv").config();
 var mongoose = require('mongoose');
+var session = require("express-session");
+var MongoStore = require('connect-mongo')(session);
 var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
@@ -23,6 +25,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 var srcPath = __dirname + '/public';
 var destPath = __dirname + '/public';
 app.use(sassMiddleware({
@@ -31,12 +42,19 @@ app.use(sassMiddleware({
   debug: true,
   outputStyle: 'compressed'
 }));
+app.use(session({
+  secret:"secret",
+  resave:false,
+  saveUninitialized:false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// logged users
+
+const loggedSession = require("./middlewares/auth");
+app.use(loggedSession.loggedSession);
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
