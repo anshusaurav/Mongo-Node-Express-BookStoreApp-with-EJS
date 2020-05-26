@@ -23,7 +23,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-var srcPath = __dirname + '/scss';
+var srcPath = __dirname + '/public';
 var destPath = __dirname + '/public';
 app.use(sassMiddleware({
   src: srcPath,

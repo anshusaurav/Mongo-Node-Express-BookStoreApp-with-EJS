@@ -13,8 +13,7 @@ router.post('/', async function(req, res, next) {
     res.status(201).json({
       email: user.email,
       username: user.username,
-      token,
-      bio: 'Add bio',
+      token
     })
     // res.json(user);
   }
