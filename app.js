@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require("dotenv").config();
 var mongoose = require('mongoose');
+var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,15 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+var srcPath = __dirname + '/scss';
+var destPath = __dirname + '/public';
+app.use(sassMiddleware({
+  src: srcPath,
+  dest: destPath,
+  debug: true,
+  outputStyle: 'compressed'
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
