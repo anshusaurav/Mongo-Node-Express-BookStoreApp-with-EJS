@@ -44,6 +44,8 @@ router.post('/login', async(req, res, next) =>{
     let user = await User.findOne({email}, '-password');
     if (!user) return next("enter a valid email ID");
     if (!user.verifyPassword(password)) return res.redirect("/users/login");
+    if(user.isBlocked)  return res.redirect("/users/login");
+
     req.session.userId = user.id;
     req.session.user = user;
     console.log('HERE');

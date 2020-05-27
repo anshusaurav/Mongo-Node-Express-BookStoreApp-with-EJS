@@ -1,0 +1,12 @@
+<%- include('partials/header') -%>
+   <form class='add-book-form' method='POST' action='/admin/edit/<%= book.slug %>'>
+    <input type='text' name='title' placeholder='title' value = '<%= book.title %>'>
+    <input type='text' name='author' placeholder='author' value = '<%= book.author %>'>
+    <input type='text' name='description' placeholder='description' value = '<%= book.description %>'>
+    <input type='text' name='thumbnailURL' placeholder='thumbnail' value = '<%= book.thumbnailURL %>'>
+    <input type='number' name='price' placeholder='price' value = '<%= book.price %>'>
+    <input type='number' name='quantity' placeholder='quantity' value = '<%= book.quantity %>'>
+    <input type='submit' value='Update book'>
+   </form>
+</body>
+</html>

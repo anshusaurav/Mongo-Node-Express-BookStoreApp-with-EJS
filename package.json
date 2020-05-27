@@ -20,5 +20,14 @@
     "mongoose-slug-updater": "^3.2.1",
     "morgan": "~1.9.1",
     "node-sass-middleware": "^0.11.0"
-  }
+  },
+  "keywords": [
+    "ecommerce",
+    "passport",
+    "dotenv",
+    "bcrypt",
+    "mongoose",
+    "bookstore",
+    "authentication"
+  ]
 }

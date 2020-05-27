@@ -1,0 +1,26 @@
+<%- include('partials/header') -%>
+   <div>
+       <% users.forEach(user =>{ %>
+        <p>
+            <%= user.name %>
+        </p>
+        <h1> 
+            <%= user.email %>
+        </h1>
+        <% if(user.isBlocked) {%>
+            <a href='/admin/unblock/<%=user.id %>'>
+                Unblock User
+            </a>
+            
+        <% }else{%>
+            <a href='/admin/block/<%=user.id %>'>
+                block user
+            </a>
+
+        <%} %>
+        
+        
+       <%}) %>
+   </div>
+</body>
+</html>

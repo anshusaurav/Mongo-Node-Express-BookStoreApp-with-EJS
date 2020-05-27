@@ -1,0 +1,34 @@
+<%- include('partials/header') -%>
+   <div>
+       <% books.forEach(book =>{ %>
+        <p>
+            <%= book.slug %>
+        </p>
+        <h1> 
+            <%= book.title %>
+        </h1>
+        <h2> 
+            <%= book.author %>
+        </h2>
+        <h3> 
+            <%= book.description %>
+        </h3>
+        <h4> 
+            <%= book.thumbnailURL %>
+        </h4>
+        <h5> 
+            <%= book.price %>
+        </h5>
+        <p> 
+            <%= book.quantity %>
+        </p>
+        <a href='/admin/edit/<%=book.slug %>'>
+            Edit Book
+        </a>
+        <a href='/admin/delete/<%=book.slug %>'>
+            Delete Book
+        </a>
+       <%}); %>
+   </div>
+</body>
+</html>
