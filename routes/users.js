@@ -39,6 +39,5 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 })
 
-// comments 
 
 module.exports = router;

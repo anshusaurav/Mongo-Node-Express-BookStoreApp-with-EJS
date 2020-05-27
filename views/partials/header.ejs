@@ -14,8 +14,8 @@
     <!-- contact content -->
     <div class="header-content-top">
       <div class="content">
-        <span><i class="fas fa-phone-square-alt"></i> (00)0000-0000</span>
-        <span><i class="fas fa-envelope-square"></i>email@email.com.br</span>
+        <span><i class="fas fa-phone-square-alt"></i> (96)6769-4292</span>
+        <span><i class="fas fa-envelope-square"></i>anshu.saurav@gmail.com</span>
       </div>
     </div>
     <!-- / contact content -->
@@ -41,14 +41,20 @@
             <label class="open-menu-login-account" for="open-menu-login-account">
   
               <input class="input-menu" id="open-menu-login-account" type="checkbox" name="menu" />
-  
-              <i class="fas fa-user-circle"></i><span class="login-text">Hello, Sign in <strong>Create Account</strong></span> <span class="item-arrow"></span>
+              
+              <i class="fas fa-user-circle"></i><span class="login-text">
+                <%if(user) { %>
+                Hello, <%= user.name.split(' ')[0] %> <strong></strong>
+                <%}else {%>
+                <a href='/users/login'>Hello, Sign in </a><strong>Create Account</strong>
+                <%} %>
+              </span> <span class="item-arrow"></span>
   
               <!-- submenu -->
               <ul class="login-list">
                 <li class="login-list-item"><a href="">My account</a></li>
-                <li class="login-list-item"><a href="">Create account</a></li>
-                <li class="login-list-item"><a href="">logout</a></li>
+                <li class="login-list-item"><a href="">Home</a></li>
+                <li class="login-list-item"><a href="/users/logout">Logout</a></li>
                 </label>
               </ul>
           </li>
