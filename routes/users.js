@@ -13,6 +13,23 @@ router.post("/register", (req, res, next) => {
   });
 });
 
+
+router.post('/register', async(req, res, next) =>{
+  let {email, password, name} = req.body;
+  try{
+    let user = await User.findOne({email});
+    if (!user) {
+      let user = await User.create(req.body);
+      res.redirect("users/login");
+    }
+    return next("Email id already in use.");
+  }
+  catch(error) {
+    return next(err);
+  }
+
+});
+
 // get login
 
 router.get("/login", (req, res) => {
@@ -21,16 +38,21 @@ router.get("/login", (req, res) => {
 
 // verify login
 
-router.post("/login", (req, res, next) => {
-  let { email, password } = req.body;
-  User.findOne({ email }, (err, user) => {
-    if (err) return next(err);
+router.post('/login', async(req, res, next) =>{
+  let {email, password} = req.body;
+  try{
+    let user = await User.findOne({email});
     if (!user) return next("enter a valid email ID");
     if (!user.verifyPassword(password)) return res.redirect("/users/login");
-    // login user by creating a session
     req.session.userId = user.id;
+    console.log('HERE');
+    console.log(req.session.userId);
     res.redirect("/");
-  });
+  }
+  catch(error) {
+    return next(err);
+  }
+
 });
 
 router.get('/logout', (req, res) => {

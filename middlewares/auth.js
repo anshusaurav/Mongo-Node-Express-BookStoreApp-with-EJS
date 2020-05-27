@@ -9,15 +9,19 @@ exports.isLoggedin = (req,res,next) => {
   }
 }
 
-exports.loggedSession = (req,res,next)=> {
+exports.loggedSession = async(req,res,next)=> {
   if(req.session && req.session.userId){
       let userId = req.session.userId;
-      User.findById(userId, '-password', (err, user)=> {
-          if(err) return next("invalid userId in schema");
-          req.user = user;
-          res.locals.user = user;
-          next();
-      })
+      try{
+        let user = await User.findById(userId, '-password');
+        req.user = user;
+        res.locals.user = user;
+        next();
+      }
+      catch(error) {
+        return next('invalid userId in schema');
+
+      }
   } else {
       req.loggedSession = null;
       res.locals.user = null;
