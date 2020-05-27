@@ -13,7 +13,7 @@ var reviewSchema = new Schema({
         ref: "Book",
         required: true,
     },
-    author: {
+    buyer: {
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true

@@ -24,7 +24,20 @@ const userSchema = new Schema(
     isBlocked:{
       type: Boolean,
       default: false
-    }
+    },
+    peronalCart:{
+      type: Schema.Types.ObjectId,
+      ref: "Cart"
+
+    },
+    purchases:[{
+      type: Schema.Types.ObjectId,
+      ref: "Parchase"
+    }],
+    addresses:[{
+      type: Schema.Types.ObjectId,
+      ref: "Address"
+    }]
   },
   { timestamps: true }
 );

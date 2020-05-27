@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+var slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
 const Schema = mongoose.Schema;
 const bookSchema = new Schema(
   {
@@ -14,6 +16,11 @@ const bookSchema = new Schema(
     description:{
         type: String, 
         required: true,
+    },
+    slug: { 
+        type: String, 
+        slug: ["title", "description"], 
+        unique: true 
     },
     categories:[{
         type: Schema.Types.ObjectId,
@@ -42,6 +49,7 @@ const bookSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Review"
     }]
+
   },
   { timestamps: true }
 );
