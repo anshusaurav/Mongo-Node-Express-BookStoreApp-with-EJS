@@ -49,12 +49,17 @@ userSchema.pre('save', async function(next){
 });
 
 userSchema.methods.verifyPassword = async function(pwd) {
+  try{
   const match = await bcrypt.compare(pwd, this.password); 
   // console.log(match);
   if(match && !this.isBlocked)
       return true;    
   else 
       return false;
+  }
+  catch(err){
+    return false;
+  }
 }
 
 
