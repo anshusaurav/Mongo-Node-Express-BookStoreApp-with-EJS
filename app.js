@@ -61,7 +61,8 @@ app.use(loggedSession.loggedSession);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/admin', adminRouter);
+var auth = require('./middlewares/auth');
+app.use('/admin',  auth.isAdminUser, adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
