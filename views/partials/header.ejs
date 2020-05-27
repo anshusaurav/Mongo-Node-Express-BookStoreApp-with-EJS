@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/af562a2a63.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
-    <title>Document</title>
+    <title>Online Shopping site in India:  Shop Online for Books</title>
 </head>
 <body>
     
@@ -42,18 +42,33 @@
   
               <input class="input-menu" id="open-menu-login-account" type="checkbox" name="menu" />
               
-              <i class="fas fa-user-circle"></i><span class="login-text">
+              
                 <%if(user) { %>
-                  Hello <%= user.name.split(' ')[0] %> <strong></strong>
-                </span> <span class="item-arrow"></span>
-                  <ul class="login-list">
-                    <li class="login-list-item"><a href="">My account</a></li>
-                    <li class="login-list-item"><a href="">Home</a></li>
-                    <li class="login-list-item"><a href="/users/logout">Logout</a></li>
-                    </label>
-                  </ul>
+                  <% if(user.isAdmin) { %>
+                    <i class="fas fa-hammer"></i><span class="login-text">
+                      Hello <%= user.name.split(' ')[0] %> <strong></strong>
+                    </span> <span class="item-arrow"></span>
+                      <ul class="login-list">
+                        <li class="login-list-item"><a href="">My account</a></li>
+                        <li class="login-list-item"><a href="/admin">Admin Panel</a></li>
+                        <li class="login-list-item"><a href="/users/logout">Logout</a></li>
+                        </label>
+                      </ul>
+                    
+                  <% }else { %>
+                    <i class="fas fa-user-circle"></i><span class="login-text">
+                      Hello <%= user.name.split(' ')[0] %> <strong></strong>
+                    </span> <span class="item-arrow"></span>
+                      <ul class="login-list">
+                        <li class="login-list-item"><a href="">My account</a></li>
+                        <li class="login-list-item"><a href="">Home</a></li>
+                        <li class="login-list-item"><a href="/users/logout">Logout</a></li>
+                        </label>
+                      </ul>
+                  <%} %>
                 <%}else {%>
-                  <a href='/users/login'>Hello, Sign in </a><strong>Create Account</strong>
+                  <span class="login-text">
+                  <a href='/users/login'>Hello, Sign in or</a><strong>Create Account</strong>
                   </span> <span class="item-arrow"></span>
                   </label>
                 <%} %>

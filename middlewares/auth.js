@@ -9,6 +9,14 @@ exports.isLoggedin = (req,res,next) => {
   }
 }
 
+exports.isAdminUser = (req,res,next) => { 
+  if (req.session && req.session.userId && req.session.user.isAdmin) {
+    next()
+  } else {
+    res.redirect("/users/login");
+  }
+}
+
 exports.loggedSession = async(req,res,next)=> {
   if(req.session && req.session.userId){
       let userId = req.session.userId;

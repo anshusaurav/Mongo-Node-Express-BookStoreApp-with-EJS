@@ -11,6 +11,7 @@ var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
 
 
 mongoose.connect('mongodb://localhost/bookstore-db',
@@ -40,8 +41,10 @@ app.use(sassMiddleware({
   src: srcPath,
   dest: destPath,
   debug: true,
-  outputStyle: 'compressed'
+  outputStyle: 'extended'
 }));
+
+
 app.use(session({
   secret:"secret",
   resave:false,
@@ -58,6 +61,7 @@ app.use(loggedSession.loggedSession);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin[', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

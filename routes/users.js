@@ -41,10 +41,11 @@ router.get("/login", (req, res) => {
 router.post('/login', async(req, res, next) =>{
   let {email, password} = req.body;
   try{
-    let user = await User.findOne({email});
+    let user = await User.findOne({email}, '-password');
     if (!user) return next("enter a valid email ID");
     if (!user.verifyPassword(password)) return res.redirect("/users/login");
     req.session.userId = user.id;
+    req.session.user = user;
     console.log('HERE');
     console.log(req.session.userId);
     res.redirect("/");
