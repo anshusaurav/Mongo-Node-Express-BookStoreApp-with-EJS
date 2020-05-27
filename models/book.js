@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt");
-
 const bookSchema = new Schema(
   {
     title: {
@@ -11,62 +9,43 @@ const bookSchema = new Schema(
     author:{
         type: String,
         required: true,
-        
-    },
 
-    email: {
-      type: String,
-      required: true,
-      unique:true,
-      match: /@/
     },
-    password: {
-      type: String,
+    description:{
+        type: String, 
+        required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false
+    categories:[{
+        type: Schema.Types.ObjectId,
+        ref:"Category"
+    }],
+    price:{
+        type: Number,
+        required: true
     },
-    isBlocked:{
-      type: Boolean,
-      default: false
-    }
+    quantity:{
+        type: Number,
+        required: true
+    },
+    ratings:[{
+        buyer:{
+            type: Schema.Types.ObjectId,
+            ref:"User",
+            required: true
+        },
+        rating:{
+            type: Number,
+            required: true
+        }
+    }],
+    reviews:[{
+        type: Schema.Types.ObjectId,
+        ref: "Review"
+    }]
   },
   { timestamps: true }
 );
 
 
-userSchema.pre('save', async function(next){
-  // console.log(this, 'Presave hook');\
-  var adminEmails = ['anshu.saurav@gmail.com'];
-  if(this.password && this.isModified('password')) {
-      try{
-        this.password = await bcrypt.hash(this.password, 10);
-        if(adminEmails.includes(this.email)) {
-          this.isAdmin = true;
-        }
-        next();
-      }
-      catch(error) {
-        next("Error with password");
-      }
-  }
-  next();
-});
 
-userSchema.methods.verifyPassword = async function(pwd) {
-  try{
-  const match = await bcrypt.compare(pwd, this.password); 
-  // console.log(match);
-  if(match && !this.isBlocked)
-      return true;    
-  else 
-      return false;
-  }
-  catch(err){
-    return false;
-  }
-}
-
-
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Book", bookSchema);

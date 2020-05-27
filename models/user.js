@@ -31,7 +31,6 @@ const userSchema = new Schema(
 
 
 userSchema.pre('save', async function(next){
-  // console.log(this, 'Presave hook');\
   var adminEmails = ['anshu.saurav@gmail.com'];
   if(this.password && this.isModified('password')) {
       try{
