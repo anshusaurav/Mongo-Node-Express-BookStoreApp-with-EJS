@@ -17,23 +17,45 @@ const userSchema = new Schema(
     password: {
       type: String,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
+    isBlocked:{
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );
 
-userSchema.pre("save", function(next) {
-  if (this.password && this.isModified("password")) {
-    bcrypt.hash(this.password, 10, (err, password) => {
-      err ? next(err) : (this.password = password);
-      next();
-    });
-  } else {
-      next();
+
+userSchema.pre('save', async function(next){
+  // console.log(this, 'Presave hook');\
+  var adminEmails = ['anshu.saurav@gmail.com'];
+  if(this.password && this.isModified('password')) {
+      try{
+        this.password = await bcrypt.hash(this.password, 10);
+        if(adminEmails.includes(this.email)) {
+          this.isAdmin = true;
+        }
+        next();
+      }
+      catch(error) {
+        next("Error with password");
+      }
   }
+  next();
 });
 
-userSchema.methods.verifyPassword = function (password){
-    return bcrypt.compareSync(password,this.password);
-  }
+userSchema.methods.verifyPassword = async function(pwd) {
+  const match = await bcrypt.compare(pwd, this.password); 
+  // console.log(match);
+  if(match && !this.isBlocked)
+      return true;    
+  else 
+      return false;
+}
+
 
 module.exports = mongoose.model("User", userSchema);
