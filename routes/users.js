@@ -1,4 +1,5 @@
 var express = require('express');
+const mongoose = require("mongoose");
 var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
@@ -75,18 +76,48 @@ router.get('/wishlist', auth.isLoggedin, async(req, res, next) =>{
 
 router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
+  
   try{
-    console.log('asdadasda');
-    // var loggedInUser = await User.findById(id).populate({ path: 'personalCart',
-    //                              populate: { path: 'item' }});
-    var loggedInUser = await User.findById(id).populate('personalCart.item');
+    var loggedInUser = await User.findById(id).populate('personalcart');
     console.log(loggedInUser);
+    var cart = await Promise.all(
+      loggedInUser.personalcart.map(async (elem) => {
+        var it = await Book.findById(elem.item);
+        console.log(elem.item + it.title);
+        return it;
+      })
+    );
+    loggedInUser.personalcart.forEach((elem,index)=>{
+      loggedInUser.personalcart[index].item = cart[index];
+      console.log(loggedInUser.personalcart[index].item.author);
+    });
+    // console.log(loggedInUser);
     res.render('personalCart', {loggedInUser:loggedInUser});
-
   }
   catch(error) {
     return next(error);
   }
+  // try{
+  //   console.log('asdadasda');
+    // var loggedInUser = await User.findById(id).populate({ path: 'personalCart',
+    //                              populate: { path: 'item' }});
+    // var loggedInUser = await User.findById(id).populate({
+    //   path: 'personalCart',
+    //   populate: {path: 'item',model : 'Book' }
+    //   });
+    // var loggedInUser;
+    // User.findById(id).populate('personalcart').populate('item').exec((err, loggedInUser)=>{
+    //   if(err)
+    //     return next(err);
+    //   console.log(loggedInUser);
+    //   res.render('personalCart', {loggedInUser:loggedInUser});
+    // });
+    
+
+  // }
+  // catch(error) {
+  //   return next(error);
+  // }
 });
 
 module.exports = router;

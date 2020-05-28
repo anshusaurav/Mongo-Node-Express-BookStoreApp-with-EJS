@@ -23,13 +23,13 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
         // console.log(book.title, book.id);
         
         var user = await User.findByIdAndUpdate(id, 
-            {$pull: { personalCart: { item: book.id } } }, 
+            {$pull: { personalcart: { item: book.id } } }, 
             {safe:true}
         );
         // console.log('PULLER');
         // console.log(user);
         var user = await User.findByIdAndUpdate(id, 
-            {$push: {personalCart: {item: book.id, quantity:quantity} }},
+            {$push: {personalcart: {item: book.id, quantity:quantity} }},
             {runValidators: true, new: true});
         // console.log(user);
         res.redirect('/books');
@@ -50,7 +50,7 @@ router.post('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
         // console.log(req.session.userId); 
         
         var user = await User.findByIdAndUpdate(id, 
-            {$pull: { personalCart: { item: book.id } } }, 
+            {$pull: { personalcart: { item: book.id } } }, 
             {safe:true}
         );
         res.redirect('/books');
