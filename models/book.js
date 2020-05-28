@@ -19,7 +19,7 @@ const bookSchema = new Schema(
     },
     slug: { 
         type: String, 
-        slug: ["title", "description"], 
+        slug: ["title"], 
         unique: true 
     },
     thumbnailURL:{

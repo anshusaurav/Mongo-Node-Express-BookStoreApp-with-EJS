@@ -1,0 +1,33 @@
+<%- include('partials/header') -%>
+   <div>
+       <% books.forEach(book =>{ %>
+        <p>
+            <%= book.slug %>
+        </p>
+        <h1> 
+            <%= book.title %>
+        </h1>
+        <h2> 
+            <%= book.author %>
+        </h2>
+        <h3> 
+            <%= book.description %>
+        </h3>
+        <h4> 
+            <%= book.thumbnailURL %>
+        </h4>
+        <h5> 
+            <%= book.price %>
+        </h5>
+        <form class='Add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
+            <input type="number" placeholder="1" value="1">
+            <input type="submit" value="Add to cart">
+        </form>
+        
+        <a href='/books/<%=book.slug %>/wish'>
+            Save for later
+        </a>
+       <%}); %>
+   </div>
+</body>
+</html>

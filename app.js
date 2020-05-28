@@ -14,7 +14,7 @@ var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 
 
-mongoose.connect('mongodb://localhost/bookstore-db',
+mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
  (err)=>{
   console.log("connected", err? err:true);
