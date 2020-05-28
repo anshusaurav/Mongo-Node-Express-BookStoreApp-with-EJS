@@ -1,32 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Cart = require('../models/cart');
 var auth = require('../middlewares/auth');
 /* GET users listing. */
-router.get("/register", (req, res) => {
-  res.render("signup");
-});
-
-router.post("/register", (req, res, next) => {
-  User.create(req.body, (err, user) => {
-    err ? next(err) : res.redirect("/users/login");
-  });
-});
 
 
 router.post('/register', async(req, res, next) =>{
-  let {email, password, name} = req.body;
+  console.log('HEREEERE');
+  console.log(req.body);
+  let {email} = req.body;
   try{
-    let user = await User.findOne({email});
+    var user = await User.findOne({email},'-password');
     if (!user) {
-      let user = await User.create(req.body);
-      let cart = await Cart.create({buyer: user.id});
-      res.redirect("users/login");
+      user = await User.create(req.body);
+      console.log(user);
+      var cart = await Cart.create({buyer: user.id});
+      console.log(cart);
+      user = await User.findOneAndUpdate({email}, 
+        {$set : {peronalCart: cart.id } });
+      console.log(user);
+      res.redirect("/users/login");
     }
     return next("Email id already in use.");
   }
   catch(error) {
-    return next(err);
+    return next(error);
   }
 
 });

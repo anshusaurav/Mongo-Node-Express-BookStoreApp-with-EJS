@@ -60,6 +60,7 @@ userSchema.pre('save', async function(next){
         next("Error with password");
       }
   }
+  
   next();
 });
 
