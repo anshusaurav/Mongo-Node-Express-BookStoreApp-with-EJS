@@ -14,12 +14,7 @@ router.post('/register', async(req, res, next) =>{
     var user = await User.findOne({email},'-password');
     if (!user) {
       user = await User.create(req.body);
-      console.log(user);
-      var cart = await Cart.create({buyer: user.id});
-      console.log(cart);
-      user = await User.findOneAndUpdate({email}, 
-        {$set : {peronalCart: cart.id } });
-      console.log(user);
+      
       res.redirect("/users/login");
     }
     return next("Email id already in use.");
@@ -58,11 +53,40 @@ router.post('/login', async(req, res, next) =>{
 
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
   req.session.destroy();
   res.clearCookie('connect.sid');
   res.redirect('/');
 })
 
+
+router.get('/wishlist', auth.isLoggedin, async(req, res, next) =>{
+  var id = req.session.userId;
+  try{
+    var loggedInUser = await User.findById(id).populate('wishList');
+    res.render('wishlist', {loggedInUser:loggedInUser});
+
+  }
+  catch(error) {
+    return next(err);
+  }
+});
+
+
+router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
+  var id = req.session.userId;
+  try{
+    console.log('asdadasda');
+    var loggedInUser = await User.findById(id)
+                                 .populate("personalCart.book");
+
+    console.log(loggedInUser);
+    res.render('personalCart', {loggedInUser:loggedInUser});
+
+  }
+  catch(error) {
+    return next(err);
+  }
+});
 
 module.exports = router;

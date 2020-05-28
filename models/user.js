@@ -25,10 +25,17 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
-    peronalCart:{
-      type: Schema.Types.ObjectId,
-      ref: "Cart"
-    },
+    personalCart:[{
+      item:{
+        type: Schema.Types.ObjectId,
+        ref:"Book",
+        required: true
+      },
+      quantity:{
+          type: Number,
+          required: true
+      }
+    }],
     wishList:[{
       type: Schema.Types.ObjectId,
       ref: "Book"

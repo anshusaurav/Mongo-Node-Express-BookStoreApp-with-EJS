@@ -1,6 +1,6 @@
 <%- include('partials/header') -%>
    <div>
-       <% books.forEach(book =>{ %>
+       <% loggedInUser.wishList.forEach(book =>{ %>
         <p>
             <%= book.slug %>
         </p>
@@ -19,13 +19,8 @@
         <h5> 
             <%= book.price %>
         </h5>
-        <form class='Add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
-            <input type="number" placeholder="1" value="1" name="quantity">
-            <input type="submit" value="Add to cart">
-        </form>
-        
-        <a href='/books/<%= book.slug %>/wish'>
-            Save for later
+        <a href='/books/<%= book.slug %>/discard'>
+            Unlike
         </a>
        <%}); %>
    </div>

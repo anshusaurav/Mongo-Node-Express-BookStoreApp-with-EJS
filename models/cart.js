@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-
+var User = require('../models/user');
+var Book = require('../models/book');
 
 var cartSchema = new Schema({
     
@@ -26,17 +27,13 @@ var cartSchema = new Schema({
     }
 
 },{timestamps: true});
-cartSchema.pre('save', async function(next){
+cartSchema.pre('update', async function(next){
     
-    if(this.books && this.isModified('books')) {
-        try{
+    try{
 
-          
-          next();
-        }
-        catch(error) {
-          next("Error with books");
-        }
+    }
+    catch(error) {
+        next("Error with books");
     }
     next();
   });

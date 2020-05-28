@@ -1,0 +1,28 @@
+<%- include('partials/header') -%>
+   <div>
+       <% loggedInUser.personalCart.forEach(elem =>{ %>
+        <p>
+            <%= elem.book.slug %>
+        </p>
+        <h1> 
+            <%= elem.book.title %>
+        </h1>
+        <h2> 
+            <%= elem.book.author %>
+        </h2>
+        <h3> 
+            <%= elem.book.description %>
+        </h3>
+        <h4> 
+            <%= elem.book.thumbnailURL %>
+        </h4>
+        <h5> 
+            <%= elem.book.price %>
+        </h5>
+        <h5> 
+            <%= elem.quantity %>
+        </h5>
+       <%}); %>
+   </div>
+</body>
+</html>
