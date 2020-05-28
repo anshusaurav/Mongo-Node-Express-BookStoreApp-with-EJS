@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var purchaseSchema = new Schema({
     
     books: [{
-        book:{
+        item:{
             type: Schema.Types.ObjectId,
             ref:"Book",
             required: true

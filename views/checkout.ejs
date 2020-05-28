@@ -1,5 +1,8 @@
 <%- include('partials/header') -%>
    <div>
+        <p>Order Placed Successfully</p>
+        <p>Order # <%= purchase.id %></p>
+
        <% loggedInUser.personalcart.forEach(elem =>{ %>
         
         <h1> 
@@ -20,13 +23,10 @@
         <h5> 
             Ordered: <%= elem.quantity %>
         </h5>
-        <a href='/books/<%= elem.item.slug %>/remove'>
-          Remove from cart  
-        </a>
+        
        <%}); %>
-       <p>Total Price: <%= totalPrice %></p>
-       <a href='/users/checkout'>Buy Now</a>
-       <a href='/books'>Shop More</a>
+       <p>Total Price: <%= purchase.totalPrice %></p>
+       
    </div>
 </body>
 </html>

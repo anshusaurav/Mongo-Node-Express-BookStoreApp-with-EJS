@@ -40,20 +40,21 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
     }
 });
 //remove from cart
-router.post('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
+router.get('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
+    console.log('book');
     var slug = req.params.slug;
     var quantity = req.body.quantity;
     var id = req.session.userId;
     try{
         var book = await Book.findOne({slug});
-        // console.log(book);
+        console.log(book);
         // console.log(req.session.userId); 
         
         var user = await User.findByIdAndUpdate(id, 
-            {$pull: { personalcart: { item: book.id } } }, 
-            {safe:true}
+            {$pull: { personalcart: { item: book.id } } }
         );
-        res.redirect('/books');
+        console.log(user);
+        res.redirect('/users/cart');
     }
     catch(error){
         return next(error);

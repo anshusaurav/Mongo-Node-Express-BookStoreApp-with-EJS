@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
+var Purchase = require('../models/purchase');
 var auth = require('../middlewares/auth');
 /* GET users listing. */
 
@@ -44,8 +45,6 @@ router.post('/login', async(req, res, next) =>{
 
     req.session.userId = user.id;
     req.session.user = user;
-    console.log('HERE');
-    console.log(req.session.userId);
     res.redirect("/");
   }
   catch(error) {
@@ -79,45 +78,87 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   
   try{
     var loggedInUser = await User.findById(id).populate('personalcart');
-    console.log(loggedInUser);
     var cart = await Promise.all(
       loggedInUser.personalcart.map(async (elem) => {
-        var it = await Book.findById(elem.item);
-        console.log(elem.item + it.title);
-        return it;
+        var book = await Book.findById(elem.item);
+        return book;
       })
     );
+    var totalPrice = 0;
     loggedInUser.personalcart.forEach((elem,index)=>{
       loggedInUser.personalcart[index].item = cart[index];
-      console.log(loggedInUser.personalcart[index].item.author);
+      totalPrice += loggedInUser.personalcart[index].item.price*loggedInUser.personalcart[index].quantity;
     });
-    // console.log(loggedInUser);
-    res.render('personalCart', {loggedInUser:loggedInUser});
+    res.render('personalCart', {loggedInUser:loggedInUser, totalPrice: totalPrice});
   }
   catch(error) {
     return next(error);
   }
-  // try{
-  //   console.log('asdadasda');
-    // var loggedInUser = await User.findById(id).populate({ path: 'personalCart',
-    //                              populate: { path: 'item' }});
-    // var loggedInUser = await User.findById(id).populate({
-    //   path: 'personalCart',
-    //   populate: {path: 'item',model : 'Book' }
-    //   });
-    // var loggedInUser;
-    // User.findById(id).populate('personalcart').populate('item').exec((err, loggedInUser)=>{
-    //   if(err)
-    //     return next(err);
-    //   console.log(loggedInUser);
-    //   res.render('personalCart', {loggedInUser:loggedInUser});
-    // });
-    
-
-  // }
-  // catch(error) {
-  //   return next(error);
-  // }
+  
 });
+ /**
+  * books: [{
+        book:{
+            type: Schema.Types.ObjectId,
+            ref:"Book",
+            required: true
+        },
+        quantity:{
+            type: Number,
+            required: true
+        }
+    }],
+    buyer: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    totalPrice:{
+        type: Number,
+        required: true,
+        default: 0
+    },
+    addressShippedTo:{
+        type: Schema.Types.ObjectId,
+        ref: "Address"
+    }
+  */
+router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
+  var id = req.session.userId;
+  console.log(id);
+  try{
+    var loggedInUser = await User.findById(id).populate('personalcart');
+    console.log(loggedInUser);
+    
+    // var purchaseToBeAdded =  new Purchase();
+    // purchaseToBeAdded.books = loggedInUser.personalcart.map(elem =>{
+    //   return {item: elem.item, quantity: elem.quantity};
+    // });
+    // purchaseToBeAdded.buyer = id;
+    var cart = await Promise.all(
+      loggedInUser.personalcart.map(async (elem) => {
+        var book = await Book.findById(elem.item);
+        return book;
+      })
+    );
+    var totalPrice = 0;
+    loggedInUser.personalcart.forEach((elem,index)=>{
+      loggedInUser.personalcart[index].item = cart[index];
+      totalPrice += loggedInUser.personalcart[index].item.price*loggedInUser.personalcart[index].quantity;
+    });
+    
+    // purchaseToBeAdded.totalPrice = totalPrice
+    // console.log(purchaseToBeAdded);
+    var purchase = await Purchase.create({books: loggedInUser.personalcart.map(elem =>{
+      return {item: elem.item, quantity: elem.quantity};
+    }), buyer: id, totalPrice: totalPrice});
+    // var updatedUser = await User.findByIdAndUpdate(id, { $set: { personalcart: [] }});
+    // console.log('Purchased');
+    console.log(purchase);
+    res.render('checkout', {loggedInUser, purchase});
+  }
+  catch(error) {
+    return next(error);
+  }
 
+});
 module.exports = router;
