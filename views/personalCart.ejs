@@ -20,8 +20,11 @@
             <%= elem.book.price %>
         </h5>
         <h5> 
-            <%= elem.quantity %>
+            Ordered: <%= elem.quantity %>
         </h5>
+        <a href='/books/<%= elem.book.slug %>/remove'>
+          Remove from cart  
+        </a>
        <%}); %>
    </div>
 </body>

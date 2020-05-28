@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var Cart = require('../models/cart');
+var Book = require('../models/book');
 var auth = require('../middlewares/auth');
 /* GET users listing. */
 
@@ -77,15 +77,15 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
   try{
     console.log('asdadasda');
-    var loggedInUser = await User.findById(id)
-                                 .populate("personalCart.book");
-
+    // var loggedInUser = await User.findById(id).populate({ path: 'personalCart',
+    //                              populate: { path: 'item' }});
+    var loggedInUser = await User.findById(id).populate('personalCart.item');
     console.log(loggedInUser);
     res.render('personalCart', {loggedInUser:loggedInUser});
 
   }
   catch(error) {
-    return next(err);
+    return next(error);
   }
 });
 

@@ -29,11 +29,9 @@ const userSchema = new Schema(
       item:{
         type: Schema.Types.ObjectId,
         ref:"Book",
-        required: true
       },
       quantity:{
           type: Number,
-          required: true
       }
     }],
     wishList:[{

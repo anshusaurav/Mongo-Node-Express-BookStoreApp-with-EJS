@@ -20,24 +20,17 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
     var id = req.session.userId;
     try{
         var book = await Book.findOne({slug});
-        console.log(book.title, book.id);
-        // var cart = await Cart.findOneAndUpdate({buyer: req.session.userId},
-        //      { $pull: { books: {book: book.id }}});
-        // console.log(cart.id);
-        // cart = await Cart.findOneAndUpdate({buyer: req.session.userId},
-        //      { $push: { books: {
-        //          book: book.id,
-        //          quantity: quantity
-        //      }}
-        //      }, {runValidators: true, new: true});
-        // var user = User.findByIdAndUpdate(id, 
-        //     {$pull: { personalCart: { item: book.id } } }, 
-        //     {safe:true}
-        // );
-        console.log('PULLER');
-        var user = User.findByIdAndUpdate(id, 
-            {$push: {personalCart: {item: book.id, quantity:quantity}}}, 
-            {runValidators:true, new:true});
+        // console.log(book.title, book.id);
+        
+        var user = await User.findByIdAndUpdate(id, 
+            {$pull: { personalCart: { item: book.id } } }, 
+            {safe:true}
+        );
+        // console.log('PULLER');
+        // console.log(user);
+        var user = await User.findByIdAndUpdate(id, 
+            {$push: {personalCart: {item: book.id, quantity:quantity} }},
+            {runValidators: true, new: true});
         // console.log(user);
         res.redirect('/books');
         
@@ -50,17 +43,17 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
 router.post('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
     var slug = req.params.slug;
     var quantity = req.body.quantity;
-    
+    var id = req.session.userId;
     try{
         var book = await Book.findOne({slug});
-        console.log(book);
-        console.log(req.session.userId); 
+        // console.log(book);
+        // console.log(req.session.userId); 
         
-        var cart = await Cart.findOneAndUpdate({buyer: req.session.userId},
-             { $pull: { books: {book: book.id }}});
-        
+        var user = await User.findByIdAndUpdate(id, 
+            {$pull: { personalCart: { item: book.id } } }, 
+            {safe:true}
+        );
         res.redirect('/books');
-        
     }
     catch(error){
         return next(error);
