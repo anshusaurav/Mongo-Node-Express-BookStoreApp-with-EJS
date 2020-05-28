@@ -72,7 +72,7 @@ router.get('/wishlist', auth.isLoggedin, async(req, res, next) =>{
   }
 });
 
-
+//Display cart with book details and total price on page
 router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
   
@@ -86,8 +86,8 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
     );
     var totalPrice = 0;
     loggedInUser.personalcart.forEach((elem,index)=>{
-      loggedInUser.personalcart[index].item = cart[index];
-      totalPrice += loggedInUser.personalcart[index].item.price*loggedInUser.personalcart[index].quantity;
+      elem.item = cart[index];
+      totalPrice += elem.item.price*elem.quantity;
     });
     res.render('personalCart', {loggedInUser:loggedInUser, totalPrice: totalPrice});
   }
@@ -96,32 +96,9 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   }
   
 });
- /**
-  * books: [{
-        book:{
-            type: Schema.Types.ObjectId,
-            ref:"Book",
-            required: true
-        },
-        quantity:{
-            type: Number,
-            required: true
-        }
-    }],
-    buyer: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    },
-    totalPrice:{
-        type: Number,
-        required: true,
-        default: 0
-    },
-    addressShippedTo:{
-        type: Schema.Types.ObjectId,
-        ref: "Address"
-    }
-  */
+/**
+ * checks out user with his/her current cart
+ */
 router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
   console.log(id);
@@ -129,11 +106,6 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
     var loggedInUser = await User.findById(id).populate('personalcart');
     console.log(loggedInUser);
     
-    // var purchaseToBeAdded =  new Purchase();
-    // purchaseToBeAdded.books = loggedInUser.personalcart.map(elem =>{
-    //   return {item: elem.item, quantity: elem.quantity};
-    // });
-    // purchaseToBeAdded.buyer = id;
     var cart = await Promise.all(
       loggedInUser.personalcart.map(async (elem) => {
         var book = await Book.findById(elem.item);
@@ -141,19 +113,33 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
       })
     );
     var totalPrice = 0;
+    //Checks if its okay to proceed with order and calculates totalPrice
     loggedInUser.personalcart.forEach((elem,index)=>{
-      loggedInUser.personalcart[index].item = cart[index];
-      totalPrice += loggedInUser.personalcart[index].item.price*loggedInUser.personalcart[index].quantity;
+      if(cart[index].quantity >=  elem.quantity) {
+        //Cant proceed with order display flash
+        res.redirect('/users/cart');
+      }
+      else{
+        elem.item = cart[index];
+        totalPrice += elem.item.price*elem.quantity;
+      }
     });
-    
-    // purchaseToBeAdded.totalPrice = totalPrice
-    // console.log(purchaseToBeAdded);
-    var purchase = await Purchase.create({books: loggedInUser.personalcart.map(elem =>{
-      return {item: elem.item, quantity: elem.quantity};
-    }), buyer: id, totalPrice: totalPrice});
-    // var updatedUser = await User.findByIdAndUpdate(id, { $set: { personalcart: [] }});
-    // console.log('Purchased');
-    console.log(purchase);
+
+    //Order ready to be processed remove from inventory
+    var updateBooks = await Promise.all(
+      loggedInUser.personalcart.map(async (elem) => {
+        var book = await Book.findByIdAndUpdate(elem.item.id, {$inc:{quantity: -elem.quantity}});
+        return book;
+      })
+    );
+    var purchase = await Purchase.create({
+      books: loggedInUser.personalcart.map(elem => {
+        return {
+          item: elem.item, 
+          quantity: elem.quantity
+        };
+      }), buyer: id, totalPrice: totalPrice
+    });
     res.render('checkout', {loggedInUser, purchase});
   }
   catch(error) {
