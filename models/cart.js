@@ -26,7 +26,7 @@ var cartSchema = new Schema({
     }
 
 },{timestamps: true});
-userSchema.pre('save', async function(next){
+cartSchema.pre('save', async function(next){
     
     if(this.books && this.isModified('books')) {
         try{

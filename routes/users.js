@@ -20,6 +20,7 @@ router.post('/register', async(req, res, next) =>{
     let user = await User.findOne({email});
     if (!user) {
       let user = await User.create(req.body);
+      let cart = await Cart.create({buyer: user.id});
       res.redirect("users/login");
     }
     return next("Email id already in use.");

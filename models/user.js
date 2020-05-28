@@ -28,8 +28,11 @@ const userSchema = new Schema(
     peronalCart:{
       type: Schema.Types.ObjectId,
       ref: "Cart"
-
     },
+    wishList:[{
+      type: Schema.Types.ObjectId,
+      ref: "Book"
+    }],
     purchases:[{
       type: Schema.Types.ObjectId,
       ref: "Parchase"

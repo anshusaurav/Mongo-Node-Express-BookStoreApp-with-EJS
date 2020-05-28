@@ -12,7 +12,7 @@ var sassMiddleware = require('node-sass-middleware');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-
+var booksRouter = require('./routes/books')
 
 mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
@@ -61,6 +61,7 @@ app.use(loggedSession.loggedSession);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/books', booksRouter);
 var auth = require('./middlewares/auth');
 app.use('/admin',  auth.isAdminUser, adminRouter);
 
