@@ -27,7 +27,7 @@ router.post('/register', async(req, res, next) =>{
       //             subject: 'Welcome',
       //             html: 'Please click <a href="' + link + '"> here </a> to activate your account.'
       // });
-      user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
+      // user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
       //flash message for confirmation mail
       console.log(user);
       res.redirect("/users/login");

@@ -40,7 +40,7 @@ router.get('/unblock/:id', async(req, res, next) =>{
 });
 router.get('/book',  async(req, res, next) =>{
     try{
-        var books = await Book.find();
+        var books = await Book.find().populate('categories');
         res.render('adminBook',{books: books});
     }
     catch(error){
@@ -49,16 +49,32 @@ router.get('/book',  async(req, res, next) =>{
 });
 router.get('/book/add', async(req, res, next) =>{
     try{
-    var categories = await Category.find({});
-        
-    res.render('addBook')
+    var allCategories = await Category.find({});
+   
+    res.render('addBook',{allCategories})
     }catch(error){
         return next(error);
     }
 });
 router.post('/book/add', async(req, res, next) =>{
     try{
+        console.log('HERe');
+        var allCatStr = req.body.categories.split('|');    
+        console.log(req.body.categories);
+        req.body.categories = await Promise.all(
+          allCatStr.map(async (elem) => {
+            var category = await Category.findOne({categoryName: elem});
+            return category.id;
+          })
+        );
+        console.log(req.body.categories);
         var book = await Book.create(req.body);
+        console.log(allCatStr);
+        var updatedCategories = await Promise.all(
+            allCatStr.forEach(async (elem) => {
+              var category = await Category.findOneAndUpdate({categoryName: elem}, {$addToSet: {books: book.id}});
+            })
+          );
         res.redirect('/admin');
     }
     catch(error){

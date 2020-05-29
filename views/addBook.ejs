@@ -4,9 +4,53 @@
     <input type='text' name='author' placeholder='author'>
     <input type='text' name='description' placeholder='description'>
     <input type='text' name='thumbnailURL' placeholder='thumbnail'>
+    <input type='text' name='publisher' placeholder='publisher'>
     <input type='number' name='price' placeholder='price'>
     <input type='number' name='quantity' placeholder='quantity'>
+    <textarea class='category-text-area' name='categories' rows="4" cols="50">
+
+    </textarea>
+    <div>
+       <% allCategories.forEach(elem =>{ %>
+         <p class='category-add-btn'><%=elem.categoryName%></p>
+       <% }); %>
+    </div>
     <input type='submit' value='Add book'>
    </form>
+   <script>
+      let arrTags = [];
+      var catAreaElem = document.querySelector('.category-text-area');
+      document.addEventListener('click', toggleTagEventHandler);
+      function toggleTagEventHandler(event) {
+         // event.preventDefault();
+         let target = event.target;
+         if(!target.classList.contains('category-add-btn'))
+            return;
+         toggle(target);
+         // return false;
+      }
+      function toggle(catElem) {
+         var newCatName = catElem.innerHTML.trim();
+         let str = catAreaElem.innerHTML.trim();
+         let tokens = str.split('|');
+         let present = tokens.includes(newCatName);
+         if(present) {
+            let index = tokens.indexOf(newCatName);
+            tokens.splice(index, 1);
+            catAreaElem.innerHTML = tokens.join('|');
+         }
+         else{
+            if(str.length === 0)
+               str = newCatName;
+            else
+               str += '|' + newCatName;
+            catAreaElem.innerHTML = str;
+           
+            
+         }
+      }
+
+      
+   </script>
 </body>
 </html>
