@@ -25,7 +25,9 @@
         </a>
        <%}); %>
        <p>Total Price: <%= totalPrice %></p>
+       <% if(totalPrice > 0) {%> 
        <a href='/users/checkout'>Buy Now</a>
+       <% } %>
        <a href='/books'>Shop More</a>
    </div>
 </body>

@@ -4,6 +4,7 @@ var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
 var Purchase = require('../models/purchase');
+var VerificationCode = require('../models/verificationcode')
 var auth = require('../middlewares/auth');
 var nodemailer = require('nodemailer');
 /* GET users listing. */
@@ -24,6 +25,8 @@ router.post('/register', async(req, res, next) =>{
     var user = await User.findOne({email},'-password');
     if (!user) {
       user = await User.create(req.body);
+      var rand = Math.floor((Math.random() * 100) + 54);
+      var vc = await VerificationCode.create({code: rand, user: user.id});
       
       res.redirect("/users/login");
     }
@@ -86,9 +89,6 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   
   try{
     var loggedInUser = await User.findById(id).populate('personalcart.item');
-    loggedInUser.personalcart.forEach(elem=>{
-      console.log(elem.item.title);
-    });
     // var cart = await Promise.all(
     //   loggedInUser.personalcart.map(async (elem) => {
     //     var book = await Book.findById(elem.item);
@@ -115,21 +115,14 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
     var loggedInUser = await User.findById(id).populate('personalcart.item');
     // console.log(loggedInUser);
     
-    var cart = await Promise.all(
-      loggedInUser.personalcart.map(async (elem) => {
-        var book = await Book.findById(elem.item);
-        return book;
-      })
-    );
     var totalPrice = 0;
     //Checks if its okay to proceed with order and calculates totalPrice
     loggedInUser.personalcart.forEach((elem,index)=>{
-      if(cart[index].quantity <  elem.quantity) {
+      if(elem.item.quantity <  elem.quantity) {
         //Cant proceed with order display flash
         res.redirect('/users/cart');
       }
       else{
-        elem.item = cart[index];
         totalPrice += elem.item.price*elem.quantity;
       }
     });
@@ -137,7 +130,11 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
     //Order ready to be processed remove from inventory
     var updateBooks = await Promise.all(
       loggedInUser.personalcart.map(async (elem) => {
-        var book = await Book.findByIdAndUpdate(elem.item.id, {$inc:{quantity: -elem.quantity}});
+        var book = await Book.findByIdAndUpdate(elem.item.id, {
+          $inc:{
+            quantity: -elem.quantity
+          }
+        });
         return book;
       })
     );
@@ -150,8 +147,17 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
         };
       }), buyer: id, totalPrice: totalPrice
     });
-    // console.log(loggedInUser.name);
-    var updatedUser =  await User.findByIdAndUpdate(id, {$set: { personalcart: []}});
+    var updatedUser =  await User.findByIdAndUpdate(id, {
+      $set:{ 
+        personalcart: []
+      }
+    });
+    // console.log(updatedUser);
+    updatedUser = await User.findByIdAndUpdate(id,  {
+      $addToSet: {
+        purchases: purchase.id
+      }
+    });
     // console.log(updatedUser);
     res.render('checkout', {loggedInUser, purchase});
   }
