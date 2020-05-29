@@ -1,24 +1,24 @@
 
 var nodemailer = require('nodemailer');
-
+var _ = require('lodash');
 var config = {
-    service: "Gmail",
+    service: "gmail",
     auth: {
-        user: 'anshu.saurav@gmail.com',
-        pass: 'yourpassword'
+        user: process.env.Email,
+        pass: process.env.Password
     }
 };
     
 var transporter = nodemailer.createTransport(config);
 
 var defaultMail = {
-    from: 'Me <xxx@126.com>',
+    from: 'Me <anshu.saurav@gmail.com>',
     text: 'test text',
 };
 
 module.exports = function(mail){
 
-    
+    mail = _.merge({}, defaultMail, mail);
     // send email
     transporter.sendMail(mail, function(error, info){
         if(error) return console.log(error);

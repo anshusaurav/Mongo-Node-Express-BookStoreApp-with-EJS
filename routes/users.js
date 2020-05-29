@@ -4,18 +4,9 @@ var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
 var Purchase = require('../models/purchase');
-var VerificationCode = require('../models/verificationcode')
 var auth = require('../middlewares/auth');
-var nodemailer = require('nodemailer');
-/* GET users listing. */
-// var smtpTransport = nodemailer.createTransport("SMTP",{
-//   service: "Gmail",
-//   auth: {
-//       user: "anshu.saurav@gmail.com",
-//       pass: "sk01264#"
-//   }
-// });
-var rand,mailOptions,host,link;
+var mailer = require('../utils/mailer');
+
 
 router.post('/register', async(req, res, next) =>{
   console.log('HEREEERE');
@@ -26,8 +17,20 @@ router.post('/register', async(req, res, next) =>{
     if (!user) {
       user = await User.create(req.body);
       var rand = Math.floor((Math.random() * 100) + 54);
-      var vc = await VerificationCode.create({code: rand, user: user.id});
-      
+      // var vc = await VerificationCode.create({code: rand, user: user.id});
+      user.activeToken = rand;
+      var link = 'http://locolhost:3000/account/active/'
+                           + user.activeToken;
+      console.log(user);
+      mailer.send({
+                  from: process.env.Email,
+                  to: req.body.email,
+                  subject: 'Welcome',
+                  html: 'Please click <a href="' + link + '"> here </a> to activate your account.'
+      });
+      user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
+      //flash message for confirmation mail
+      console.log(user);
       res.redirect("/users/login");
     }
     return next("Email id already in use.");

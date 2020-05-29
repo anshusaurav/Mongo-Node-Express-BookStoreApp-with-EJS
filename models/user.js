@@ -29,6 +29,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
+    activeToken: {
+      type: String,
+    },
     personalcart:[{
       item:{
         type: Schema.Types.ObjectId,
