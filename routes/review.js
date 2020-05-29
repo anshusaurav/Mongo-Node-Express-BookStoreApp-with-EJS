@@ -12,16 +12,18 @@ router.get('/', (req, res, next) =>{
 })
 router.get('/pending', async(req, res, next) =>{
     var id = req.session.userId;
-    const setBook = new Set();
+    var arrBook = [];
     //get list of books purchased by user
     var purchasesDone = await Purchase.find({buyer: id});
     console.log(purchasesDone);
     purchasesDone.forEach(purchase =>{
         purchase.books.forEach(book =>{
-            setBook.add(book.item);
+            let x = book.item;
+            arrBook.push(""+x);
         })
         
     });
+    var setBook = new Set(arrBook);
     console.log(setBook);
     //get all review posted by user
     var booksReviewPosted = [];
@@ -49,9 +51,38 @@ router.get('/pending', async(req, res, next) =>{
         })
       );
     console.log(arrBooks);
+    res.render('pendingReviews',{arrBooks});
 });
 
 router.get('/posted', async(req, res, next) =>{
 
+});
+
+router.get('/:slug', async(req, res, next) =>{
+    var slug = req.params.slug;
+    var id = req.session.userId;
+    try{
+        var book = await Book.findOne({slug});
+        res.render('addReview', {book}); 
+    }
+    catch(error){
+        return next(error);
+    }
+});
+
+router.post('/:slug', async(req, res, next) =>{
+    var id = req.session.userId;
+    try{
+        var book = await Book.findOne({slug});
+        req.body.book = book.id;
+        req.body.buyer = id;
+        console.log(book);
+        console.log(req.body);
+        var review = await Review.create(req.body);
+        res.redirect('/review');
+    }
+    catch(error){
+        return next(error);
+    }
 });
 module.exports = router;

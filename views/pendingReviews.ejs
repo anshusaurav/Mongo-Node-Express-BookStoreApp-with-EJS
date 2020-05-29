@@ -1,0 +1,8 @@
+<%- include('partials/header') -%>
+   <% arrBooks.forEach(book =>{ %>
+       <p><%=book.title %></p> 
+       <p>By <%=book.author %> </p>
+       <a href='/review/<%=book.slug%>'>Review</a>
+   <%}) %>
+</body>
+</html>
