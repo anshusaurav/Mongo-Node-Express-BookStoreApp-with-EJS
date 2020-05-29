@@ -71,8 +71,9 @@ router.post('/book/add', async(req, res, next) =>{
         var book = await Book.create(req.body);
         console.log(allCatStr);
         var updatedCategories = await Promise.all(
-            allCatStr.forEach(async (elem) => {
-              var category = await Category.findOneAndUpdate({categoryName: elem}, {$addToSet: {books: book.id}});
+            allCatStr.map(async (elem) => {
+                var category = await Category.findOneAndUpdate({categoryName: elem}, {$addToSet: {books: book.id}});
+                return category.id;
             })
           );
         res.redirect('/admin');

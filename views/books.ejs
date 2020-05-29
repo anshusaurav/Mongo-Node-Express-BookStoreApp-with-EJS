@@ -16,6 +16,14 @@
         <h4> 
             <%= book.thumbnailURL %>
         </h4>
+        <h5>
+            Categories
+        </h5>
+        <div>
+            <% book.categories.forEach(elem =>{ %>
+                <p><%=elem.categoryName %></p>
+            <%}) %>
+        </div>
         <h5> 
             <%= book.price %>
         </h5>

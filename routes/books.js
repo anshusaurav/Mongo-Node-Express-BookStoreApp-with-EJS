@@ -6,7 +6,7 @@ var auth = require('../middlewares/auth');
 
 router.get('/', async(req, res, next) =>{
     try{
-        var books = await Book.find();
+        var books = await Book.find().populate('categories');
         res.render('books',{books: books});
     }
     catch(error){

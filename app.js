@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost/pustaka-db',
   //             "Romance",
   //             "Crime, Thriller & Mystery",
   //             "Indian Writing"];
-  // var data = await Category.remove({});
+  // // var data = await Category.remove({});
   // cats.forEach(async(category) =>{
   //   var newCat = await Category.create({categoryName: category, books:[]});
   // });
