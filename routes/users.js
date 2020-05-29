@@ -115,7 +115,7 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
     var totalPrice = 0;
     //Checks if its okay to proceed with order and calculates totalPrice
     loggedInUser.personalcart.forEach((elem,index)=>{
-      if(cart[index].quantity >=  elem.quantity) {
+      if(cart[index].quantity <  elem.quantity) {
         //Cant proceed with order display flash
         res.redirect('/users/cart');
       }
@@ -132,6 +132,7 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
         return book;
       })
     );
+    console.log(updateBooks);
     var purchase = await Purchase.create({
       books: loggedInUser.personalcart.map(elem => {
         return {
@@ -140,6 +141,9 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
         };
       }), buyer: id, totalPrice: totalPrice
     });
+    console.log(loggedInUser.name);
+    var updatedUser =  await User.findByIdAndUpdate(id, {$set: { personalcart: []}});
+    console.log(updatedUser);
     res.render('checkout', {loggedInUser, purchase});
   }
   catch(error) {
