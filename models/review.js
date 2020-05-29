@@ -11,12 +11,10 @@ var reviewSchema = new Schema({
     book: {
         type: Schema.Types.ObjectId,
         ref: "Book",
-        required: true,
     },
     buyer: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
     }
 },{timestamps: true});
 
