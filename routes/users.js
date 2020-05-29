@@ -5,8 +5,16 @@ var User = require('../models/user');
 var Book = require('../models/book');
 var Purchase = require('../models/purchase');
 var auth = require('../middlewares/auth');
+var nodemailer = require('nodemailer');
 /* GET users listing. */
-
+// var smtpTransport = nodemailer.createTransport("SMTP",{
+//   service: "Gmail",
+//   auth: {
+//       user: "anshu.saurav@gmail.com",
+//       pass: "sk01264#"
+//   }
+// });
+var rand,mailOptions,host,link;
 
 router.post('/register', async(req, res, next) =>{
   console.log('HEREEERE');
@@ -77,19 +85,21 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
   
   try{
-    var loggedInUser = await User.findById(id).populate('personalcart');
-    var cart = await Promise.all(
-      loggedInUser.personalcart.map(async (elem) => {
-        var book = await Book.findById(elem.item);
-        return book;
-      })
-    );
+    var loggedInUser = await User.findById(id).populate('personalcart.item');
+    loggedInUser.personalcart.forEach(elem=>{
+      console.log(elem.item.title);
+    });
+    // var cart = await Promise.all(
+    //   loggedInUser.personalcart.map(async (elem) => {
+    //     var book = await Book.findById(elem.item);
+    //     return book;
+    //   })
+    // );
     var totalPrice = 0;
     loggedInUser.personalcart.forEach((elem,index)=>{
-      elem.item = cart[index];
       totalPrice += elem.item.price*elem.quantity;
     });
-    res.render('personalCart', {loggedInUser:loggedInUser, totalPrice: totalPrice});
+    res.render('personalCart', {loggedInUser, totalPrice});
   }
   catch(error) {
     return next(error);
@@ -101,10 +111,9 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
  */
 router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
-  console.log(id);
   try{
-    var loggedInUser = await User.findById(id).populate('personalcart');
-    console.log(loggedInUser);
+    var loggedInUser = await User.findById(id).populate('personalcart.item');
+    // console.log(loggedInUser);
     
     var cart = await Promise.all(
       loggedInUser.personalcart.map(async (elem) => {
@@ -132,7 +141,7 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
         return book;
       })
     );
-    console.log(updateBooks);
+    // console.log(updateBooks);
     var purchase = await Purchase.create({
       books: loggedInUser.personalcart.map(elem => {
         return {
@@ -141,9 +150,9 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
         };
       }), buyer: id, totalPrice: totalPrice
     });
-    console.log(loggedInUser.name);
+    // console.log(loggedInUser.name);
     var updatedUser =  await User.findByIdAndUpdate(id, {$set: { personalcart: []}});
-    console.log(updatedUser);
+    // console.log(updatedUser);
     res.render('checkout', {loggedInUser, purchase});
   }
   catch(error) {

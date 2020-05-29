@@ -25,6 +25,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
+    isActive:{
+      type: Boolean,
+      default: false
+    },
     personalcart:[{
       item:{
         type: Schema.Types.ObjectId,
