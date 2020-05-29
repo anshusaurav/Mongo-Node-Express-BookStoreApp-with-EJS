@@ -3,7 +3,6 @@ var router = express.Router();
 var User = require('../models/user');
 var Category = require('../models/category');
 var Book = require('../models/book');
-var auth = require('../middlewares/auth');
 
 router.get('/', (req, res, next) =>{
     res.render('admin');
@@ -58,21 +57,29 @@ router.get('/book/add', async(req, res, next) =>{
 });
 router.post('/book/add', async(req, res, next) =>{
     try{
-        console.log('HERe');
+        // console.log('HERe');
         var allCatStr = req.body.categories.split('|');    
-        console.log(req.body.categories);
+        // console.log(req.body.categories);
         req.body.categories = await Promise.all(
           allCatStr.map(async (elem) => {
-            var category = await Category.findOne({categoryName: elem});
+            var category = await Category.findOne({
+                categoryName: elem
+            });
             return category.id;
           })
         );
-        console.log(req.body.categories);
+        // console.log(req.body.categories);
         var book = await Book.create(req.body);
-        console.log(allCatStr);
+        // console.log(allCatStr);
         var updatedCategories = await Promise.all(
             allCatStr.map(async (elem) => {
-                var category = await Category.findOneAndUpdate({categoryName: elem}, {$addToSet: {books: book.id}});
+                var category = await Category.findOneAndUpdate({
+                        categoryName: elem
+                    }, {
+                        $addToSet: {
+                            books: book.id
+                        }
+                    });
                 return category.id;
             })
           );
@@ -98,7 +105,10 @@ router.get('/edit/:slug', async(req, res, next) =>{
 router.post('/edit/:slug', async(req, res, next) =>{
     try{
         var {slug} = req.params.slug;
-        var book = await Book.findOneAndUpdate(slug, req.body,{runValidators: true, new:true})
+        var book = await Book.findOneAndUpdate(slug, req.body,{ 
+            runValidators: true, 
+            new:true 
+        });
         res.redirect('/admin/book');
     }
     catch(error){

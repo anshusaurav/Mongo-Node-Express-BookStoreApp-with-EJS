@@ -13,7 +13,8 @@ var Category = require('./models/category');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-var booksRouter = require('./routes/books')
+var booksRouter = require('./routes/books');
+var reviewRouter = require('./routes/review');
 
 mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
@@ -75,7 +76,7 @@ app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 var auth = require('./middlewares/auth');
 app.use('/admin',  auth.isAdminUser, adminRouter);
-
+app.use('/review', auth.isLoggedin, reviewRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
