@@ -22,12 +22,11 @@ router.post('/register', async(req, res, next) =>{
       var link = 'http://locolhost:3000/account/active/'
                            + user.activeToken;
       console.log(user);
-      mailer.send({
-                  from: process.env.Email,
-                  to: req.body.email,
-                  subject: 'Welcome',
-                  html: 'Please click <a href="' + link + '"> here </a> to activate your account.'
-      });
+      // mailer.send({
+      //             to: req.body.email,
+      //             subject: 'Welcome',
+      //             html: 'Please click <a href="' + link + '"> here </a> to activate your account.'
+      // });
       user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
       //flash message for confirmation mail
       console.log(user);

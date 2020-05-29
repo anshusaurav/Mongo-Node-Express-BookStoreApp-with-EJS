@@ -9,6 +9,7 @@ var session = require("express-session");
 var MongoStore = require('connect-mongo')(session);
 var sassMiddleware = require('node-sass-middleware');
 
+var Category = require('./models/category');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
@@ -16,7 +17,17 @@ var booksRouter = require('./routes/books')
 
 mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
- (err)=>{
+ (err, db)=>{
+  // var cats = ["Literature & Fiction", 
+  //             "Self-Help",
+  //             "Business & Economics",
+  //             "Romance",
+  //             "Crime, Thriller & Mystery",
+  //             "Indian Writing"];
+  // var data = await Category.remove({});
+  // cats.forEach(async(category) =>{
+  //   var newCat = await Category.create({categoryName: category, books:[]});
+  // });
   console.log("connected", err? err:true);
 })
 

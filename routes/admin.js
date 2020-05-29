@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Category = require('../models/category');
 var Book = require('../models/book');
 var auth = require('../middlewares/auth');
 
@@ -46,8 +47,14 @@ router.get('/book',  async(req, res, next) =>{
         return next(error);
     }
 });
-router.get('/book/add', (req, res, next) =>{
+router.get('/book/add', async(req, res, next) =>{
+    try{
+    var categories = await Category.find({});
+        
     res.render('addBook')
+    }catch(error){
+        return next(error);
+    }
 });
 router.post('/book/add', async(req, res, next) =>{
     try{

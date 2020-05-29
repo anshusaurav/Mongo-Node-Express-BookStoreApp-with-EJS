@@ -22,6 +22,10 @@ const bookSchema = new Schema(
         slug: ["title"], 
         unique: true 
     },
+    publisher:{
+        type: String,
+        required: true
+    },
     thumbnailURL:{
         type: String,
         required: true,

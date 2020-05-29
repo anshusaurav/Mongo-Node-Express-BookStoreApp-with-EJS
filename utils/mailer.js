@@ -16,11 +16,16 @@ var defaultMail = {
     text: 'test text',
 };
 
-module.exports = function(mail){
+module.exports = function send(mail){
 
-    mail = _.merge({}, defaultMail, mail);
+    mail = {from: process.env.Email,
+    to: 'friendsofenron@gmail.com, enemiesofenron@gmail.com',
+    subject: 'Invoices due',
+    text: 'Dudes, we really need your money.'};
+    console.log(mail);
     // send email
     transporter.sendMail(mail, function(error, info){
+        console.log('Error', error);
         if(error) return console.log(error);
         console.log('mail sent:', info.response);
     });
