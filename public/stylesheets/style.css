@@ -595,7 +595,9 @@ header {
       align-self: center; }
       .books-container .books-main-grid .books-main-grid-elem-img .books-main-single-image {
         width: 100%;
-        max-height: 306px; }
+        min-width: 100%;
+        max-height: 306px;
+        min-height: 306px; }
   .books-container .books-main-elem-misc {
     position: absolute;
     bottom: 0.5rem;

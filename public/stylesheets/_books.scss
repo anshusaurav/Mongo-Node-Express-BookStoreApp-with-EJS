@@ -16,11 +16,15 @@
         }
         .books-main-grid-elem-img {
             width: 75%;
+            
             max-height: 306px;
             align-self: center;
             .books-main-single-image{
                 width: 100%;
+                min-width: 100%;
                 max-height: 306px;
+                object-fit: cover;
+                min-height: 306px;
             }
         }
     }
