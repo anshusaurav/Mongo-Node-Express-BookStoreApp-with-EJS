@@ -1,32 +1,43 @@
 <%- include('partials/header') -%>
-   <div>
+   <div class='cart-container'>
+       <% if(loggedInUser.personalcart.length) { %>
         <p>Order Placed Successfully</p>
-        <p>Order # <%= purchase.id %></p>
+        <p>Order # <%=purchase.id %></p>
+        <div class='cart-main-grid'>
+            <% loggedInUser.personalcart.forEach(elem =>{ %>
+                <div class='cart-main-grid-single-elem'>
+                    <div class='cart-single-img-div'>
+                        <img class='cart-single-img' src='<%=elem.item.thumbnailURL%>'>
+                    </div>
+                    <div class='cart-single-desc-div'>
+                        <h1> 
+                            <%=elem.item.title %>
+                        </h1>
+                        <h2> 
+                            <%=elem.item.author %>
+                        </h2>
+                        <h5> 
+                            Qty: <%=elem.quantity %>
+                        </h5>
+                        
+                        
+                    </div>
+                    <div class='cart-single-price-div'>
+                        <p>
+                            <i class="fas fa-rupee-sign"></i>
+                            <%= elem.quantity*elem.item.price %>
+                        </p>
+                    </div>
+                </div>
+            <%}); %>
+        </div>
+        <div class='cart-total-price-div'>
+            <p>Total Price:  <i class="fas fa-rupee-sign"></i> <%= purchase.totalPrice %></p>
+        </div>
+        <%}%>
+        <a href='/books'>Shop More</a>
 
-       <% loggedInUser.personalcart.forEach(elem =>{ %>
-        
-        <h1> 
-            <%= elem.item.title %>
-        </h1>
-        <h2> 
-            <%= elem.item.author %>
-        </h2>
-        <h3> 
-            <%= elem.item.description %>
-        </h3>
-        <h4> 
-            <%= elem.item.thumbnailURL %>
-        </h4>
-        <h5> 
-            <%= elem.item.price %>
-        </h5>
-        <h5> 
-            Ordered: <%= elem.quantity %>
-        </h5>
-        
-       <%}); %>
-       <p>Total Price: <%= purchase.totalPrice %></p>
-       
    </div>
 </body>
 </html>
+
