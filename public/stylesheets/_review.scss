@@ -1,0 +1,48 @@
+.tabbed-content{
+    background-color:#3CB371;
+    overflow:hidden;
+    color:#fff;
+    border-radius:4px;
+}
+  
+.tabs label div{
+    float:left;
+    padding: 8px;
+    cursor:pointer;
+    opacity:0.7;
+    transition:0.3s;
+    border-bottom:2px solid transparent;
+}
+  
+.tabs label div:hover{
+    opacity:1;
+}
+  
+.tabs label input:checked + div{
+    opacity:1;
+    border-bottom:2px solid #fff;
+}
+  
+.tabs input{
+    display:none;
+}
+  
+.tabs{
+    overflow:hidden;
+    padding:0 8px;
+}
+  
+.tabContent{
+    padding:0 16px;
+    display:none;
+    animation:fadeEffect .5s;
+}
+  
+.tabContent:target{
+    display:block;
+}
+  
+@keyframes fadeEffect{
+    0%{opacity:0}
+    100%{opacity:1}
+}

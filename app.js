@@ -15,6 +15,7 @@ var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var booksRouter = require('./routes/books');
 var reviewRouter = require('./routes/review');
+var categoryRouter = require('./routes/category');
 
 mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
@@ -25,7 +26,7 @@ mongoose.connect('mongodb://localhost/pustaka-db',
   //             "Romance",
   //             "Crime, Thriller & Mystery",
   //             "Indian Writing"];
-  // // var data = await Category.remove({});
+  // var data = await Category.remove({});
   // cats.forEach(async(category) =>{
   //   var newCat = await Category.create({categoryName: category, books:[]});
   // });
@@ -74,6 +75,7 @@ app.use(loggedSession.loggedSession);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
+app.use('/category', categoryRouter);
 var auth = require('./middlewares/auth');
 app.use('/admin',  auth.isAdminUser, adminRouter);
 app.use('/review', auth.isLoggedin, reviewRouter);

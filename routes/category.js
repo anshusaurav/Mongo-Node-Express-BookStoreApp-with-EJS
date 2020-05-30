@@ -12,10 +12,12 @@ router.get('/', (req, res, next) =>{
 });
 
 
-router.get('/:categoryName',  async(req, res, next) =>{
-    var categoryName = req.params.categoryName;
+router.get('/:slug',  async(req, res, next) =>{
+    var slug = req.params.slug;
     try{
-        var category = Category.findOne({})
+        var category = await Category.findOne({slug}).populate('books');
+        var books = category.books;
+        res.render('books', {books});
     }
     catch(error) {
         return next(error);
