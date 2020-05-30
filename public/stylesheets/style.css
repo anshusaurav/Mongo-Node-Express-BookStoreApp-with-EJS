@@ -616,3 +616,23 @@ header {
 
 .books-main-grid-elem-div {
   margin: 0.5rem; }
+
+.book-single-container {
+  max-width: 1300px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid blueviolet; }
+  .book-single-container .book-single-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr; }
+    .book-single-container .book-single-grid .book-single-img-div {
+      padding: 1rem; }
+    .book-single-container .book-single-grid .book-single-desc-div {
+      padding: 1rem; }
+    .book-single-container .book-single-grid .book-single-price-div {
+      border: 3px #ddd solid;
+      border-radius: 4px;
+      padding: 0.5rem; }
+
+.book-single-img {
+  width: 100%; }

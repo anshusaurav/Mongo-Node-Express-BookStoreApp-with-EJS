@@ -4,11 +4,11 @@
         <% books.forEach(book =>{ %>
             <div class='books-main-grid-elem'>
                 <div class='books-main-grid-elem-div'>
-                    <a class='books-main-grid-elem-img' href=''>
+                    <a class='books-main-grid-elem-img' href='/books/<%=book.slug%>'>
                         <img class='books-main-single-image' src='<%=book.thumbnailURL %>'>
                     </a> 
                 </div>  
-                <a href=''><h1> 
+                <a  href='/books/<%=book.slug%>'><h1> 
                     <%= book.title %>
                 </h1></a>
 
@@ -16,6 +16,7 @@
                     <%= book.author %>
                 </h2>
                 <h5> 
+                    <i class="fas fa-rupee-sign"></i>
                     <%= book.price %>
                 </h5>
                 <div class='books-main-elem-misc'>

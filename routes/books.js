@@ -13,14 +13,24 @@ router.get('/', async(req, res, next) =>{
         return next(error);
     }
 });
-router.post('/:slug', async(req, res, next) =>{
-    
-})
+router.get('/:slug', async(req, res, next) =>{
+    var slug = req.params.slug;
+    try{
+        var book = await Book.findOne({slug}).populate('categories').populate('reviews');
+        console.log(book);
+        res.render('book',{book:book});
+    }
+    catch(error){
+        return next(error);
+    }
+});
 //add to cart
 router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
     var slug = req.params.slug;
     var quantity = req.body.quantity;
     var id = req.session.userId;
+    let ref = req.get('Referrer');
+    console.log(ref);
     try{
         var book = await Book.findOne({slug});
         // console.log(book.title, book.id);
@@ -35,8 +45,7 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
             {$push: {personalcart: {item: book.id, quantity:quantity} }},
             {runValidators: true, new: true});
         // console.log(user);
-        res.redirect('/books');
-        
+        res.redirect(ref);
     }
     catch(error){
         return next(error);
@@ -66,13 +75,13 @@ router.get('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
 //add to wishlist
 router.get('/:slug/wish', auth.isLoggedin, async(req, res, next) =>{
     var slug = req.params.slug;
-    
+    let ref = req.get('Referrer');
     try{
         var book = await Book.findOne({slug});
         console.log(book);
         console.log(req.session.userId); 
         var user = await User.findByIdAndUpdate(req.session.userId, {$addToSet : {wishList: book.id}}, {new:true});
-        res.redirect('/books');
+        res.redirect(ref);
         
     }
     catch(error){

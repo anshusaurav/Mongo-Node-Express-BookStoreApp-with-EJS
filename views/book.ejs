@@ -1,0 +1,39 @@
+<%- include('partials/header') -%>
+<% console.log(book.description) %>
+<div class='book-single-container'>
+    <div class='book-single-grid'>
+        <div class='book-single-img-div'>
+            <img class='book-single-img' src='<%=book.thumbnailURL %>'>
+        </div>
+        <div class='book-single-desc-div'>
+            <p><%= book.title %></p>
+            <p>By <%=  book.author %></p>
+            <p>Categories: </p>
+            <% book.categories.forEach(category =>{ %>
+                <span><%=category.categoryName%></span>
+            <%}) %>
+            
+            <p>Publisher: <%= book.publisher %></p>
+            <p><%= book.description%></p>
+
+        </div>
+        <div class='book-single-price-div'>
+            <h4>
+                <i class="fas fa-rupee-sign"></i>
+                    <%= book.price %>
+            </h4>
+            <div class='book-single-elem-misc'>
+                <form class='add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
+                    <input type="number" placeholder="1" value="1" name="quantity">
+                    <button type="submit"><i class="fas fa-cart-plus"></i></button>
+                </form>
+                <a class='books-main-gatipay-elem' href='/books/<%= book.slug %>/wish'>
+                    <i class="fab fa-gratipay"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+   
+</body>
+</html>
