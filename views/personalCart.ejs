@@ -1,34 +1,54 @@
 <%- include('partials/header') -%>
-   <div>
-       <% loggedInUser.personalcart.forEach(elem =>{ %>
-        
-        <h1> 
-            <%= elem.item.title %>
-        </h1>
-        <h2> 
-            <%= elem.item.author %>
-        </h2>
-        <h3> 
-            <%= elem.item.description %>
-        </h3>
-        <h4> 
-            <%= elem.item.thumbnailURL %>
-        </h4>
-        <h5> 
-            <%= elem.item.price %>
-        </h5>
-        <h5> 
-            Ordered: <%= elem.quantity %>
-        </h5>
-        <a href='/books/<%= elem.item.slug %>/remove'>
-          Remove from cart  
-        </a>
-       <%}); %>
-       <p>Total Price: <%= totalPrice %></p>
-       <% if(totalPrice > 0) {%> 
-       <a href='/users/checkout'>Buy Now</a>
-       <% } %>
-       <a href='/books'>Shop More</a>
+   <div class='cart-container'>
+       <% if(loggedInUser.personalcart.length) {%>
+        <h1>Shopping Cart</h1>
+        <div class='cart-main-grid'>
+            <% loggedInUser.personalcart.forEach(elem =>{ %>
+                <div class='cart-main-grid-single-elem'>
+                    <div class='cart-single-img-div'>
+                        <img class='cart-single-img' src='<%= elem.item.thumbnailURL %>'>
+                    </div>
+                    <div class='cart-single-desc-div'>
+                        <h1> 
+                            <%= elem.item.title %>
+                        </h1>
+                        <h2> 
+                            <%= elem.item.author %>
+                        </h2>
+                        <h5> 
+                            Qty: <%= elem.quantity %>
+                        </h5>
+                        <div>
+                            <a href='/books/<%= elem.item.slug %>/remove'>
+                                Remove from cart  
+                            </a>
+                        </div>
+                        <div>
+                            <a href='/books/<%= elem.item.slug %>/wish' >
+                                Save for later
+                            </a>
+                        </div>
+                    </div>
+                    <div class='cart-single-price-div'>
+                        <p>
+                            <i class="fas fa-rupee-sign"></i>
+                            <%= elem.quantity*elem.item.price %>
+                        </p>
+                    </div>
+                </div>
+            <%}); %>
+        </div>
+        <div class='cart-total-price-div'>
+            <p>Total Price:  <i class="fas fa-rupee-sign"></i> <%= totalPrice %></p>
+        </div>
+        <% if(totalPrice > 0) {%> 
+            <a href='/users/checkout'>Buy Now</a>
+        <% } %>
+        <%} else { %>
+                <p>Cart is empty</p>
+            <%} %>
+        <a href='/books'>Shop More</a>
+
    </div>
 </body>
 </html>
