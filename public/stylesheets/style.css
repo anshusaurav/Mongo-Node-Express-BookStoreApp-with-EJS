@@ -286,13 +286,15 @@ header {
     .nav-container .all-navigator span {
       margin-left: 15px; }
   .nav-container .all-category-nav {
+    display: none;
     cursor: pointer;
     max-width: 300px;
     position: relative;
     width: 100%; }
     @media (max-width: 991px) {
       .nav-container .all-category-nav {
-        max-width: 100%; } }
+        max-width: 100%;
+        display: inline-block; } }
     .nav-container .all-category-nav .open-menu-all {
       align-items: center;
       cursor: pointer;
@@ -374,6 +376,10 @@ header {
 
 .fa-bars {
   font-size: 28px; }
+
+.footer {
+  text-align: center;
+  letter-spacing: 1px; }
 
 *, *::after, *::before {
   margin: 0;

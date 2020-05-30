@@ -22,7 +22,7 @@
     <!-- / contact content -->
     <div class="header-container">
       <!-- logo -->
-      <strong class="logo">Pustaka</strong>
+      <a href='/books'><strong class="logo">Pustaka</strong></a>
       <!-- open nav mobile -->
   
       <!--search -->
@@ -62,7 +62,7 @@
                     </span> <span class="item-arrow"></span>
                       <ul class="login-list">
                         <li class="login-list-item"><a href="">My account</a></li>
-                        <li class="login-list-item"><a href="/home">Home</a></li>
+                        <li class="login-list-item"><a href="/books">Home</a></li>
                         <li class="login-list-item"><a href="/review">Rate and Review</a></li>
                         <li class="login-list-item"><a href="/users/logout">Logout</a></li>
                         </label>
@@ -143,6 +143,18 @@
         </ul>
       </nav>
     </div>
+    <script>
+      var allAnchor = document.querySelectorAll('.featured-category a');
+      var str = window.location.href;
+      var arrAnchor = Array.from(allAnchor);
+      arrAnchor.forEach(elem =>{
+        if(str.endsWith(elem.href)){
+          elem.style.backgroundColor = '#9147FF';
+          elem.style.color= '#fff';
+        }
+      });
+
+    </script>
   </header>
   
     

@@ -58,7 +58,7 @@ router.post('/login', async(req, res, next) =>{
 
     req.session.userId = user.id;
     req.session.user = user;
-    res.redirect("/");
+    res.redirect("/books");
   }
   catch(error) {
     return next(err);
