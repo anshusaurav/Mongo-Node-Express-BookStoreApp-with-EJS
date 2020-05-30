@@ -13,6 +13,9 @@ router.get('/', async(req, res, next) =>{
         return next(error);
     }
 });
+router.post('/:slug', async(req, res, next) =>{
+    
+})
 //add to cart
 router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
     var slug = req.params.slug;

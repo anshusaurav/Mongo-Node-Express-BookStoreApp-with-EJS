@@ -1,41 +1,35 @@
 <%- include('partials/header') -%>
+<div class='books-container'>
+    <div class='books-main-grid'>
+        <% books.forEach(book =>{ %>
+            <div class='books-main-grid-elem'>
+                <a class='books-main-grid-elem-img' href=''>
+                    <img class='books-main-single-image' src='<%=book.thumbnailURL %>'>
+                </a> 
+                  
+                <a href=''><h1> 
+                    <%= book.title %>
+                </h1></a>
+
+                <h2> 
+                    <%= book.author %>
+                </h2>
+                <h5> 
+                    <%= book.price %>
+                </h5>
+                <form class='Add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
+                    <input type="number" placeholder="1" value="1" name="quantity">
+                    <input type="submit" value="Add to cart">
+                </form>
+                <a href='/books/<%= book.slug %>/wish'>
+                    Save for later
+                </a>
+            </div>
+        <%}); %>
+    </div>
+</div>
    <div>
-       <% books.forEach(book =>{ %>
-        <p>
-            <%= book.slug %>
-        </p>
-        <h1> 
-            <%= book.title %>
-        </h1>
-        <h2> 
-            <%= book.author %>
-        </h2>
-        <h3> 
-            <%= book.description %>
-        </h3>
-        <h4> 
-            <%= book.thumbnailURL %>
-        </h4>
-        <h5>
-            Categories
-        </h5>
-        <div>
-            <% book.categories.forEach(elem =>{ %>
-                <p><%=elem.categoryName %></p>
-            <%}) %>
-        </div>
-        <h5> 
-            <%= book.price %>
-        </h5>
-        <form class='Add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
-            <input type="number" placeholder="1" value="1" name="quantity">
-            <input type="submit" value="Add to cart">
-        </form>
-        
-        <a href='/books/<%= book.slug %>/wish'>
-            Save for later
-        </a>
-       <%}); %>
+       
    </div>
 </body>
 </html>

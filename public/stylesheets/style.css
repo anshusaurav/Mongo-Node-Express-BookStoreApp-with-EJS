@@ -63,7 +63,7 @@ header {
   top: 0;
   width: 100%;
   z-index: 500;
-  height: 17vh;
+  background: white;
   font-family: "Rubik", sans-serif; }
 
 .header-content-top {
@@ -575,3 +575,23 @@ header {
     width: 400px; }
   30%, 50% {
     width: 500px; } }
+
+.books-container {
+  max-width: 1300px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid blueviolet; }
+  .books-container .books-main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 400px;
+    grid-gap: 1.5rem; }
+    .books-container .books-main-grid .books-main-grid-elem {
+      padding: 0.5rem;
+      display: flex; }
+      .books-container .books-main-grid .books-main-grid-elem .books-main-grid-elem-img {
+        width: 75%;
+        align-self: center; }
+
+.books-main-single-image {
+  width: 100%; }
