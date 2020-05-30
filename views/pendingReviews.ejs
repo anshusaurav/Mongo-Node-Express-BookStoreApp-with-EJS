@@ -1,8 +1,27 @@
 <%- include('partials/header') -%>
-   <% arrBooks.forEach(book =>{ %>
-       <p><%=book.title %></p> 
-       <p>By <%=book.author %> </p>
-       <a href='/review/<%=book.slug%>'>Review</a>
-   <%}) %>
+    <div class='review-container'>
+        <a class='underline' href='/review/pending'>Reviews Pending</a>
+        <a href='/review/posted'>Reviews Posted</a>
+        <% if(arrBooks.length) { %>
+            <div class='review-main-grid'>
+                <% arrBooks.forEach(book =>{ %>
+                    <div class='review-main-grid-single-elem'>
+                        <div class='review-single-img-div'>
+                            <img class='.review-single-img' src='<%=book.thumbnailURL %>'>
+                        </div>
+                        <div class='review-single-desc-div'>
+                            <p><%=book.title %></p> 
+                            <p>By <%=book.author %> </p>
+                            <a href='/review/<%=book.slug%>'>Review</a>
+                        </div>
+                    </div>
+                <%}) %>
+            </div>
+        <% } else {%>
+            <h2>Nothing to show</h2>
+        <% }%>
+    </div>
+    
+    
 </body>
 </html>

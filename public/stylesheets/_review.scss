@@ -1,48 +1,36 @@
-.tabbed-content{
-    background-color:#3CB371;
-    overflow:hidden;
-    color:#fff;
-    border-radius:4px;
+.review-container{
+    max-width: 1300px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid blueviolet;
+    .review-main-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        .review-main-grid-single-elem{
+            border-top: 1px solid #eee;
+            padding: 1rem 0;
+            display: grid;
+            grid-template-columns: 1fr 3fr ;
+            .review-single-img-div{
+                padding: 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+            .review-single-desc-div{
+                padding: 1rem;
+            }
+            
+        }
+    }
+    
 }
-  
-.tabs label div{
-    float:left;
-    padding: 8px;
-    cursor:pointer;
-    opacity:0.7;
-    transition:0.3s;
-    border-bottom:2px solid transparent;
-}
-  
-.tabs label div:hover{
-    opacity:1;
-}
-  
-.tabs label input:checked + div{
-    opacity:1;
-    border-bottom:2px solid #fff;
-}
-  
-.tabs input{
-    display:none;
-}
-  
-.tabs{
-    overflow:hidden;
-    padding:0 8px;
-}
-  
-.tabContent{
-    padding:0 16px;
-    display:none;
-    animation:fadeEffect .5s;
-}
-  
-.tabContent:target{
-    display:block;
-}
-  
-@keyframes fadeEffect{
-    0%{opacity:0}
-    100%{opacity:1}
+.review-single-img{
+    width: 60%;
+}  
+.underline{
+    text-decoration: underline;
+    text-decoration-color: blueviolet;
 }

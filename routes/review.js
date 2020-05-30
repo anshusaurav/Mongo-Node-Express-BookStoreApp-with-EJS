@@ -126,6 +126,21 @@ router.post('/:slug', async(req, res, next) =>{
         console.log(book);
         console.log(req.body);
         var review = await Review.create(req.body);
+        book = await Book.findOneAndUpdate({slug}, {$addToSet: {reviews: review.id}});
+        res.redirect('/review');
+    }
+    catch(error){
+        return next(error);
+    }
+});
+router.get('/:slug/delete', async(req, res, next) =>{
+    console.log('HERE WEGO');
+    var id = req.session.userId;
+    var slug = req.params.slug;
+    try{
+        var book = await Book.findOne({slug}); 
+        var review = await Review.findOneAndRemove({book: book.id, buyer: id});
+        book = await Book.findOneAndUpdate({slug}, {$pull:{reviews: review.id}});
         res.redirect('/review');
     }
     catch(error){
