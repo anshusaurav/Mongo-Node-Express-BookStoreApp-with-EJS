@@ -99,7 +99,16 @@ router.get('/posted', async(req, res, next) =>{
         })
     )
     console.log(arrBooks);
-    res.render('postedReviews',{arrBooks, reviews});
+    var ratings = arrBooks.map(book =>{
+        var rate;
+        book.ratings.forEach(rating =>{
+            if(rating.buyer == id)
+                rate = rating.rating;
+        })
+        return rate;
+    });
+    console.log(ratings);
+    res.render('postedReviews',{arrBooks, reviews, ratings });
 });
 
 router.get('/:slug', async(req, res, next) =>{
@@ -142,6 +151,7 @@ router.get('/:slug/delete', async(req, res, next) =>{
         var review = await Review.findOneAndRemove({book: book.id, buyer: id});
         book = await Book.findOneAndUpdate({slug}, {$pull:{reviews: review.id}});
         book = await Book.findOneAndUpdate({slug}, {$pull:{ratings: {buyer:id}}});
+        
         res.redirect('/review');
     }
     catch(error){
