@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 
 var addressSchema = new Schema({
+    name: String,
     street: String, 
     number: String, 
     zip: String, 

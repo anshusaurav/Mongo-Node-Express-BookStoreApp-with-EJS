@@ -74,9 +74,7 @@ router.post('/login', async(req, res, next) =>{
       res.locals.message = req.flash();
       return res.render('signin');
     }
-    if(user.isAdmin) {
-      return res.render('newAdmin');
-    }
+
     req.session.userId = user.id;
     req.session.user = user;
     res.redirect("/books");

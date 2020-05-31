@@ -10,14 +10,13 @@
     <header role="banner">
         <h1>Admin Panel</h1>
         <ul class="utilities">
-          <li class="users"><a href="#">My Account</a></li>
           <li class="logout warn"><a href="/users/logout">Log Out</a></li>
         </ul>
     </header>
       
       <nav role="navigation">
         <ul class="main">
-          <li class="dashboard"><a href="#">Manage Books</a></li>
+          <li class="dashboard"><a href="#">Add Books</a></li>
           <li class="write"><a href="#">Manage Users</a></li>
           <li class="edit"><a href="#">View Books</a></li>
         </ul>
@@ -27,81 +26,64 @@
         <section class="panel important">
           <h2>Welcome to Your Dashboard </h2>
           <ul>
-            <li>Important panel that will always be really wide Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-            <li>Aliquam tincidunt mauris eu risus.</li>
-            <li>Vestibulum auctor dapibus neque.</li>
+            <li>Use Add books tab to add book</li>
+            <li>Use Manage users tab for block/unblock users</li>
+            <li>USe View books tab to view/edit/delete book</li>
           </ul>
         </section>
         <section class="panel">
           <h2>Posts</h2>
           <ul>
-            <li><b>2458 </b>Published Posts</li>
-            <li><b>18</b> Drafts.</li>
-            <li>Most popular post: <b>This is a post title</b>.</li>
+            <li><b>2458 </b>Books</li>
+            <li><b>18</b> Users</li>
           </ul>
         </section>
-        <section class="panel">
-          <h2>Chart</h2>
-          <ul>
-            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-            <li>Aliquam tincidunt mauris eu risus.</li>
-            <li>Vestibulum auctor dapibus neque.</li>
-          </ul>
-        </section>
+       
         <section class="panel important">
-          <h2>Write a post</h2>
-          <form action="#">
-            <div class="twothirds">
-              <label for="name">Text Input:</label>
-              <input type="text" name="name" id="name" placeholder="John Smith" />
-      
-              <label for="textarea">Textarea:</label>
-              <textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
-      
-            </div>
-            <div class="onethird">
-              <legend>Radio Button Choice</legend>
-      
-              <label for="radio-choice-1">
-                <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" /> Choice 1
-              </label>
-      
-              <label for="radio-choice-2">
-                <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2" /> Choice 2
-              </label>
-      
-      
-              <label for="select-choice">Select Dropdown Choice:</label>
-              <select name="select-choice" id="select-choice">
-                <option value="Choice 1">Choice 1</option>
-                <option value="Choice 2">Choice 2</option>
-                <option value="Choice 3">Choice 3</option>
-              </select>
-      
-      
-              <div>
-                <label for="checkbox">
-                  <input type="checkbox" name="checkbox" id="checkbox" /> Checkbox
-                </label>
-              </div>
-      
-              <div>
-                <input type="submit" value="Submit" />
-              </div>
-            </div>
-          </form>
+            <h2>Add a Book</h2>
+            <form action="#">
+                <div class="twothirds">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="name" placeholder="Title" />
+                <label for="title">Author</label>
+                <input type="text" name="author" id="name" placeholder="Title" />
+                <label for="title">Thumbnail URL</label>
+                <input type="text" name="thumbnailURL" id="name" placeholder="Thumbnail" />
+                <label for="title">Publisher:</label>
+                <input type="text" name="publisher" id="name" placeholder="Publisher" />
+                <label for="title">Price:</label>
+                <input type="number" name="price" id="name" placeholder="Price" />
+                <label for="title">Quantity:</label>
+                <input type="number" name="quantity" id="name" placeholder="Quantity" />
+                
+                
+                </div>
+                <div class="onethird">
+                    <label for="textarea">Description:</label>
+                    <textarea cols="40" rows="8" name="description" id="textarea"></textarea>
+                    <div>
+                        <% allCategories.forEach(elem =>{ %>
+                          <p class='category-add-btn'><%=elem.categoryName%></p>
+                        <% }); %>
+                    </div>
+        
+                    <div>
+                        <input type="submit" value="Submit" />
+                    </div>
+                </div>
+            </form>
         </section>
         <section class="panel">
-          <h2>feedback</h2>
-          <div class="feedback">This is neutral feedback Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, praesentium. Libero perspiciatis quis aliquid iste quam dignissimos, accusamus temporibus ullam voluptatum, tempora pariatur, similique molestias blanditiis at sunt earum neque.</div>
-          <div class="feedback error">This is warning feedback
-      <ul>
-        <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-        <li>Aliquam tincidunt mauris eu risus.</li>
-        <li>Vestibulum auctor dapibus neque.</li>
-      </ul>  </div>
-          <div class="feedback success">This is positive feedback</div>
-      
+            <h2>feedback</h2>
+            <div class="feedback">This is neutral feedback Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, praesentium. Libero perspiciatis quis aliquid iste quam dignissimos, accusamus temporibus ullam voluptatum, tempora pariatur, similique molestias blanditiis at sunt earum neque.</div>
+            <div class="feedback error">This is warning feedback
+                <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                    <li>Aliquam tincidunt mauris eu risus.</li>
+                    <li>Vestibulum auctor dapibus neque.</li>
+                </ul>  
+            </div>
+            <div class="feedback success">This is positive feedback</div>
         </section>
         <section class="panel ">
           <h2>Table</h2>
@@ -129,6 +111,41 @@
         </section>
       
       </main>
-      <footer role="contentinfo">Anshu Saurabh</footer>
+      <footer role="contentinfo">&copy Anshu Saurabh</footer>
+      <script>
+        let arrTags = [];
+        var catAreaElem = document.querySelector('textarea');
+        document.addEventListener('click', toggleTagEventHandler);
+        function toggleTagEventHandler(event) {
+           // event.preventDefault();
+           let target = event.target;
+           if(!target.classList.contains('category-add-btn'))
+              return;
+           toggle(target);
+           // return false;
+        }
+        function toggle(catElem) {
+           var newCatName = catElem.innerHTML.trim();
+           let str = catAreaElem.innerHTML.trim();
+           let tokens = str.split('|');
+           let present = tokens.includes(newCatName);
+           if(present) {
+              let index = tokens.indexOf(newCatName);
+              tokens.splice(index, 1);
+              catAreaElem.innerHTML = tokens.join('|');
+           }
+           else{
+              if(str.length === 0)
+                 str = newCatName;
+              else
+                 str += '|' + newCatName;
+              catAreaElem.innerHTML = str;
+             
+              
+           }
+        }
+  
+        
+     </script>
 </body>
 </html>

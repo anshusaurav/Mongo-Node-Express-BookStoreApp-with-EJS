@@ -42,6 +42,10 @@
 }
 .review-single-img{
     width: 100%;
+    min-width: 100%;
+    max-height: 306px;
+    object-fit: cover;
+    min-height: 306px;
 }  
 .underline{
     text-decoration: underline;

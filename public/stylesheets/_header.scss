@@ -358,14 +358,13 @@
     }
     // button all category
     .all-category-nav {
-      display: none;
+      // display: none;
       cursor: pointer;
       max-width: 300px;
       position: relative;
       width: 100%;
       @media (max-width: 991px){
         max-width: 100%;
-        display: inline-block;
       }
       // label menu all
       .open-menu-all {

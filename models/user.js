@@ -49,6 +49,14 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Parchase"
     }],
+    hasDefaultAddress: {
+      type: Boolean,
+      default: false
+    },
+    defaultAddress:{
+      type: Schema.Types.ObjectId,
+      ref: "Address"
+    },
     addresses:[{
       type: Schema.Types.ObjectId,
       ref: "Address"

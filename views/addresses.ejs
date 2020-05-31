@@ -1,0 +1,14 @@
+<%- include('partials/header') -%>
+<div class='address -container'>
+    <div>
+    <form class='add-address-form' method='POST' action='/addresses/add'>
+        <input type='text' name='street' placeholder='Street'>
+        <input type='number' name='zip' placeholder='Zip'>
+        <input type='text' name='city' placeholder='City'>
+        <input type='text' name='State' placeholder='State'>
+        <input type='number' name='number' placeholder='Phone number'>
+        <input type='submit' value='Add Address'>
+    </form>
+    </div>
+</div>  
+<%- include('partials/footer') -%>
