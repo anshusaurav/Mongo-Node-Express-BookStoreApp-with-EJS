@@ -1,14 +1,66 @@
 <%- include('partials/header') -%>
-<div class='address -container'>
-    <div>
-    <form class='add-address-form' method='POST' action='/addresses/add'>
-        <input type='text' name='street' placeholder='Street'>
-        <input type='number' name='zip' placeholder='Zip'>
-        <input type='text' name='city' placeholder='City'>
-        <input type='text' name='State' placeholder='State'>
-        <input type='number' name='number' placeholder='Phone number'>
-        <input type='submit' value='Add Address'>
-    </form>
+<div class='address-container'>
+    <div class='address-main-grid'>
+        <a href='/addresses/add' class='add-address-button'>
+            <div class=>
+                <div>
+                    <div>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p>Add address</p>
+                </div>
+            </div>
+        </a>
+        <div>
+            <div class='is-default-address'><p>Default</p></div>
+            <div>
+                <ul>
+                    <li>
+                        Anshu Saurabh
+                    </li>
+                    <li>
+                        Street
+                    </li>
+                    <li>
+                        City
+                    </li>
+                    <li>
+                        ZIP
+                    </li>
+                    <li>
+                        STATE
+                    </li>
+                    <li>
+                        Phone Number: 9667604292
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            
+            <div>
+                <ul>
+                    <li>
+                        Anshu Saurabh
+                    </li>
+                    <li>
+                        Street
+                    </li>
+                    <li>
+                        City
+                    </li>
+                    <li>
+                        ZIP
+                    </li>
+                    <li>
+                        STATE
+                    </li>
+                    <li>
+                        Phone Number: 9667604292
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>  
 <%- include('partials/footer') -%>

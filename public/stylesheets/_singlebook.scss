@@ -9,12 +9,10 @@
         grid-template-columns: 1fr 3fr 1fr;
         .book-single-img-div{
             padding: 1rem;
+            overflow: hidden;
              .book-single-img{
                 width: 100%;
-                min-width: 100%;
-                max-height: 306px;
-                object-fit: cover;
-                min-height: 306px;
+                
              }
         }
         .book-single-desc-div{

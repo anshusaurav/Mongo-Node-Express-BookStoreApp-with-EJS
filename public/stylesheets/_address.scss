@@ -1,0 +1,13 @@
+.address-container{
+    max-width: 1300px;
+    min-height: 82vh;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid blueviolet;
+    .address-main-grid{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        
+    }
+}

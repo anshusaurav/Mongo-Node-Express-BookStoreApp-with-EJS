@@ -7,24 +7,31 @@
     border: 1px solid blueviolet;
     .review-main-grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr ;
         .review-main-grid-single-elem{
             border-top: 1px solid #eee;
             padding: 1rem 0;
             display: grid;
-            grid-template-columns: 1fr 4fr ;
+            grid-template-columns: 1fr 4fr;
             .review-single-img-div{
                 padding: 1rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                overflow: hidden;
+                  
 
             }
             .review-single-desc-div{
                 padding: 1rem;
             }
+            .review-single-img{
+                width: 100%;
+               
+            }
             
         }
+        
         .rate-grid{
             padding: 0.5rem 0;
             width: 220px;
@@ -40,13 +47,7 @@
     }
     
 }
-.review-single-img{
-    width: 100%;
-    min-width: 100%;
-    max-height: 306px;
-    object-fit: cover;
-    min-height: 306px;
-}  
+
 .underline{
     text-decoration: underline;
     text-decoration-color: blueviolet;

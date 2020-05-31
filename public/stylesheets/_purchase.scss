@@ -20,15 +20,12 @@
         }
         .books-purchases-grid-elem-img {
             width: 75%;
-            
+            overflow: hidden;
             max-height: 306px;
             align-self: center;
             .books-purchases-single-image{
                 width: 100%;
-                min-width: 100%;
-                max-height: 306px;
-                object-fit: cover;
-                min-height: 306px;
+                
             }
         }
         .rate-grid{

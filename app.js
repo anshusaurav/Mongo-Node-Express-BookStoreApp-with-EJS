@@ -33,7 +33,7 @@ mongoose.connect('mongodb://localhost/pustaka-db',
   // cats.forEach(async(category) =>{
   //   var newCat = await Category.create({categoryName: category, books:[]});
   // });
-  // console.log("connected", err? err:true);
+  console.log("connected", err? err:true);
 })
 
 var app = express();

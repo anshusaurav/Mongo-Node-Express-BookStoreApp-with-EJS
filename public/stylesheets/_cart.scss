@@ -18,7 +18,11 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-
+                overflow: hidden;
+                .cart-single-img{
+                    width: 100%;
+                    
+                }  
             }
             .cart-single-desc-div{
                 padding: 1rem;
@@ -38,10 +42,3 @@
           }
     }
 }
-.cart-single-img{
-    width: 100%;
-    min-width: 100%;
-    max-height: 306px;
-    object-fit: cover;
-    min-height: 306px;
-}  
