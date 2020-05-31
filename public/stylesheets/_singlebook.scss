@@ -23,5 +23,17 @@
             grid-template-columns: 1fr;
           }
     }
+    .rate-grid{
+        padding: 0.5rem 0;
+        width: 220px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        .star-filled{
+            color: #FFC700;
+        }
+        .star-unfilled{
+            color: #CCCCCC;
+        }
+    }
 
 }

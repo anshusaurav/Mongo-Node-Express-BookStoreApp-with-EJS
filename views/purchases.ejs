@@ -2,12 +2,15 @@
 <div class='purchases-container'>
     <div class='purchases-outer-grid'>
         <% purchases.forEach(purchase =>{ %>
-            <div class='books-main-grid'>
+            <h2>Order ID: <%=purchase.id %></h2>
+            <span>Total Price: <i class="fas fa-rupee-sign"></i> <%=purchase.totalPrice %></span>
+            <span>Order Date: <%=purchase.createdAt.toString().substr(4,11)%></span>
+            <div class='purchases-main-grid'>
                 <% purchase.books.forEach(book =>{ %>
-                    <div class='books-main-grid-elem'>
-                        <div class='books-main-grid-elem-div'>
-                            <a class='books-main-grid-elem-img' href='/books/<%=book.item.slug%>'>
-                                <img class='books-main-single-image' src='<%=book.item.thumbnailURL %>'>
+                    <div class='books-purchases-grid-elem'>
+                        <div class='books-purchases-grid-elem-div'>
+                            <a class='books-purchases-grid-elem-img' href='/books/<%=book.item.slug%>'>
+                                <img class='books-purchases-single-image' src='<%=book.item.thumbnailURL %>'>
                             </a> 
                         </div>  
                         <a  href='/books/<%=book.item.slug%>'><h1> 
@@ -17,9 +20,9 @@
                         <h2> 
                             <%= book.item.author %>
                         </h2>
-                        <h5> 
-                            <i class="fas fa-rupee-sign"></i>
-                            <%= book.item.price %>
+                        
+                        <h5>
+                            Qty: <%= book.quantity%>
                         </h5>
                         <% if(book.item.isRated) { %>
                         <div class="rate-grid">

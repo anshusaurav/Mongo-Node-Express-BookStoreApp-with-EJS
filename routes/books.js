@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
+var Review = require('../models/review');
 var auth = require('../middlewares/auth');
 
 router.get('/', async(req, res, next) =>{
@@ -32,9 +33,28 @@ router.get('/', async(req, res, next) =>{
 router.get('/:slug', async(req, res, next) =>{
     var slug = req.params.slug;
     try{
-        var book = await Book.findOne({slug}).populate('categories').populate('reviews');
+        var book = await Book.findOne({slug}).populate('categories');
         console.log(book);
-        res.render('book',{book:book});
+        var reviews = await Review.find({book: book.id}).populate('buyer');
+        // console.log(book);
+        var sum = 0;
+        var cnt = 0;
+        book.ratings.forEach(elem =>{
+            sum += elem.rating;
+            cnt++;
+        })    
+        if(cnt > 0 ) {
+            book.isRated = true;
+            book.averageRating = Math.round(sum/cnt);
+        }
+        else{
+            book.isRated = false;
+        }
+       
+        console.log(book);
+        console.log(reviews);
+        console.log( cnt, sum);
+        res.render('book',{book, reviews});
     }
     catch(error){
         return next(error);

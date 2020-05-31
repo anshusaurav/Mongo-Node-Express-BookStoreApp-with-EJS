@@ -7,6 +7,16 @@
         </div>
         <div class='book-single-desc-div'>
             <p><%= book.title %></p>
+            <% if(book.isRated) { %>
+                <span class="rate-grid">
+                    <% for(var i = 0; i < Number(book.averageRating); i++) {%>
+                        <i class="fas fa-star star-filled"></i>
+                    <%} %>
+                    <% for(var i = 0; i < 5-Number(book.averageRating); i++) {%>
+                        <i class="fas fa-star star-unfilled"></i>
+                    <%} %>
+                    </span>
+                <%}%>
             <p>By <%=  book.author %></p>
             <p>Categories: </p>
             <% book.categories.forEach(category =>{ %>
@@ -15,7 +25,17 @@
             
             <p>Publisher: <%= book.publisher %></p>
             <p><%= book.description%></p>
-
+            <% if(book.isRated) {%>
+                <h3>Reviews Posted: </h3>
+                <div class='single-book-reviews-grid'>
+                    <% reviews.forEach(review =>{%>
+                        <div class='single-book-review-elem'>
+                         <p><%= review.content %></p>
+                         <p>By <%= review.buyer.name %></p>
+                        </div>
+                    <%}) %>
+                </div>
+            <% }%>
         </div>
         <div class='book-single-price-div'>
             <h4>
