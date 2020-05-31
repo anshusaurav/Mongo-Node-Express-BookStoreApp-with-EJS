@@ -14,6 +14,11 @@ router.post('/register', async(req, res, next) =>{
   let {email} = req.body;
   try{
     var user = await User.findOne({email},'-password');
+    if(user){
+      req.flash('Error', 'Email already registered');
+      res.locals.message = req.flash();
+      return res.render('signup');
+    }
     if (!user) {
       user = await User.create(req.body);
       var rand = Math.floor((Math.random() * 100) + 54);
@@ -30,9 +35,11 @@ router.post('/register', async(req, res, next) =>{
       // user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
       //flash message for confirmation mail
       console.log(user);
+      req.flash('Success', 'Registered successfully. Please login')
+      res.locals.message = req.flash();
+      return res.render('signin');
       res.redirect("/users/login");
     }
-    return next("Email id already in use.");
   }
   catch(error) {
     return next(error);
@@ -52,9 +59,21 @@ router.post('/login', async(req, res, next) =>{
   let {email, password} = req.body;
   try{
     let user = await User.findOne({email}, '-password');
-    if (!user) return next("enter a valid email ID");
-    if (!user.verifyPassword(password)) return res.redirect("/users/login");
-    if(user.isBlocked)  return res.redirect("/users/login");
+    if (!user) {
+        req.flash('Error', 'Email is not registered, please register')
+        res.locals.message = req.flash();
+        return res.render('signin');
+    }
+    if (!user.verifyPassword(password)) {
+      req.flash('Error', 'Invalid password. Please try again')
+      res.locals.message = req.flash();
+      return res.render('signin');
+    }
+    if(user.isBlocked)  {
+      req.flash('Error', 'User blocked. Please contact support')
+      res.locals.message = req.flash();
+      return res.render('signin');
+    }
 
     req.session.userId = user.id;
     req.session.user = user;

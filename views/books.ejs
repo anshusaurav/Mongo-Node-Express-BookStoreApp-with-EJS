@@ -1,6 +1,24 @@
 <%- include('partials/header') -%>
 <div class='books-container'>
+    <div class="flashes">
+        <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
+
+        <% if(locals.message){ %>
+            <% console.log('Client: ', JSON.stringify(locals.message)) %>
+             <% if(locals.message.Success) { %>
+                <div class="alert alert-success" role="alert">
+                    <%=message.Success[0]%>
+                </div>
+            <% } else {%>
+                <div class="alert alert-error" role="alert">
+                    <%=message.Error[0]%>
+                </div>
+      
+            <% } %>
+        <% } %>
+    </div>
     <div class='books-main-grid'>
+       
         <% books.forEach(book =>{ %>
             <div class='books-main-grid-elem'>
                 <div class='books-main-grid-elem-div'>

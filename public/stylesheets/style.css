@@ -756,3 +756,20 @@ header {
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08; }
+
+.alert-success {
+  color: green;
+  background: white;
+  padding: 0.25rem 0.5rem;
+  font-weight: 500;
+  transition: all 0.25s ease-in-out;
+  font-family: 'Source Code Pro', monospace; }
+
+.alert-error {
+  color: #8c0101;
+  padding: 0.25rem 0.5rem;
+  background: white;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.25s ease-in-out;
+  font-family: 'Source Code Pro', monospace; }

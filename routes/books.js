@@ -52,7 +52,7 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
         // console.log(book.title, book.id);
         
         var user = await User.findByIdAndUpdate(id, 
-            {$pull: { personalcart: { itbem: book.id } } }, 
+            {$pull: { personalcart: { item: book.id } } }, 
             {safe:true}
         );
         // console.log('PULLER');
@@ -61,6 +61,8 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
             {$push: {personalcart: {item: book.id, quantity:quantity} }},
             {runValidators: true, new: true});
         // console.log(user);
+        req.flash('Success', `Book ${book.title.substr(0, 10)}... Qty: ${quantity} added to cart`);
+        res.locals.message = req.flash();
         res.redirect(ref);
     }
     catch(error){
