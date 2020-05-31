@@ -36,12 +36,12 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
         // console.log(book.title, book.id);
         
         var user = await User.findByIdAndUpdate(id, 
-            {$pull: { personalcart: { item: book.id } } }, 
+            {$pull: { personalcart: { itbem: book.id } } }, 
             {safe:true}
         );
         // console.log('PULLER');
         // console.log(user);
-        var user = await User.findByIdAndUpdate(id, 
+        user = await User.findByIdAndUpdate(id, 
             {$push: {personalcart: {item: book.id, quantity:quantity} }},
             {runValidators: true, new: true});
         // console.log(user);
@@ -106,6 +106,4 @@ router.get('/:slug/discard', auth.isLoggedin, async(req, res, next) =>{
         return next(error);
     }
 });
-
-
 module.exports = router;

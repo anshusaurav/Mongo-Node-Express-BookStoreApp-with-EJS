@@ -20,17 +20,17 @@ var categoryRouter = require('./routes/category');
 mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
  (err, db)=>{
-  var cats = ["Literature & Fiction", 
-              "Self-Help",
-              "Business & Economics",
-              "Romance",
-              "Crime, Thriller & Mystery",
-              "Indian Writing"];
-  // var data = await Category.remove({});
-  cats.forEach(async(category) =>{
-    var newCat = await Category.create({categoryName: category, books:[]});
-  });
-  console.log("connected", err? err:true);
+  // var cats = ["Literature & Fiction", 
+  //             "Self-Help",
+  //             "Business & Economics",
+  //             "Romance",
+  //             "Crime, Thriller & Mystery",
+  //             "Indian Writing"];
+  // // var data = await Category.remove({});
+  // cats.forEach(async(category) =>{
+  //   var newCat = await Category.create({categoryName: category, books:[]});
+  // });
+  // console.log("connected", err? err:true);
 })
 
 var app = express();

@@ -11,7 +11,7 @@
             border-top: 1px solid #eee;
             padding: 1rem 0;
             display: grid;
-            grid-template-columns: 1fr 3fr ;
+            grid-template-columns: 1fr 4fr ;
             .review-single-img-div{
                 padding: 1rem;
                 display: flex;
@@ -28,9 +28,45 @@
     
 }
 .review-single-img{
-    width: 60%;
+    width: 100%;
 }  
 .underline{
     text-decoration: underline;
     text-decoration-color: blueviolet;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }
