@@ -1,0 +1,44 @@
+<%- include('partials/header') -%>
+<div class='purchases-container'>
+    <div class='purchases-outer-grid'>
+        <% purchases.forEach(purchase =>{ %>
+            <div class='books-main-grid'>
+                <% purchase.books.forEach(book =>{ %>
+                    <div class='books-main-grid-elem'>
+                        <div class='books-main-grid-elem-div'>
+                            <a class='books-main-grid-elem-img' href='/books/<%=book.item.slug%>'>
+                                <img class='books-main-single-image' src='<%=book.item.thumbnailURL %>'>
+                            </a> 
+                        </div>  
+                        <a  href='/books/<%=book.item.slug%>'><h1> 
+                            <%= book.item.title %>
+                        </h1></a>
+
+                        <h2> 
+                            <%= book.item.author %>
+                        </h2>
+                        <h5> 
+                            <i class="fas fa-rupee-sign"></i>
+                            <%= book.item.price %>
+                        </h5>
+                        <% if(book.item.isRated) { %>
+                        <div class="rate-grid">
+                            <% for(var i = 0; i < Number(book.item.averageRating); i++) {%>
+                                <i class="fas fa-star star-filled"></i>
+                            <%} %>
+                            <% for(var i = 0; i < 5-Number(book.item.averageRating); i++) {%>
+                                <i class="fas fa-star star-unfilled"></i>
+                            <%} %>
+                        </div>
+                        <%}%>
+                        
+                    </div>
+                <%}); %>
+            </div>
+        <%})%>
+    </div>
+</div>
+   <div>
+       
+   </div>
+<%- include('partials/footer') -%>
