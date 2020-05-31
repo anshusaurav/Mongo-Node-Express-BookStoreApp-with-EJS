@@ -7,6 +7,22 @@ var auth = require('../middlewares/auth');
 router.get('/', async(req, res, next) =>{
     try{
         var books = await Book.find().populate('categories');
+        books.forEach(book =>{
+            var sum = 0;
+            var cnt = 0;
+            book.ratings.forEach(elem =>{
+                sum += elem.rating;
+                cnt++;
+            })    
+            if(cnt > 0 ) {
+                book.isRated = true;
+                book.averateRating = Math.round(sum/cnt);
+            }
+            else{
+                book.isRated = false;
+            }
+        })
+        console.log(books);
         res.render('books',{books: books});
     }
     catch(error){

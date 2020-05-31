@@ -17,6 +17,21 @@ router.get('/:slug',  async(req, res, next) =>{
     try{
         var category = await Category.findOne({slug}).populate('books');
         var books = category.books;
+        books.forEach(book =>{
+            var sum = 0;
+            var cnt = 0;
+            book.ratings.forEach(elem =>{
+                sum += elem.rating;
+                cnt++;
+            })    
+            if(cnt > 0 ) {
+                book.isRated = true;
+                book.averateRating = Math.round(sum/cnt);
+            }
+            else{
+                book.isRated = false;
+            }
+        })
         res.render('books', {books});
     }
     catch(error) {
