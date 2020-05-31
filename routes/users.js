@@ -43,7 +43,7 @@ router.post('/register', async(req, res, next) =>{
 // get login
 
 router.get("/login", (req, res) => {
-  res.render("signup");
+  res.render("signin");
 });
 
 // verify login
