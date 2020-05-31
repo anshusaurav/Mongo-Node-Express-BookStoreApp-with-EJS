@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var flash = require('connect-flash');
+
 require("dotenv").config();
 var mongoose = require('mongoose');
 var session = require("express-session");

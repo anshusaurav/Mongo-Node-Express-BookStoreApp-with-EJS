@@ -50,18 +50,21 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
     try{
         var book = await Book.findOne({slug});
         // console.log(book.title, book.id);
-        
-        var user = await User.findByIdAndUpdate(id, 
+        var quantityPresent = 0;
+        var user = await User.findById(id);
+        user.personalcart.forEach(elem =>{
+            if(elem.item == book.id)
+                quantityPresent = elem.quantity;
+        })
+        user = await User.findByIdAndUpdate(id, 
             {$pull: { personalcart: { item: book.id } } }, 
             {safe:true}
         );
-        // console.log('PULLER');
-        // console.log(user);
         user = await User.findByIdAndUpdate(id, 
-            {$push: {personalcart: {item: book.id, quantity:quantity} }},
+            {$push: {personalcart: {item: book.id, quantity:(Number(quantity) + Number(quantityPresent)) + ''} }},
             {runValidators: true, new: true});
-        // console.log(user);
-        req.flash('Success', `Book ${book.title.substr(0, 10)}... Qty: ${quantity} added to cart`);
+        
+        req.flash('Success', `Book ${book.title.substr(0, 10)}... Qty: ${Number(quantity) + Number(quantityPresent)} added to cart`);
         res.locals.message = req.flash();
         res.redirect(ref);
     }
