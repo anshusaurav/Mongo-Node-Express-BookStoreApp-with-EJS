@@ -16,7 +16,7 @@ router.get('/', async(req, res, next) =>{
             })    
             if(cnt > 0 ) {
                 book.isRated = true;
-                book.averateRating = Math.round(sum/cnt);
+                book.averageRating = Math.round(sum/cnt);
             }
             else{
                 book.isRated = false;
@@ -87,6 +87,8 @@ router.get('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
             {$pull: { personalcart: { item: book.id } } }
         );
         console.log(user);
+        req.flash('Success', `Books ${book.title.substr(0, 10)}... removed from cart`);
+        res.locals.message = req.flash();
         res.redirect('/users/cart');
     }
     catch(error){

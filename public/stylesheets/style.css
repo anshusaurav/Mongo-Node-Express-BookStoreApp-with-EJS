@@ -168,6 +168,23 @@ header {
       margin: 0 5px;
       position: relative;
       transition: 100ms all linear 0s; }
+      .header-container .nav-content .nav-content-list .nav-content-item .special-nav-item {
+        position: relative; }
+        .header-container .nav-content .nav-content-list .nav-content-item .special-nav-item .cart-size-span {
+          position: absolute;
+          right: -8px;
+          bottom: -8px;
+          padding: 4px;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          font-size: 10px;
+          color: white;
+          background: #545bc4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center; }
       @media (max-width: 991px) {
         .header-container .nav-content .nav-content-list .nav-content-item {
           padding: 0 5px; } }
@@ -596,6 +613,7 @@ header {
 
 .books-container {
   max-width: 1300px;
+  min-height: 82vh;
   height: auto;
   margin: 0 auto;
   border: 1px solid blueviolet; }
@@ -617,6 +635,15 @@ header {
         max-height: 306px;
         object-fit: cover;
         min-height: 306px; }
+    .books-container .books-main-grid .rate-grid {
+      padding: 0.5rem 0;
+      width: 220px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); }
+      .books-container .books-main-grid .rate-grid .star-filled {
+        color: #FFC700; }
+      .books-container .books-main-grid .rate-grid .star-unfilled {
+        color: #CCCCCC; }
   .books-container .books-main-elem-misc {
     position: absolute;
     bottom: 0.5rem;
@@ -640,6 +667,7 @@ header {
 
 .book-single-container {
   max-width: 1300px;
+  min-height: 82vh;
   height: auto;
   margin: 0 auto;
   border: 1px solid blueviolet; }
@@ -660,6 +688,7 @@ header {
 
 .cart-container {
   max-width: 1300px;
+  min-height: 82vh;
   height: auto;
   margin: 0 auto;
   position: relative;
@@ -695,6 +724,7 @@ header {
 
 .review-container {
   max-width: 1300px;
+  min-height: 82vh;
   height: auto;
   margin: 0 auto;
   position: relative;
@@ -714,6 +744,15 @@ header {
         align-items: center; }
       .review-container .review-main-grid .review-main-grid-single-elem .review-single-desc-div {
         padding: 1rem; }
+    .review-container .review-main-grid .rate-grid {
+      padding: 0.5rem 0;
+      width: 220px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); }
+      .review-container .review-main-grid .rate-grid .star-filled {
+        color: #FFC700; }
+      .review-container .review-main-grid .rate-grid .star-unfilled {
+        color: #CCCCCC; }
 
 .review-single-img {
   width: 100%; }

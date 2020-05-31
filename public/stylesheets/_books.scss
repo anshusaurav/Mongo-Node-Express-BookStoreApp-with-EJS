@@ -1,5 +1,6 @@
 .books-container{
     max-width: 1300px;
+    min-height: 82vh;
     height: auto;
     margin: 0 auto;
     border: 1px solid blueviolet;
@@ -25,6 +26,18 @@
                 max-height: 306px;
                 object-fit: cover;
                 min-height: 306px;
+            }
+        }
+        .rate-grid{
+            padding: 0.5rem 0;
+            width: 220px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            .star-filled{
+                color: #FFC700;
+            }
+            .star-unfilled{
+                color: #CCCCCC;
             }
         }
     }

@@ -171,7 +171,26 @@
           margin: 0 5px;
           position: relative;
           transition: 100ms all linear 0s;
-  
+          .special-nav-item{
+            position: relative;
+            .cart-size-span{
+              position: absolute;
+              right: -8px;
+              bottom: -8px;
+              padding: 4px;
+              border-radius: 50%;
+              width: 18px;
+              height: 18px;
+              font-size: 10px;
+              color: white;
+              background: #545bc4;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+            }
+          }
+
           @media (max-width: 991px) {
             padding: 0 5px;
           }

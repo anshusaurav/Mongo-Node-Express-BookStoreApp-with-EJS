@@ -107,6 +107,21 @@ router.get('/posted', async(req, res, next) =>{
         })
         return rate;
     });
+    arrBooks.forEach(book =>{
+        var sum = 0;
+        var cnt = 0;
+        book.ratings.forEach(elem =>{
+            sum += elem.rating;
+            cnt++;
+        })    
+        if(cnt > 0 ) {
+            book.isRated = true;
+            book.averageRating = Math.round(sum/cnt);
+        }
+        else{
+            book.isRated = false;
+        }
+    })
     console.log(ratings);
     res.render('postedReviews',{arrBooks, reviews, ratings });
 });

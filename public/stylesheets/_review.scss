@@ -1,5 +1,6 @@
 .review-container{
     max-width: 1300px;
+    min-height: 82vh;
     height: auto;
     margin: 0 auto;
     position: relative;
@@ -23,6 +24,18 @@
                 padding: 1rem;
             }
             
+        }
+        .rate-grid{
+            padding: 0.5rem 0;
+            width: 220px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            .star-filled{
+                color: #FFC700;
+            }
+            .star-unfilled{
+                color: #CCCCCC;
+            }
         }
     }
     

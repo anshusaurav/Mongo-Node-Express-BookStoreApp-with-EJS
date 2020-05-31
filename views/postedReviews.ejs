@@ -14,48 +14,16 @@
                             <p><%=book.title %></p> 
                             <p>By <%=book.author %> </p>
                             <p><%= reviews[index].content %></p>
-                            <div class="rate">
-                                <input type="radio" id="star5" name="rate" value="5" 
-                                <% if(ratings[index]=== 5) { %>
-                                    checked
-                                <%} else{ %>
-                                    disabled
-                                <% } %>    
-                                />
-                                <label for="star5" title="text">5 stars</label>
-                                <input type="radio" id="star4" name="rate" value="4" 
-                                <% if(ratings[index]=== 4) { %>
-                                    checked
-                                <%} else{ %>
-                                    disabled
-                                <% } %>    
-                                />
-                                <label for="star4" title="text">4 stars</label>
-                                <input type="radio" id="star3" name="rate" value="3" 
-                                <% if(ratings[index]=== 3) { %>
-                                    checked
-                                <%} else{ %>
-                                    disabled
-                                <% } %>    
-                                />
-                                <label for="star3" title="text">3 stars</label>
-                                <input type="radio" id="star2" name="rate" value="2" 
-                                <% if(ratings[index]=== 2) { %>
-                                    checked
-                                <%} else{ %>
-                                    disabled
-                                <% } %>    
-                                />
-                                <label for="star2" title="text">2 stars</label>
-                                <input type="radio" id="star1" name="rate" value="1" 
-                                <% if(ratings[index]=== 1) { %>
-                                    checked
-                                <%} else{ %>
-                                    disabled
-                                <% } %>    
-                                />
-                                <label for="star1" title="text">1 star</label>
-                            </div>
+                            <% if(book.isRated) { %>
+                                <div class="rate-grid">
+                                    <% for(var i = 0; i < Number(book.averageRating); i++) {%>
+                                        <i class="fas fa-star star-filled"></i>
+                                    <%} %>
+                                    <% for(var i = 0; i < 5-Number(book.averageRating); i++) {%>
+                                        <i class="fas fa-star star-unfilled"></i>
+                                    <%} %>
+                                </div>
+                            <%}%>
                            <a href='/review/<%=book.slug%>/delete'>Delete</a>
                         </div>
                     </div>
