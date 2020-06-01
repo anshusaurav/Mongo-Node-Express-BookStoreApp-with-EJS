@@ -9,18 +9,22 @@
                         <img class='cart-single-img' src='<%= elem.thumbnailURL %>'>
                     </div>
                     <div class='cart-single-desc-div'>
-                        <h1> 
+                        <p class='books-book-name'>
                             <%= elem.title %>
-                        </h1>
-                        <h2> 
+                        </p>
+                        <p class='books-book-author'>
                             <%= elem.author %>
-                        </h2>
+                        </p>
                         
                         
                     </div>
                     <div class='cart-single-price-div'>
-                        <a href='/books/<%= elem.slug %>/discard'>
-                            Unlike
+                        <div class='book-price-div'>
+                            <i class="fas fa-rupee-sign"></i>
+                            <p class='books-book-price'><%= elem.price %></p>
+                        </div>
+                        <a class='cart-main-book-anchor' href='/books/<%= elem.slug %>/discard'>
+                            Discard
                         </a>
                     </div>
                 </div>
@@ -30,7 +34,7 @@
         <%} else { %>
                 <p>Wish-List is empty</p>
             <%} %>
-        <a href='/books'>Browse Books</a>
+        <a class='cart-main-book-anchor' href='/books'>Browse Books</a>
 
    </div>
 <%- include('partials/footer') -%>

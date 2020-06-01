@@ -772,7 +772,8 @@ header {
   height: auto;
   margin: 0 auto;
   position: relative;
-  border: 1px solid blueviolet; }
+  margin-bottom: 2rem;
+  font-family: 'Roboto', sans-serif; }
   .cart-container .cart-header {
     margin-top: 18px !important;
     margin-bottom: 18px !important;
@@ -800,15 +801,75 @@ header {
       .cart-container .cart-main-grid .cart-main-grid-single-elem .cart-single-desc-div {
         padding: 1rem; }
       .cart-container .cart-main-grid .cart-main-grid-single-elem .cart-single-price-div {
-        border: 3px #ddd solid;
         border-radius: 4px;
-        padding: 0.5rem; }
+        padding: 0.5rem;
+        text-align: center;
+        justify-content: center;
+        font-family: 'Roboto', sans-serif;
+        margin-right: 0.5rem; }
+        .cart-container .cart-main-grid .cart-main-grid-single-elem .cart-single-price-div .book-price-div {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 14px auto;
+          margin-bottom: 3rem;
+          justify-content: center;
+          align-content: start; }
+          .cart-container .cart-main-grid .cart-main-grid-single-elem .cart-single-price-div .book-price-div i {
+            justify-self: center;
+            font-size: 16px; }
+          .cart-container .cart-main-grid .cart-main-grid-single-elem .cart-single-price-div .book-price-div p {
+            text-align: center;
+            font-size: 24px; }
+        .cart-container .cart-main-grid .cart-main-grid-single-elem .cart-single-price-div a {
+          width: 100%; }
+    .cart-container .cart-main-grid .books-book-name {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      font-size: 22px !important;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #111111;
+      width: 100%; }
+    .cart-container .cart-main-grid .books-book-author {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      margin-bottom: 0.5rem;
+      font-size: 18px !important;
+      font-weight: 400;
+      color: #232323;
+      width: 100%; }
+    .cart-container .cart-main-grid .books-book-quantity {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      margin-bottom: 2rem;
+      font-size: 20px !important;
+      font-weight: 400;
+      color: #3d3d3d;
+      width: 100%; }
   .cart-container .cart-total-price-div {
     position: absolute;
     right: 1rem; }
     @media (max-width: 600px) {
       .cart-container .cart-total-price-div {
         width: 100%; } }
+  .cart-container .cart-main-book-anchor {
+    overflow: hidden;
+    word-break: normal;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.25px;
+    font-size: 16px !important;
+    font-weight: 400;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    background-color: #545BC4;
+    margin-left: 1rem; }
 
 .review-container {
   max-width: 1300px;
@@ -963,9 +1024,19 @@ header {
   min-height: 82vh;
   height: auto;
   margin: 0 auto;
-  border: 1px solid blueviolet; }
-  .purchases-container .purchase-outer-grid {
-    border-top: 1px solid #555; }
+  border: 1px solid blueviolet;
+  font-family: 'Roboto', sans-serif; }
+  .purchases-container .purchases-outer-grid {
+    margin: 1rem;
+    padding: 1rem 0; }
+  .purchases-container .purchases-header {
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+    margin-left: 1rem;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    padding-bottom: 4px; }
   .purchases-container .purchases-main-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1000,7 +1071,7 @@ header {
   height: auto;
   margin: 0 auto;
   position: relative;
-  border: 1px solid blueviolet;
+  margin-bottom: 2rem;
   /* Forces .form-input styles onto search type */ }
   .address-container .address-header {
     margin-top: 18px !important;

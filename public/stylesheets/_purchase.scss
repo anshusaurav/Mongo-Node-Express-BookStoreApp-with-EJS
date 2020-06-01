@@ -4,8 +4,20 @@
     height: auto;
     margin: 0 auto;
     border: 1px solid blueviolet;
-    .purchase-outer-grid {
-        border-top: 1px solid #555;
+    font-family: 'Roboto', sans-serif;
+    .purchases-outer-grid {
+        // border-top: 1px solid #555;
+        margin: 1rem;
+        padding: 1rem 0;
+    }
+    .purchases-header{
+        margin-top: 18px!important;
+        margin-bottom: 18px!important;
+        margin-left:1rem;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 1.2;
+        padding-bottom: 4px;
     }
     .purchases-main-grid {
         display: grid;

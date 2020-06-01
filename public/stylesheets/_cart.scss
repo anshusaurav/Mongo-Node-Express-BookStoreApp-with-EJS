@@ -4,7 +4,9 @@
     height: auto;
     margin: 0 auto;
     position: relative;
-    border: 1px solid blueviolet;
+    margin-bottom:2rem;
+    // border: 1px solid blueviolet;
+    font-family: 'Roboto', sans-serif;
     .cart-header{
         margin-top: 18px!important;
         margin-bottom: 18px!important;
@@ -38,10 +40,68 @@
                 padding: 1rem;
             }
             .cart-single-price-div{
-                border: 3px #ddd solid;
+                // border: 1px #ddd solid;
                 border-radius: 4px;
                 padding: 0.5rem;
+                text-align: center;
+                justify-content: center;
+                font-family: 'Roboto', sans-serif;
+                margin-right: 0.5rem;
+                .book-price-div{
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 14px auto;
+                    margin-bottom: 3rem;
+                    justify-content: center;
+                    align-content: start;
+                    i{
+                        justify-self: center;
+                        font-size: 16px;
+                        // width:100%;
+                    }
+                    p{
+                        text-align: center;
+                        font-size: 24px;
+                    }
+        
+                }
+                a{
+                    width: 100%;
+                }
             }
+        }
+        .books-book-name{
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            font-size: 22px!important;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: rgb(17,17,17);
+            width: 100%;
+        }
+        .books-book-author{
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            margin-bottom: 0.5rem;
+            font-size: 18px!important;
+            font-weight: 400;
+            color: rgb(35, 35, 35);
+            width: 100%;
+        }
+        .books-book-quantity{
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            margin-bottom: 2rem;
+            font-size: 20px!important;
+            font-weight: 400;
+            color: rgb(61, 61, 61);
+            width: 100%;
         }
     }
     .cart-total-price-div{
@@ -50,5 +110,20 @@
         @media(max-width: 600px){
             width: 100%;
           }
+    }
+    .cart-main-book-anchor{
+        overflow: hidden;
+            // display: inline-block;
+            // position: relative;
+        word-break: normal;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.25px;
+        font-size: 16px!important;
+        font-weight: 400;
+        color: rgb(255, 255, 255);
+        padding: 0.5rem 1rem;
+        border-radius: 2px;
+        background-color: #545BC4;
+        margin-left: 1rem;
     }
 }
