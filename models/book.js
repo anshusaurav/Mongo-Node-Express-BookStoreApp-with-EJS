@@ -63,5 +63,4 @@ const bookSchema = new Schema(
 );
 
 bookSchema.index({title: "text", author: "text"});
-
 module.exports = mongoose.model("Book", bookSchema);

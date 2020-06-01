@@ -855,3 +855,33 @@ header {
 
 .books-purchases-grid-elem-div {
   margin: 0.5rem; }
+
+.address-container {
+  max-width: 1300px;
+  min-height: 82vh;
+  height: auto;
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid blueviolet; }
+  .address-container .address-main-grid {
+    display: grid;
+    grid-gap: 1rem 0.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 1rem; }
+    .address-container .address-main-grid .address-main-grid-elem {
+      height: 266px;
+      border-width: 1px;
+      box-sizing: border-box;
+      border-color: #C7C7C7;
+      box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.16);
+      border-style: solid; }
+    .address-container .address-main-grid .is-default-address {
+      min-height: 40px;
+      text-align: center; }
+    .address-container .address-main-grid .address-elem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 0.5rem;
+      position: relative; }
+      .address-container .address-main-grid .address-elem-grid .address-elem-special {
+        position: absolute; }

@@ -7,7 +7,32 @@
     border: 1px solid blueviolet;
     .address-main-grid{
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1rem 0.5rem;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 1rem;
+        .address-main-grid-elem{
+            height: 266px;
+            border-width: 1px;
+            box-sizing: border-box;
+            border-color: #C7C7C7;
+            box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            border-style: solid;
+            
+        }
+        .is-default-address{
+            min-height: 40px;
+            text-align: center;
+        }
+        .address-elem-grid{
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 0.5rem;
+            position: relative;
+            .address-elem-special{
+                position: absolute;
+                
+            }
+        }
         
     }
 }

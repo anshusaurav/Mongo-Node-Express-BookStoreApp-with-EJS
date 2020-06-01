@@ -10,8 +10,7 @@ router.post('/', async(req, res, next) =>{
     
         // Book.createIndexes({title: 1, author: 1}, {unique: true});
         // Book.createIndexes({ title: 'text', author: 'text'});
-        Book
-        .find(
+        Book.find(
             { $text : { $search : query } }, 
             { score : { $meta: "textScore" } }
         )
@@ -33,7 +32,7 @@ router.post('/', async(req, res, next) =>{
                     book.isRated = false;
                 }
             })
-            res.render('searchResults',{books: books});
+            res.render('searchResults',{books, query});
         });
         
     

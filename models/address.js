@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-
-
 var addressSchema = new Schema({
     name: String,
     street: String, 
@@ -17,4 +15,4 @@ var addressSchema = new Schema({
     
 },{timestamps: true});
 
-module.exports = mongoose.model("Review", reviewSchema);
+module.exports = mongoose.model("Address", addressSchema);
