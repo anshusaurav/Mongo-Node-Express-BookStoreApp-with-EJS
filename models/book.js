@@ -62,6 +62,6 @@ const bookSchema = new Schema(
   { timestamps: true }
 );
 
-
+bookSchema.index({title: "text", author: "text"});
 
 module.exports = mongoose.model("Book", bookSchema);

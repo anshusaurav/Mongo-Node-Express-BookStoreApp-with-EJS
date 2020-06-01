@@ -19,7 +19,7 @@ var booksRouter = require('./routes/books');
 var reviewRouter = require('./routes/review');
 var categoryRouter = require('./routes/category');
 var purchasesRouter = require('./routes/purchases');
-
+var searchRouter = require('./routes/search');
 mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
  (err, db)=>{
@@ -79,6 +79,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 app.use('/category', categoryRouter);
+app.use('/search', searchRouter);
 var auth = require('./middlewares/auth');
 app.use('/admin',  auth.isAdminUser, adminRouter);
 app.use('/review', auth.isLoggedin, reviewRouter);

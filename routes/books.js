@@ -23,7 +23,7 @@ router.get('/', async(req, res, next) =>{
                 book.isRated = false;
             }
         })
-        console.log(books);
+        // console.log(books);
         res.render('books',{books: books});
     }
     catch(error){

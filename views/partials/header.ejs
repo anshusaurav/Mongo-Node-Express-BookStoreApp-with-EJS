@@ -29,10 +29,12 @@
       <label class="open-search" for="open-search">
         <i class="fas fa-search"></i>
               <input class="input-open-search" id="open-search" type="checkbox" name="menu" />
-      <div class="search">
-        <button class="button-search"><i class="fas fa-search"></i></button>
-        <input type="text" placeholder="What are you looking for?" class="input-search"/>
-      </div>
+      <form action='/search' method='POST'>
+        <div class="search">
+          <button class="button-search"><i class="fas fa-search"></i></button>
+          <input type="text" name='searchQuery' placeholder="What are you looking for?" class="input-search"/>
+        </div>
+      </form>
       </label>
       <!-- // search -->
       <nav class="nav-content">
