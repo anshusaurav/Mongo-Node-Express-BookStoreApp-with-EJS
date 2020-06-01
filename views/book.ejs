@@ -6,7 +6,7 @@
             <img class='book-single-img' src='<%=book.thumbnailURL %>'>
         </div>
         <div class='book-single-desc-div'>
-            <p><%= book.title %></p>
+            <p class='books-book-name'><%= book.title %></p>
             <% if(book.isRated) { %>
                 <span class="rate-grid">
                     <% for(var i = 0; i < Number(book.averageRating); i++) {%>
@@ -17,20 +17,20 @@
                     <%} %>
                     </span>
                 <%}%>
-            <p>By <%=  book.author %></p>
-            <p>Categories: </p>
+            <p class='books-book-author'>By <%=  book.author %></p>
+            <p class='books-book-general'>Categories: 
             <% book.categories.forEach(category =>{ %>
                 <span><%=category.categoryName%></span>
-            <%}) %>
+            <%}) %></p>
             
-            <p>Publisher: <%= book.publisher %></p>
-            <p><%= book.description%></p>
+            <p class='books-book-general'>Publisher: <%= book.publisher %></p>
+            <p class='books-book-general'>Description: <%= book.description%></p>
             <% if(book.isRated) {%>
-                <h3>Reviews Posted: </h3>
+                <h3 class='single-book-review-header'>Reviews(<%= reviews.length %>) </h3>
                 <div class='single-book-reviews-grid'>
                     <% reviews.forEach(review =>{%>
                         <div class='single-book-review-elem'>
-                         <p><%= review.content %></p>
+                         <p class='review-book-self'>"<%= review.content %>"</p>
                          <p>By <%= review.buyer.name %></p>
                         </div>
                     <%}) %>
@@ -39,8 +39,10 @@
         </div>
         <div class='book-single-price-div'>
             <h4>
-                <i class="fas fa-rupee-sign"></i>
-                    <%= book.price %>
+                <div class='book-price-div'>
+                    <i class="fas fa-rupee-sign"></i>
+                    <p class='books-book-price'><%= book.price %></p>
+                </div>
             </h4>
             <div class='book-single-elem-misc'>
                 <form class='add-to-cart' method="POST" action="/books/<%= book.slug %>/add">

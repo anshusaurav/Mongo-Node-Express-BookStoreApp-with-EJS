@@ -3,28 +3,82 @@
     min-height: 82vh;
     height: auto;
     margin: 0 auto;
-    border: 1px solid blueviolet;
+    // border: 1px solid blueviolet;
     font-family: 'Roboto', sans-serif;
     .purchases-outer-grid {
         // border-top: 1px solid #555;
         margin: 1rem;
         padding: 1rem 0;
     }
+    .purchases-single-elem-supp{
+        padding: 0.75rem;
+        border: 1px solid #c7c7c7;
+        border-bottom: none; 
+    }
     .purchases-header{
         margin-top: 18px!important;
         margin-bottom: 18px!important;
         margin-left:1rem;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 28px;
         line-height: 1.2;
         padding-bottom: 4px;
+    }
+    .books-book-name{
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+        word-break: normal;
+        font-size: 16px!important;
+        font-weight: 400;
+        color: rgb(17,17,17);
+        width: 100%;
+    }
+    .books-book-author{
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+        word-break: normal;
+        font-size: 14px!important;
+        font-weight: 300;
+        color: rgb(39, 39, 39);
+        width: 100%;
+    }
+    .books-book-qty{
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+        word-break: normal;
+        font-size: 14px!important;
+        font-weight: 400;
+        color: rgb(0, 0, 0);
+        width: 100%;
+    }
+    .book-price-div{
+        display: grid;
+        grid-template-columns: 14px auto;
+        justify-content: start;
+        i{
+            justify-self: center;
+            font-size: 12px;
+        }
+
+    }
+    
+    .books-book-name:hover{
+        color: #C45500;
+    }
+    .books-book-price{
+        font-size: 20px;
     }
     .purchases-main-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-auto-rows: 440px;
         grid-gap: 1.5rem;
-        
+        border: 1px solid #c7c7c7;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
         .books-purchases-grid-elem {
             padding: 0.5rem;
             position: relative;
@@ -41,18 +95,31 @@
             }
         }
         .rate-grid{
+            position: absolute;
+            top: 390px;
+            left: 8px;
             padding: 0.5rem 0;
             width: 220px;
+            height: 32px;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(5, 24px);
             .star-filled{
                 color: #FFC700;
             }
             .star-unfilled{
                 color: #CCCCCC;
             }
+            .fa-star{
+                font-size: 20px;
+            }
         }
     }
+    .purchase-single-header > p, span > p{
+        opacity: 0.8;
+        display: inline-block;
+        font-weight: 600;
+    }
+
     
 }
 .books-purchases-grid-elem-div{

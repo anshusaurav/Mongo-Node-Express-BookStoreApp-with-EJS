@@ -3,9 +3,11 @@
     <h2 class='purchases-header'>Your Purchases</h2>
     <div class='purchases-outer-grid'>
         <% purchases.forEach(purchase =>{ %>
-            <h2>Order ID: <%=purchase.id %></h2>
-            <span>Total Price: <i class="fas fa-rupee-sign"></i> <%=purchase.totalPrice %></span>
-            <span>Order Date: <%=purchase.createdAt.toString().substr(4,11)%></span>
+            <div class='purchases-single-elem-supp'>
+                <h2 class='purchase-single-header'>Order ID: <p><%=purchase.id %></p></h2>
+                <span>Total Price: <i class="fas fa-rupee-sign"></i> <p><%=purchase.totalPrice %></p></span>
+                <span>Order Date: <p><%=purchase.createdAt.toString().substr(4,11)%></p></span>
+            </div>
             <div class='purchases-main-grid'>
                 <% purchase.books.forEach(book =>{ %>
                     <div class='books-purchases-grid-elem'>
@@ -14,17 +16,17 @@
                                 <img class='books-purchases-single-image' src='<%=book.item.thumbnailURL %>'>
                             </a> 
                         </div>  
-                        <a  href='/books/<%=book.item.slug%>'><h1> 
+                        <a  class='books-book-name' href='/books/<%=book.item.slug%>'>
                             <%= book.item.title %>
-                        </h1></a>
+                        </a>
 
-                        <h2> 
+                        <h2 class='books-book-author'> 
                             <%= book.item.author %>
                         </h2>
                         
-                        <h5>
+                        <h2 class='books-book-qty'>
                             Qty: <%= book.quantity%>
-                        </h5>
+                        </h2>
                         <% if(book.item.isRated) { %>
                         <div class="rate-grid">
                             <% for(var i = 0; i < Number(book.item.averageRating); i++) {%>

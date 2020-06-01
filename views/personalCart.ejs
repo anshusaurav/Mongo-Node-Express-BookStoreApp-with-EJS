@@ -55,7 +55,7 @@
                     <div class='cart-single-img-div'>
                     </div>
                     <div class='cart-single-desc-div'>
-
+                        <p class='books-book-author'>Total Qty: <%= loggedInUser.personalcart.reduce((acc, elem) => acc + Number(elem.quantity), 0)%></p>
                     </div>
                     <div class='cart-single-price-div'>
                         <p class='books-book-author'>Total Price</p>
