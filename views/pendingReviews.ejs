@@ -1,18 +1,20 @@
 <%- include('partials/header') -%>
     <div class='review-container'>
-        <a class='underline' href='/review/pending'>Reviews Pending</a>
-        <a href='/review/posted'>Reviews Posted</a>
+        <div class='review-header-container'>
+        <a class='review-header-anchor underline' href='/review/pending'>Reviews Pending</a>
+        <a class='review-header-anchor' href='/review/posted'>Reviews Posted</a>
+        </div>
         <% if(arrBooks.length) { %>
             <div class='review-main-grid'>
                 <% arrBooks.forEach(book =>{ %>
                     <div class='review-main-grid-single-elem'>
                         <div class='review-single-img-div'>
-                            <img class='.review-single-image' src='<%=book.thumbnailURL %>'>
+                            <img class='review-single-image' src='<%=book.thumbnailURL %>'>
                         </div>
                         <div class='review-single-desc-div'>
-                            <p><%=book.title %></p> 
-                            <p>By <%=book.author %> </p>
-                            <a href='/review/<%=book.slug%>'>Review</a>
+                            <p class='books-book-name'><%=book.title %></p> 
+                            <p class='books-book-author'>By <%=book.author %> </p>
+                            <a class='review-main-review-anchor' href='/review/<%=book.slug%>'>Review Book</a>
                         </div>
                     </div>
                 <%}) %>

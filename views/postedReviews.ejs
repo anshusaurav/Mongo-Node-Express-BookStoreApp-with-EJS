@@ -1,8 +1,10 @@
 
 <%- include('partials/header') -%>
     <div class='review-container'>
-        <a href='/review/pending'>Reviews Pending</a>
-        <a class='underline'href='/review/posted'>Reviews Posted</a>
+        <div class='review-header-container'>
+            <a class='review-header-anchor' href='/review/pending'>Reviews Pending</a>
+            <a class='review-header-anchor underline'href='/review/posted'>Reviews Posted</a>
+        </div>
         <% if(arrBooks.length) { %>
             <div class='review-main-grid'>
                 <% arrBooks.forEach((book,index) =>{ %>
@@ -11,9 +13,9 @@
                             <img class='.review-single-img' src='<%=book.thumbnailURL %>'>
                         </div>
                         <div class='review-single-desc-div'>
-                            <p><%=book.title %></p> 
-                            <p>By <%=book.author %> </p>
-                            <p><%= reviews[index].content %></p>
+                            <p class='books-book-name'><%=book.title %></p> 
+                            <p class='books-book-author'>By <%=book.author %> </p>
+                            <p class='review-book-self'>"<%= reviews[index].content %>"</p>
                             <% if(book.isRated) { %>
                                 <div class="rate-grid">
                                     <% for(var i = 0; i < Number(book.averageRating); i++) {%>
@@ -24,7 +26,7 @@
                                     <%} %>
                                 </div>
                             <%}%>
-                           <a href='/review/<%=book.slug%>/delete'>Delete</a>
+                           <a class='review-main-review-anchor' href='/review/<%=book.slug%>/delete'>Delete Review</a>
                         </div>
                     </div>
                 <%}) %>

@@ -614,8 +614,7 @@ header {
   max-width: 1300px;
   min-height: 82vh;
   height: auto;
-  margin: 0 auto;
-  border: 1px solid blueviolet; }
+  margin: 0 auto; }
   .books-container .search-res-header {
     margin-top: 18px !important;
     margin-bottom: 18px !important;
@@ -630,45 +629,108 @@ header {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 460px;
-    grid-gap: 1.5rem; }
+    grid-gap: 1.5rem;
+    font-family: 'Roboto', sans-serif; }
+    .books-container .books-main-grid .books-book-name {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      font-size: 16px !important;
+      font-weight: 400;
+      color: #111111;
+      width: 100%; }
+    .books-container .books-main-grid .books-book-author {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      font-size: 12px !important;
+      font-weight: 300;
+      color: #272727;
+      width: 100%; }
+    .books-container .books-main-grid .book-price-div {
+      display: grid;
+      grid-template-columns: 14px auto;
+      justify-content: start; }
+      .books-container .books-main-grid .book-price-div i {
+        justify-self: center;
+        font-size: 12px; }
+    .books-container .books-main-grid .books-book-name:hover {
+      color: #C45500; }
+    .books-container .books-main-grid .books-book-price {
+      font-size: 20px; }
     .books-container .books-main-grid .books-main-grid-elem {
       padding: 0.5rem;
       position: relative; }
     .books-container .books-main-grid .books-main-grid-elem-img {
-      width: 75%;
+      width: 100%;
       overflow: hidden;
-      max-height: 306px;
+      box-sizing: border-box;
       align-self: center; }
       .books-container .books-main-grid .books-main-grid-elem-img .books-main-single-image {
-        width: 100%; }
+        width: 100%;
+        overflow: hidden;
+        height: 100%; }
     .books-container .books-main-grid .rate-grid {
+      position: absolute;
+      top: 390px;
+      left: 8px;
       padding: 0.5rem 0;
       width: 220px;
+      height: 32px;
       display: grid;
-      grid-template-columns: repeat(5, 1fr); }
+      grid-template-columns: repeat(5, 24px); }
       .books-container .books-main-grid .rate-grid .star-filled {
         color: #FFC700; }
       .books-container .books-main-grid .rate-grid .star-unfilled {
         color: #CCCCCC; }
+      .books-container .books-main-grid .rate-grid .fa-star {
+        font-size: 20px; }
   .books-container .books-main-elem-misc {
     position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
+    top: 430px;
+    left: 8px;
+    height: 28px;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    justify-content: center;
-    grid-gap: 0.5rem; }
+    justify-content: center; }
     .books-container .books-main-elem-misc .add-to-cart {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 0.5rem; }
+      grid-gap: 0.2rem; }
     .books-container .books-main-elem-misc .books-main-gatipay-elem {
       display: flex;
       justify-content: center;
       align-items: center; }
+    .books-container .books-main-elem-misc .fab, .books-container .books-main-elem-misc .fas {
+      font-size: 24px;
+      border: none;
+      outline: none;
+      background-color: transparent; }
+    .books-container .books-main-elem-misc .fab {
+      color: #B83404; }
+    .books-container .books-main-elem-misc .fas {
+      color: #F1AC55; }
+    .books-container .books-main-elem-misc button[type=submit] {
+      outline: none;
+      border: none;
+      background: transparent; }
+    .books-container .books-main-elem-misc input[type=number] {
+      -webkit-appearance: none;
+      align-self: center;
+      box-sizing: border-box;
+      border-radius: 4px;
+      font-size: 14px;
+      border: 1px solid grey;
+      background: none;
+      height: 28px;
+      margin: 0;
+      transition: 0.3s;
+      box-shadow: inset 0 0 0 none; }
 
 .books-main-grid-elem-div {
+  height: 320px;
   margin: 0.5rem; }
 
 .book-single-container {
@@ -754,38 +816,95 @@ header {
   height: auto;
   margin: 0 auto;
   position: relative;
-  border: 1px solid blueviolet; }
+  font-family: 'Roboto', sans-serif; }
+  .review-container .review-header-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    margin: 1rem;
+    font-size: 24px;
+    text-decoration: none;
+    text-align: center; }
   .review-container .review-main-grid {
     display: grid;
-    grid-template-columns: 1fr; }
+    grid-template-columns: 1fr;
+    grid-template-rows: 360px; }
     .review-container .review-main-grid .review-main-grid-single-elem {
       border-top: 1px solid #eee;
       padding: 1rem 0;
       display: grid;
       grid-template-columns: 1fr 4fr; }
       .review-container .review-main-grid .review-main-grid-single-elem .review-single-img-div {
-        padding: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         overflow: hidden; }
       .review-container .review-main-grid .review-main-grid-single-elem .review-single-desc-div {
         padding: 1rem; }
       .review-container .review-main-grid .review-main-grid-single-elem .review-single-img {
-        width: 100%; }
+        width: 100%;
+        object-fit: cover; }
+    .review-container .review-main-grid .books-book-name {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      font-size: 22px !important;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #111111;
+      width: 100%; }
+    .review-container .review-main-grid .books-book-author {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      margin-bottom: 0.5rem;
+      font-size: 18px !important;
+      font-weight: 400;
+      color: #232323;
+      width: 100%; }
+    .review-container .review-main-grid .review-main-review-anchor {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.25px;
+      font-size: 16px !important;
+      font-weight: 400;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 2px;
+      background-color: #545BC4; }
+    .review-container .review-main-grid .review-main-review-anchor:hover {
+      color: #C45500; }
+    .review-container .review-main-grid .review-book-self {
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      word-break: normal;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 14px !important;
+      font-weight: 400;
+      color: #232323;
+      width: 100%;
+      font-style: italic; }
     .review-container .review-main-grid .rate-grid {
       padding: 0.5rem 0;
       width: 220px;
+      height: 32px;
       display: grid;
-      grid-template-columns: repeat(5, 1fr); }
+      grid-template-columns: repeat(5, 24px); }
       .review-container .review-main-grid .rate-grid .star-filled {
         color: #FFC700; }
       .review-container .review-main-grid .rate-grid .star-unfilled {
         color: #CCCCCC; }
+      .review-container .review-main-grid .rate-grid .fa-star {
+        font-size: 20px; }
+  .review-container .review-single-image {
+    width: 100%; }
 
 .underline {
-  text-decoration: underline;
-  text-decoration-color: blueviolet; }
+  border-bottom: 4px solid blueviolet;
+  padding-bottom: 0.5rem; }
 
 .rate {
   float: left;

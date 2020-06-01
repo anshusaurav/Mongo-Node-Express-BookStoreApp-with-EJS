@@ -27,17 +27,25 @@
                         <img class='books-main-single-image' src='<%=book.thumbnailURL %>'>
                     </a> 
                 </div>  
-                <a  href='/books/<%=book.slug%>'><h1> 
-                    <%= book.title %>
-                </h1></a>
 
-                <h2> 
-                    <%= book.author %>
-                </h2>
-                <h5> 
-                    <i class="fas fa-rupee-sign"></i>
-                    <%= book.price %>
-                </h5>
+                <ul>
+                    <li>
+                        <a class='books-book-name' href='/books/<%=book.slug%>'><h2> 
+                            <%= book.title %>
+                        </h2></a>
+                    </li>   
+                    <li>
+                        <h2 class='books-book-author'> 
+                            <%= book.author %>
+                        </h2>
+                    </li>
+                    <li> 
+                        <div class='book-price-div'>
+                            <i class="fas fa-rupee-sign"></i>
+                            <p class='books-book-price'><%= book.price %></p>
+                        </div>
+                    </li>
+                </ul>
                 <% if(book.isRated) { %>
                 <div class="rate-grid">
                     <% for(var i = 0; i < Number(book.averageRating); i++) {%>
@@ -47,7 +55,10 @@
                         <i class="fas fa-star star-unfilled"></i>
                     <%} %>
                 </div>
-                <%}%>
+                <%}else{ %>
+                    <div class="rate-grid">
+                    </div>
+                <%} %>
                 <div class='books-main-elem-misc'>
                     <form class='add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
                         <input type="number" placeholder="1" value="1" name="quantity">
