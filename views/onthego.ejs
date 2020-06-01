@@ -1,0 +1,30 @@
+<%- include('partials/header') -%>
+<div class='address-container'>
+   <form id="form-box" method='POST' action='/addresses/onthego'>
+      <div id="form-title">New Address</div>
+      
+      <div class="form-header">Name</div>
+      <input type="text" name="name" class="form-input" id="addrs_1" placeholder="Name" required></input>
+      
+      <div class="form-header">Street</div>
+      <input type="text"  name='street' class="form-input" id="addrs_2" placeholder="Street" required></input>
+      
+      <div class="form-header">Zip</div>
+      <input type="number" name='zip' class="form-input" id="suburb" placeholder="Zip" required></input>
+   
+      <div class="form-header">City</div>
+      <input type="text" name='city' class="form-input" id="suburb" placeholder="City" required></input>
+      
+      <div class="form-header">State</div>
+      <input type="text" class="form-input" name="state" id="state" placeholder="State" required></input>
+      
+      <div class="form-header">Phone Number</div>
+      <input type="number" name="number" class="form-input" id="postcode" placeholder="Phone Number" required></input>
+    
+      <input id='button' class="btn" type="submit" name="next" value="Add" >
+      
+    </form>
+<div>
+  
+<%- include('partials/footer') -%>
+

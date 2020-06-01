@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
    <div class='cart-container'>
        <% if(loggedInUser.wishList.length) {%>
-        <h1>Wish List</h1>
+        <h2 class='cart-header'>Wish List</h2>
         <div class='cart-main-grid'>
             <% loggedInUser.wishList.forEach(elem =>{ %>
                 <div class='cart-main-grid-single-elem'>

@@ -1,0 +1,63 @@
+<%- include('partials/header') -%>
+<div class='address-container'>
+    <h2 class='address-header'>Your Addresses</h2>
+    <div class='address-main-grid'>
+        <a href='/addresses/onthego' class='address-main-grid-elem add-address-button'>
+            <div>
+                <div>
+                    <div class='address-add-sign'>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p>Add address</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <form action='/users/checkout' method='GET'>
+    <div class='saved-address-grid'>
+    <% addresses.forEach((address, index) => { %> 
+        <label class='address-main-grid-elem'>
+            <input type='radio' name='addressOption' value='<%=index %>' 
+                <% if(user && user.hasDefaultAddress && user.defaultAddress == address.id){%> 
+                    checked
+                <%}%>
+            />
+            <div >
+                <% if(user && user.hasDefaultAddress && user.defaultAddress == address.id){%> 
+                <div class='is-default-address'><p>Default</p></div>
+                <%}else{%>
+                    <div class='not-default-address'></div>
+                <%}%>
+                <div class='address-general-elem'>
+                    <ul class='address-elem-grid'>
+                        <li class='address-elem-name'>
+                            <%=address.name %>
+                        </li>
+                        <li>
+                            <%=address.street %>
+                        </li>
+                        <li>
+                            <%=address.city %>
+                        </li>
+                        <li>
+                            <%=address.zip %>
+                        </li>
+                        <li>
+                            <%=address.state %>
+                        </li>
+                        <li>
+                            <%=address.number %>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </label>
+        <%})%>
+        </div>
+        <button type='submit' class='cart-address' value=''>Select Address and Proceed</button>
+    </form>
+        
+    
+</div>  
+<%- include('partials/footer') -%>

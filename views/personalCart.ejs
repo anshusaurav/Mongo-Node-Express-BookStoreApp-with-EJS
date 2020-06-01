@@ -18,7 +18,7 @@
         <% } %>
     </div>
        <% if(loggedInUser.personalcart.length) {%>
-        <h1>Shopping Cart</h1>
+        <h2 class='cart-header'>Shopping Cart</h2>
         <div class='cart-main-grid'>
             <% loggedInUser.personalcart.forEach(elem =>{ %>
                 <div class='cart-main-grid-single-elem'>
@@ -55,7 +55,7 @@
             <p>Total Price:  <i class="fas fa-rupee-sign"></i> <%= totalPrice %></p>
         </div>
         <% if(totalPrice > 0) {%> 
-            <a href='/users/checkout'>Buy Now</a>
+            <a href='/addresses/cartaddress'>Buy Now</a>
         <% } %>
         <%} else { %>
                 <p>Cart is empty</p>

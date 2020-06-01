@@ -616,6 +616,16 @@ header {
   height: auto;
   margin: 0 auto;
   border: 1px solid blueviolet; }
+  .books-container .search-res-header {
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+    margin-left: 1rem;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    padding-bottom: 4px; }
+    .books-container .search-res-header span {
+      font-style: italic; }
   .books-container .books-main-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -701,6 +711,14 @@ header {
   margin: 0 auto;
   position: relative;
   border: 1px solid blueviolet; }
+  .cart-container .cart-header {
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+    margin-left: 1rem;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    padding-bottom: 4px; }
   .cart-container .cart-main-grid {
     display: grid;
     grid-template-columns: 1fr; }
@@ -905,7 +923,10 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 22px; }
+      font-size: 22px;
+      border-style: dashed;
+      border-width: 2px;
+      box-shadow: none; }
       .address-container .address-main-grid .add-address-button i {
         font-size: 32px; }
       .address-container .address-main-grid .add-address-button .address-add-sign {
@@ -921,6 +942,65 @@ header {
         text-decoration: underline;
         font-weight: 400;
         cursor: pointer; }
+  .address-container form {
+    font-family: 'Open Sans', sans-serif; }
+    .address-container form .saved-address-grid {
+      display: grid;
+      grid-gap: 1rem 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      margin: 1rem; }
+      .address-container form .saved-address-grid .address-general-elem {
+        letter-spacing: 0.5px;
+        line-height: 1.7; }
+        .address-container form .saved-address-grid .address-general-elem .address-elem-name {
+          font-weight: 600; }
+        .address-container form .saved-address-grid .address-general-elem li a {
+          text-decoration: underline;
+          font-weight: 400;
+          cursor: pointer; }
+      .address-container form .saved-address-grid .is-default-address {
+        height: 40px;
+        opacity: 0.75;
+        font-weight: 600;
+        border-left: 1px solid #C7C7C7;
+        border-right: 1px solid #C7C7C7;
+        border-top: 1px solid #C7C7C7;
+        padding-left: 20px;
+        padding-top: 11px; }
+      .address-container form .saved-address-grid .not-default-address {
+        height: 40px; }
+      .address-container form .saved-address-grid .address-elem-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 0.5rem;
+        position: relative; }
+      .address-container form .saved-address-grid input[type=radio] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        appearance: none; }
+      .address-container form .saved-address-grid input[type=radio]:checked + div {
+        border: 1px solid #9147FF;
+        box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.16); }
+      .address-container form .saved-address-grid input[type=radio]:not(:checked) + div {
+        border: 1px solid #C7C7C7;
+        box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.16); }
+    .address-container form .address-main-grid-elem {
+      height: 266px;
+      box-sizing: border-box;
+      box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.16); }
+    .address-container form .cart-address {
+      display: block;
+      -webkit-appearance: button;
+      font-size: 15px;
+      width: 200px;
+      height: 36px;
+      background-color: #545BC4;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 3px;
+      margin-left: 1rem; }
   .address-container #form-box {
     height: content;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;

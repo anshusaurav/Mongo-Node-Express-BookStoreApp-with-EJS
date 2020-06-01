@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
    <div class='cart-container'>
        <% if(loggedInUser.personalcart.length) { %>
-        <p>Order Placed Successfully</p>
+        <h2 class='cart-header'>Order Placed Successfully</h2>
         <p>Order # <%=purchase.id %></p>
         <div class='cart-main-grid'>
             <% loggedInUser.personalcart.forEach(elem =>{ %>
@@ -38,5 +38,10 @@
         <a href='/books'>Shop More</a>
 
    </div>
+   <script>
+       $(document).ready(function() {
+        $(".cart-container").delay(10000).fadeIn(500);
+        });
+   </script>
 <%- include('partials/footer') -%>
 
