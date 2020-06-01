@@ -21,19 +21,19 @@ var categoryRouter = require('./routes/category');
 var purchasesRouter = require('./routes/purchases');
 var searchRouter = require('./routes/search');
 var addressesRouter = require('./routes/addresses');
-mongoose.connect('mongodb://localhost/pustaka-db',
+mongoose.connect('mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/test?retryWrites=true&w=majority'||'mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
  (err, db)=>{
-  // var cats = ["Literature & Fiction", 
-  //             "Self-Help",
-  //             "Business & Economics",
-  //             "Romance",
-  //             "Crime, Thriller & Mystery",
-  //             "Indian Writing"];
-  // // var data = await Category.remove({});
-  // cats.forEach(async(category) =>{
-  //   var newCat = await Category.create({categoryName: category, books:[]});
-  // });
+  var cats = ["Literature & Fiction", 
+              "Self-Help",
+              "Business & Economics",
+              "Romance",
+              "Crime, Thriller & Mystery",
+              "Indian Writing"];
+  // var data = await Category.remove({});
+  cats.forEach(async(category) =>{
+    var newCat = await Category.create({categoryName: category, books:[]});
+  });
   console.log("connected", err? err:true);
 })
 
