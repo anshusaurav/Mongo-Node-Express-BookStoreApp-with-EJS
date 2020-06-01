@@ -4,6 +4,7 @@ var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
 var Purchase = require('../models/purchase');
+var Address = require('../models/address');
 var auth = require('../middlewares/auth');
 var mailer = require('../utils/mailer');
 
@@ -132,10 +133,12 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
  */
 router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
+  var addressOption = req.body.addressOption;
+  console.log(addressOption);
   try{
     var loggedInUser = await User.findById(id).populate('personalcart.item');
     // console.log(loggedInUser);
-    
+    var userAddresses = await Address.find({user:id});
     var totalPrice = 0;
     //Checks if its okay to proceed with order and calculates totalPrice
     loggedInUser.personalcart.forEach((elem,index)=>{
@@ -164,7 +167,8 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
       books: loggedInUser.personalcart.map(elem => {
         return {
           item: elem.item, 
-          quantity: elem.quantity
+          quantity: elem.quantity,
+          addressShippedTo: userAddresses[addressOption], 
         };
       }), buyer: id, totalPrice: totalPrice
     });

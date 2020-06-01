@@ -26,10 +26,7 @@
             display: grid;
             grid-template-columns: 1fr 3fr 1fr;
             .cart-single-img-div{
-                padding: 1rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                
                 overflow: hidden;
                 .cart-single-img{
                     width: 100%;
@@ -112,6 +109,7 @@
           }
     }
     .cart-main-book-anchor{
+        margin-top: 2rem;
         overflow: hidden;
             // display: inline-block;
             // position: relative;
@@ -125,5 +123,28 @@
         border-radius: 2px;
         background-color: #545BC4;
         margin-left: 1rem;
+        font-family: 'Roboto', sans-serif;
+    }
+    .empty-cart-p{
+
+        margin: 2rem 1rem;
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+        word-break: normal;
+        font-size: 24px!important;
+        font-weight: 500;
+        color: rgb(17,17,17);
+        width: 100%;
+            
+    }
+    .cart-header-sub{
+        margin-top: 12px!important;
+        margin-bottom: 12px!important;
+        margin-left:1rem;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 1.2;
+        padding-bottom: 4px;
     }
 }

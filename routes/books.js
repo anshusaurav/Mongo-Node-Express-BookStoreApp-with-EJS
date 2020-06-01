@@ -136,13 +136,13 @@ router.get('/:slug/wish', auth.isLoggedin, async(req, res, next) =>{
 //remove from wishlist
 router.get('/:slug/discard', auth.isLoggedin, async(req, res, next) =>{
     var slug = req.params.slug;
-    
+    let ref = req.get('Referrer');
     try{
         var book = await Book.findOne({slug});
         console.log(book);
         console.log(req.session.userId); 
         var user = await User.findByIdAndUpdate(req.session.userId, {$pull : {wishList: book.id}}, {new:true});
-        res.redirect('/books');
+        res.redirect(ref);
         
     }
     catch(error){

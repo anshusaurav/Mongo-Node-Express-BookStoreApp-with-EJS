@@ -159,7 +159,7 @@ router.post('/:slug', async(req, res, next) =>{
         var review = await Review.create(req.body);
         book = await Book.findOneAndUpdate({slug}, {$addToSet: {reviews: review.id}});
         book = await Book.findOneAndUpdate({slug}, {$addToSet: {ratings:{buyer: id, rating: rating}}});
-        res.redirect('/review');
+        res.redirect('/review/pending');
     }
     catch(error){
         return next(error);
@@ -175,7 +175,7 @@ router.get('/:slug/delete', async(req, res, next) =>{
         book = await Book.findOneAndUpdate({slug}, {$pull:{reviews: review.id}});
         book = await Book.findOneAndUpdate({slug}, {$pull:{ratings: {buyer:id}}});
         
-        res.redirect('/review');
+        res.redirect('/review/posted');
     }
     catch(error){
         return next(error);

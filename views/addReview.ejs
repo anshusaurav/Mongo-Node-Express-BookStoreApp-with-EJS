@@ -1,7 +1,6 @@
 <%- include('partials/header') -%>
   <div class='review-container'>
-    <a class='underline' href='/review/pending'>Reviews Pending</a>
-    <a href='/review/posted'>Reviews Posted</a>
+    
       <div class='review-main-grid'>
         <div class='review-main-grid-single-elem'>
           <div class='review-single-img-div'>
@@ -9,9 +8,9 @@
           </div>
           <div class='review-single-desc-div'>
             
-            <form method='POST' action='/review/<%=book.slug%>'>
-              <p>Review for <%=book.title%> By <%=book.author%></p>
-              <textarea name='content' rows='5' cols='50' required></textarea>
+            <form id='form-box' class='review-form' method='POST' action='/review/<%=book.slug%>'>
+              <div id="form-title">Review for <%=book.title%> By <%=book.author%></div>
+              
               <div class="rate">
                 <input type="radio" id="star5" name="rate" value="5" required/>
                 <label for="star5" title="text">5 stars</label>
@@ -24,6 +23,8 @@
                 <input type="radio" id="star1" name="rate" value="1" />
                 <label for="star1" title="text">1 star</label>
               </div>
+              <br>
+              <textarea id="textarea" name='content' rows='5' cols='50' required></textarea>
               <input type='submit'>
             </form>
           </div>

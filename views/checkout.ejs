@@ -1,8 +1,9 @@
 <%- include('partials/header') -%>
+
    <div class='cart-container'>
        <% if(loggedInUser.personalcart.length) { %>
         <h2 class='cart-header'>Order Placed Successfully</h2>
-        <p>Order # <%=purchase.id %></p>
+        <p class='cart-header-sub'>Order # <%=purchase.id %></p>
         <div class='cart-main-grid'>
             <% loggedInUser.personalcart.forEach(elem =>{ %>
                 <div class='cart-main-grid-single-elem'>
@@ -10,15 +11,15 @@
                         <img class='cart-single-img' src='<%=elem.item.thumbnailURL%>'>
                     </div>
                     <div class='cart-single-desc-div'>
-                        <h1> 
+                        <p class='books-book-name'> 
                             <%=elem.item.title %>
-                        </h1>
-                        <h2> 
+                        </p>
+                        <p class='books-book-author'> 
                             <%=elem.item.author %>
-                        </h2>
-                        <h5> 
+                        </p>
+                        <p class='books-book-quantity'> 
                             Qty: <%=elem.quantity %>
-                        </h5>
+                        </p>
                         
                         
                     </div>
@@ -35,13 +36,9 @@
             <p>Total Price:  <i class="fas fa-rupee-sign"></i> <%= purchase.totalPrice %></p>
         </div>
         <%}%>
-        <a href='/books'>Shop More</a>
+        <a cart-main-book-anchor href='/books'>Shop More</a>
 
    </div>
-   <script>
-       $(document).ready(function() {
-        $(".cart-container").delay(10000).fadeIn(500);
-        });
-   </script>
+  
 <%- include('partials/footer') -%>
 

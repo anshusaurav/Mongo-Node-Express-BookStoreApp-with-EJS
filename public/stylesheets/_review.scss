@@ -32,7 +32,6 @@
             }
             .review-single-img{
                 width: 100%;
-                object-fit: cover;
             }
             
         }
@@ -114,6 +113,138 @@
         width: 100%;
     }
     
+    form{
+        font-family: 'Open Sans', sans-serif;
+        .saved-address-grid{
+            display: grid;
+            grid-gap: 1rem 0.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            margin: 1rem;
+            .address-general-elem{
+                letter-spacing: 0.5px;
+                line-height: 1.7;
+                .address-elem-name{
+                    font-weight: 600;
+                }
+                li a{
+                    text-decoration: underline;
+                    font-weight: 400;
+                    cursor: pointer;
+                }
+            }
+            .is-default-address{
+                height: 40px;
+                // text-align: center;
+                opacity: 0.75;
+                font-weight: 600;
+                border-left: 1px solid #C7C7C7;
+                border-right: 1px solid #C7C7C7;
+                border-top: 1px solid #C7C7C7;;
+                padding-left: 20px;
+                padding-top: 11px;
+            }
+            .not-default-address{
+                height: 40px;
+            }
+            .address-elem-grid{
+                display: grid;
+                grid-template-columns: 1fr;
+                padding: 0.5rem;
+                position: relative;
+                
+            }
+            input[type=radio]{
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                -ms-appearance: none;
+                -o-appearance: none;
+                appearance: none;
+            }
+            input[type=radio]:checked + div{
+                border: 1px solid #9147FF;
+                box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            }
+            input[type=radio]:not(:checked) + div{
+                border: 1px solid #C7C7C7;
+                box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            }
+        }
+        .address-main-grid-elem{
+            height: 266px;
+            // border-width: 1px;
+            box-sizing: border-box;
+            // border-color: #C7C7C7;
+            box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            // border-style: solid;
+            
+        }
+        .cart-address {
+            display: block;
+            -webkit-appearance: button;
+            font-size: 15px;
+            width: 200px;
+            height: 36px;
+            background-color: #545BC4;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 3px;
+            margin-left: 1rem;
+        }
+    }
+
+    #form-box {
+        height: content;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        padding: 2em 3.5em;
+        border-top: 50px solid #E8E8E8;
+        border-left: 2px solid #E8E8E8;
+        border-right: 2px solid #E8E8E8;
+        border-bottom: 2px solid #E8E8E8;
+    }
+  
+    #form-title {
+        font-size: 1.6em;
+        padding-bottom: 6px;
+        margin-bottom: 25px;
+        border-bottom: 1.5px solid #E8E8E8;
+    }
+  
+    .form-header {
+        font-size: 10px;
+        margin-bottom: 2px;
+    }
+  
+    .form-input {
+        width: 70%;
+        height: 30px;
+        font-size: 16px;
+        padding-left: 6px;
+    }
+  
+    .form-input:not(:last-child) {
+        margin-bottom: 15px;
+    }
+  
+    input[type=submit] {
+        display: block;
+        -webkit-appearance: button;
+        font-size: 15px;
+        width: 135px;
+        height: 36px;
+        // margin-left: 254px;
+        background-color: #E18988;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 3px;
+    }
+  
+    /* Forces .form-input styles onto search type */
+    input[type=search] {
+        -webkit-appearance: textfield;
+        box-sizing: content-box;
+    }
+    
 }
 
 .underline{
@@ -155,4 +286,18 @@
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
+}
+.review-form{
+    position: relative;
+    height: 400px;
+    textarea{
+        position: absolute;
+        left: 4.25rem;
+        top: 180px;
+    }
+    input[type=submit]{
+        position: absolute;
+        left: 4.25rem;
+        top: 280px
+    }
 }
