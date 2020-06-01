@@ -47,8 +47,10 @@ router.get('/:id/edit', async(req, res, next) =>{
 router.post('/:id/edit', async(req, res, next) =>{
     var id = req.session.userId;
     req.body.user = id;
+    var addrId = req.params.id;
     try{
-        var address = await Address.findByIdAndUpdate(id,req.body);
+        // console.log(req.body)
+        var address = await Address.findByIdAndUpdate(addrId,req.body);
         res.redirect('/addresses');
     }catch(error){
 
@@ -57,10 +59,10 @@ router.post('/:id/edit', async(req, res, next) =>{
 
 router.get('/:id/delete', async(req, res, next) =>{
     var id = req.session.userId;
-    req.body.user = id;
+    var addrId = req.params.id;
     try{
-        var address = await Address.create(req.body);
-        var user = await User.findByIdAndUpdate(id, {$addToSet: {addresses: address.id}});
+        var address = await Address.findByIdAndDelete(addrId);
+        var user = await User.findByIdAndUpdate(id, {$pull: {addresses: address.id}});
         res.redirect('/addresses');
     }catch(error){
 
@@ -68,10 +70,9 @@ router.get('/:id/delete', async(req, res, next) =>{
 });
 router.get('/:id/makedefault', async(req, res, next) =>{
     var id = req.session.userId;
-    req.body.user = id;
+    var addrId = req.params.id;
     try{
-        var address = await Address.create(req.body);
-        var user = await User.findByIdAndUpdate(id, {$addToSet: {addresses: address.id}});
+        var user = await User.findByIdAndUpdate(id, {$set:{hasDefaultAddress: true, defaultAddress: addrId}})
         res.redirect('/addresses');
     }catch(error){
 

@@ -1,6 +1,6 @@
 <%- include('partials/header') -%>
 <div class='address-container'>
-    <h2>Your Addresses</h2>
+    <h2 class='address-header'>Your Addresses</h2>
     <div class='address-main-grid'>
         <a href='/addresses/add' class='address-main-grid-elem add-address-button'>
             <div>
@@ -15,7 +15,11 @@
         
         <% addresses.forEach(address => { %> 
             <div class='address-main-grid-elem'>
+                <% if(user && user.hasDefaultAddress && user.defaultAddress == address.id){%> 
                 <div class='is-default-address'><p>Default</p></div>
+                <%}else{%>
+                    <div class='not-default-address'></div>
+                <%}%>
                 <div class='address-general-elem'>
                     <ul class='address-elem-grid'>
                         <li class='address-elem-name'>
@@ -37,9 +41,9 @@
                             <%=address.number %>
                         </li>
                         <li class='address-elem-special'>
-                            <a>Make Default</a>
-                            <a>Edit</a>
-                            <a>Delete</a>
+                            <a href='/addresses/<%=address.id %>/makedefault'>Make Default</a>
+                            <a href='/addresses/<%=address.id %>/edit'>Edit</a>
+                            <a href='/addresses/<%=address.id %>/delete'>Delete</a>
                         </li>
                     </ul>
                 </div>
