@@ -5,12 +5,41 @@ var Book = require('../models/book');
 var Purchase = require('../models/purchase');
 var Address = require('../models/address');
 var auth = require('../middlewares/auth');
-var mailer = require('../utils/mailer');
+var nodemailer = require("nodemailer");
+var smtpTransport = require('nodemailer-smtp-transport');
 
 
+router.get('/:id/activate/:code', async(req, res, next) =>{
+  console.log('HERE');
+  let id = req.params.id;
+  let code = req.params.code;
+  console.log(id, code);
+  try{
+    var user = await User.findById(id);
+    console.log(user);
+    if(user.activeToken == code) {
+      user = await User.findByIdAndUpdate(id, {isActive: true});
+      req.flash('success', 'Activation successfully. Please login')
+      res.redirect('/users/login');
+    }
+    else{
+      req.flash('error', 'Invalid Link, Please contact support')
+      res.redirect('/');
+    }
+  }
+  catch(error) {
+    return next(error);
+  }
+});
+//// get login
+
+router.get("/register", (req, res) => {
+  res.render("signup");
+});
 router.post('/register', async(req, res, next) =>{
   // console.log('HEREEERE');
-  console.log(req.body);
+  // console.log(req.body);
+  // console.log(process.env.Email);
   let {email} = req.body;
   try{
     var user = await User.findOne({email},'-password');
@@ -20,22 +49,35 @@ router.post('/register', async(req, res, next) =>{
       res.redirect('/');
     }
     if (!user) {
-      user = await User.create(req.body);
       var rand = Math.floor((Math.random() * 100) + 54);
       // var vc = await VerificationCode.create({code: rand, user: user.id});
-      user.activeToken = rand;
-      var link = 'http://locolhost:3000/account/active/'
-                           + user.activeToken;
+      req.body.activeToken = rand;
+      user = await User.create(req.body);
+      var link = `http://localhost:3000/users/${user.id}/activate/${rand}`;
+      
+      var transport = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.Email,
+          pass: process.env.Password,
+        }
+      }))
+      console.log(process.env.Email);
+      var mailOptions = {
+        from: process.env.Email,
+        to: req.body.email,
+        subject: "Account Activation Link",
+        text: `Please click on this link to verify ${link}`
+      };
+      transport.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+      });
+      
       // console.log(user);
-      // mailer.send({
-      //             to: req.body.email,
-      //             subject: 'Welcome',
-      //             html: 'Please click <a href="' + link + '"> here </a> to activate your account.'
-      // });
-      // user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
-      //flash message for confirmation mail
-      console.log(user);
-      req.flash('success', 'Registered successfully. Please login')
+      req.flash('success', 'Registered successfully. Please Confirm email');
       return res.redirect('/users/login');
     }
   }
@@ -59,15 +101,19 @@ router.post('/login', async(req, res, next) =>{
     let user = await User.findOne({email}, '-password');
     if (!user) {
         req.flash('error', 'Email is not registered, please register');
-        return res.redirect('users/login');
+        return res.redirect('/users/login');
     }
     if (!user.verifyPassword(password)) {
       req.flash('error', 'Invalid password. Please try again');
-      return res.redirect('users/login');
+      return res.redirect('/users/login');
     }
     if(user.isBlocked)  {
       req.flash('error', 'User blocked. Please contact support');
-      return res.redirect('users/login');
+      return res.redirect('/users/login');
+    }
+    if(!user.isActive)  {
+      req.flash('error', 'Please check email for activation link.');
+      return res.redirect('/users/login');
     }
     
     req.session.userId = user.id;

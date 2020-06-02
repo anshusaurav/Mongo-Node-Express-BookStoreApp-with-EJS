@@ -23,6 +23,7 @@
     "morgan": "~1.9.1",
     "node-sass-middleware": "^0.11.0",
     "nodemailer": "^6.4.8",
+    "nodemailer-smtp-transport": "^2.7.4",
     "req-flash": "0.0.3"
   },
   "keywords": [

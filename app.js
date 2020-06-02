@@ -79,7 +79,8 @@ app.use(flashMsg.flashMsg);
 const loggedSession = require("./middlewares/auth");
 app.use(loggedSession.loggedSession);
 
-
+const catheader = require('./middlewares/catheader');
+app.use(catheader.fetchAllCategories);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
