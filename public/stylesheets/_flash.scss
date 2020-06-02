@@ -17,3 +17,11 @@
     transition: all 0.25s ease-in-out;
     font-family: 'Source Code Pro', monospace;
   }
+
+.flashes{
+  z-index: 100;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

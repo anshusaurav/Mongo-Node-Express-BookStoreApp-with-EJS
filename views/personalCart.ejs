@@ -2,21 +2,18 @@
    <div class='cart-container'>
     <div class="flashes">
         <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
-
-        <% if(locals.message){ %>
-            <% console.log('Client: ', JSON.stringify(locals.message)) %>
-             <% if(locals.message.Success) { %>
-                <div class="alert alert-success" role="alert">
-                    <%=message.Success[0]%>
-                </div>
-            <% } else {%>
-                <div class="alert alert-error" role="alert">
-                    <%=message.Error[0]%>
-                </div>
-      
-            <% } %>
-        <% } %>
-    </div>
+        <% if (alerts.error) { %>
+            <% alerts.error.forEach(function(msg) { %>
+              <div class="alert alert-error "><%= msg %></div>
+            <% }); %>
+          <% } %>
+          <% if (alerts.success) { %>
+            <% alerts.success.forEach(function(msg) { %>
+              <div class="alert alert-success"><%= msg %></div>
+            <% }); %>
+          <% } %>
+        
+      </div>
        <% if(loggedInUser.personalcart.length) {%>
         <h2 class='cart-header'>Shopping Cart</h2>
         <div class='cart-main-grid'>

@@ -21,7 +21,8 @@ var categoryRouter = require('./routes/category');
 var purchasesRouter = require('./routes/purchases');
 var searchRouter = require('./routes/search');
 var addressesRouter = require('./routes/addresses');
-mongoose.connect('mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||'mongodb://localhost/pustaka-db',
+//'mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||
+mongoose.connect('mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
  (err, db)=>{
   // var cats = ["Literature & Fiction", 
@@ -51,7 +52,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(flash());
+
+
+
 var srcPath = __dirname + '/public';
 var destPath = __dirname + '/public';
 app.use(sassMiddleware({
@@ -68,7 +71,9 @@ app.use(session({
   saveUninitialized:false,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
-
+app.use(flash());
+const flashMsg = require("./middlewares/flash"); 
+app.use(flashMsg.flashMsg);
 // logged users
 
 const loggedSession = require("./middlewares/auth");
@@ -86,6 +91,7 @@ app.use('/admin',  auth.isAdminUser, adminRouter);
 app.use('/review', auth.isLoggedin, reviewRouter);
 app.use('/purchases', auth.isLoggedin, purchasesRouter);
 app.use('/addresses', auth.isLoggedin, addressesRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

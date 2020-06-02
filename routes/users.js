@@ -16,9 +16,9 @@ router.post('/register', async(req, res, next) =>{
   try{
     var user = await User.findOne({email},'-password');
     if(user){
-      req.flash('Error', 'Email already registered');
-      res.locals.message = req.flash();
-      return res.render('signup');
+      req.flash('error', 'Email already registered');
+      // res.locals.message = req.flash();
+      res.redirect('/');
     }
     if (!user) {
       user = await User.create(req.body);
@@ -143,7 +143,9 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
     //Checks if its okay to proceed with order and calculates totalPrice
     loggedInUser.personalcart.forEach((elem,index)=>{
       if(elem.item.quantity <  elem.quantity) {
-        //Cant proceed with order display flash
+        req.flash('error', 'Not enough quantity for '+ elem.item.title);
+      // res.locals.message = req.flash();
+        
         res.redirect('/users/cart');
       }
       else{

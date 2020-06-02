@@ -629,8 +629,8 @@ header {
   .books-container .books-main-grid {
     margin: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-auto-rows: 520px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-auto-rows: 440px;
     grid-gap: 1.5rem;
     font-family: 'Roboto', sans-serif; }
     .books-container .books-main-grid .books-book-name {
@@ -678,7 +678,7 @@ header {
         height: 100%; }
     .books-container .books-main-grid .rate-grid {
       position: absolute;
-      top: 420px;
+      top: 370px;
       left: 8px;
       padding: 0.5rem 0;
       width: 220px;
@@ -693,7 +693,7 @@ header {
         font-size: 20px; }
   .books-container .books-main-elem-misc {
     position: absolute;
-    top: 460px;
+    top: 408px;
     left: 8px;
     height: 28px;
     display: grid;
@@ -734,7 +734,7 @@ header {
       box-shadow: inset 0 0 0 none; }
 
 .books-main-grid-elem-div {
-  height: 320px;
+  height: 280px;
   margin: 0.5rem; }
 
 .book-single-container {
@@ -1247,6 +1247,13 @@ header {
   font-size: 16px;
   transition: all 0.25s ease-in-out;
   font-family: 'Source Code Pro', monospace; }
+
+.flashes {
+  z-index: 100;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .purchases-container {
   max-width: 1300px;

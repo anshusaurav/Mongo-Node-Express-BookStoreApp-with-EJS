@@ -84,8 +84,7 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
             {$push: {personalcart: {item: book.id, quantity:(Number(quantity) + Number(quantityPresent)) + ''} }},
             {runValidators: true, new: true});
         
-        req.flash('Success', `Book ${book.title.substr(0, 10)}... Qty: ${Number(quantity) + Number(quantityPresent)} added to cart`);
-        res.locals.message = req.flash();
+        req.flash('success', `Book ${book.title.substr(0, 10)}... Qty: ${Number(quantity) + Number(quantityPresent)} added to cart`);
         res.redirect(ref);
     }
     catch(error){
