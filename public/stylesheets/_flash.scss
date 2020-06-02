@@ -1,6 +1,6 @@
 .alert-success{
     color: green;
-    background: rgb(255, 255, 255);
+    background: rgb(45, 45, 45);
     padding: 0.25rem 0.5rem;
     font-weight: 500;
     
@@ -9,9 +9,9 @@
 
   }
   .alert-error{
-    color: rgb(140, 1, 1);
+    color: rgb(186, 55, 55);
     padding: 0.25rem 0.5rem;
-    background: rgb(255, 255, 255);
+    background: rgb(45, 45, 45);
     font-weight: 500;
     font-size: 16px;
     transition: all 0.25s ease-in-out;
@@ -20,7 +20,7 @@
 
 .flashes{
   z-index: 100;
-  background-color: whitesmoke;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;

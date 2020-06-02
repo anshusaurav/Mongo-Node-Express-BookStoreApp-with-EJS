@@ -76,16 +76,28 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
             if(elem.item == book.id)
                 quantityPresent = elem.quantity;
         })
-        user = await User.findByIdAndUpdate(id, 
-            {$pull: { personalcart: { item: book.id } } }, 
-            {safe:true}
-        );
-        user = await User.findByIdAndUpdate(id, 
-            {$push: {personalcart: {item: book.id, quantity:(Number(quantity) + Number(quantityPresent)) + ''} }},
-            {runValidators: true, new: true});
-        
-        req.flash('success', `Book ${book.title.substr(0, 10)}... Qty: ${Number(quantity) + Number(quantityPresent)} added to cart`);
-        res.redirect(ref);
+        let success = true;
+        let strError = '';
+        if(quantity+ quantityPresent > book.quantity){
+            success = false;
+            strError = 'Not Enough Qty available for Book ' + book.title;
+        }
+        if(success) {
+            user = await User.findByIdAndUpdate(id, 
+                {$pull: { personalcart: { item: book.id } } }, 
+                {safe:true}
+            );
+            user = await User.findByIdAndUpdate(id, 
+                {$push: {personalcart: {item: book.id, quantity:(Number(quantity) + Number(quantityPresent)) + ''} }},
+                {runValidators: true, new: true});
+            
+            req.flash('success', `Book ${book.title.substr(0, 10)}... Qty: ${Number(quantity) + Number(quantityPresent)} added to cart`);
+            res.redirect(ref);
+        }
+        else{
+            req.flash('error', strError);
+            res.redirect(ref);
+        }
     }
     catch(error){
         return next(error);
@@ -106,8 +118,7 @@ router.get('/:slug/remove', auth.isLoggedin, async(req, res, next) =>{
             {$pull: { personalcart: { item: book.id } } }
         );
         console.log(user);
-        req.flash('Success', `Books ${book.title.substr(0, 10)}... removed from cart`);
-        res.locals.message = req.flash();
+        req.flash('success', `Books ${book.title.substr(0, 20)}... removed from cart`);
         res.redirect('/users/cart');
     }
     catch(error){
@@ -122,7 +133,9 @@ router.get('/:slug/wish', auth.isLoggedin, async(req, res, next) =>{
         var book = await Book.findOne({slug});
         console.log(book);
         console.log(req.session.userId); 
+        
         var user = await User.findByIdAndUpdate(req.session.userId, {$addToSet : {wishList: book.id}}, {new:true});
+        req.flash('success', `Books ${book.title.substr(0, 20)}... added to wishlist`);
         res.redirect(ref);
         
     }
@@ -141,6 +154,7 @@ router.get('/:slug/discard', auth.isLoggedin, async(req, res, next) =>{
         console.log(book);
         console.log(req.session.userId); 
         var user = await User.findByIdAndUpdate(req.session.userId, {$pull : {wishList: book.id}}, {new:true});
+        req.flash('success', `Books ${book.title.substr(0, 20)}... removed wishlist`);
         res.redirect(ref);
         
     }

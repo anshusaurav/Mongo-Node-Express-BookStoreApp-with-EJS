@@ -10,7 +10,7 @@ var mailer = require('../utils/mailer');
 
 
 router.post('/register', async(req, res, next) =>{
-  console.log('HEREEERE');
+  // console.log('HEREEERE');
   console.log(req.body);
   let {email} = req.body;
   try{
@@ -27,7 +27,7 @@ router.post('/register', async(req, res, next) =>{
       user.activeToken = rand;
       var link = 'http://locolhost:3000/account/active/'
                            + user.activeToken;
-      console.log(user);
+      // console.log(user);
       // mailer.send({
       //             to: req.body.email,
       //             subject: 'Welcome',
@@ -36,10 +36,8 @@ router.post('/register', async(req, res, next) =>{
       // user = await User.findOneAndUpdate({email}, {$set: {activeToken: rand}});
       //flash message for confirmation mail
       console.log(user);
-      req.flash('Success', 'Registered successfully. Please login')
-      res.locals.message = req.flash();
-      return res.render('signin');
-      res.redirect("/users/login");
+      req.flash('success', 'Registered successfully. Please login')
+      return res.redirect('/users/login');
     }
   }
   catch(error) {
@@ -61,24 +59,28 @@ router.post('/login', async(req, res, next) =>{
   try{
     let user = await User.findOne({email}, '-password');
     if (!user) {
-        req.flash('Error', 'Email is not registered, please register')
-        res.locals.message = req.flash();
-        return res.render('signin');
+        req.flash('error', 'Email is not registered, please register');
+        return res.redirect('users/login');
     }
     if (!user.verifyPassword(password)) {
-      req.flash('Error', 'Invalid password. Please try again')
-      res.locals.message = req.flash();
-      return res.render('signin');
+      req.flash('error', 'Invalid password. Please try again');
+      return res.redirect('users/login');
     }
     if(user.isBlocked)  {
-      req.flash('Error', 'User blocked. Please contact support')
-      res.locals.message = req.flash();
-      return res.render('signin');
+      req.flash('error', 'User blocked. Please contact support');
+      return res.redirect('users/login');
     }
-
+    
     req.session.userId = user.id;
     req.session.user = user;
-    res.redirect("/books");
+    if(user.isAdmin){
+      req.flash('success', 'Welcome Admin');
+      res.redirect('/admin');
+    }
+    else {
+      req.flash('success', 'Welcome ' + user.name);
+      res.redirect("/books");
+    }
   }
   catch(error) {
     return next(err);
@@ -131,15 +133,18 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
 /**
  * checks out user with his/her current cart
  */
-router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
+router.post('/checkout', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
+  console.log(req.body);
   var addressOption = req.body.addressOption;
+  
   let ref = req.get('Referrer');
-  console.log(addressOption);
+  console.log('addroption: ' + addressOption);
   try{
     var loggedInUser = await User.findById(id).populate('personalcart.item');
     // console.log(loggedInUser);
     var userAddresses = await Address.find({user:id});
+    console.log(userAddresses);
     var totalPrice = 0;
     let success = true;
     let strError = '';
@@ -165,16 +170,17 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
           return book;
         })
       );
-      // console.log(updateBooks);
+      var address = userAddresses[addressOption];
       var purchase = await Purchase.create({
         books: loggedInUser.personalcart.map(elem => {
           return {
             item: elem.item, 
             quantity: elem.quantity,
-            addressShippedTo: userAddresses[addressOption], 
+             
           };
-        }), buyer: id, totalPrice: totalPrice
+        }), buyer: id, totalPrice: totalPrice,addressShippedTo: userAddresses[addressOption].id,
       });
+      console.log(purchase);
       var updatedUser =  await User.findByIdAndUpdate(id, {
         $set:{ 
           personalcart: []
@@ -187,11 +193,13 @@ router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
         }
       });
     }
-    if(success)
-      res.render('checkout', {loggedInUser, purchase});
+    if(success){
+      req.flash('success', 'Order placed successfully')
+      res.render('checkout', {loggedInUser, purchase, address});
+    }
     else{
       req.flash('error', strError);
-      return res.redirect('/users/cart');
+      res.redirect('/users/cart');
     }
   }
   catch(error) {

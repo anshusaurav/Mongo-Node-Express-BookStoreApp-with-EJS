@@ -2,8 +2,25 @@
 
    <div class='cart-container'>
        <% if(loggedInUser.personalcart.length) { %>
-        <h2 class='cart-header'>Order Placed Successfully</h2>
-        <p class='cart-header-sub'>Order # <%=purchase.id %></p>
+        <div class='cart-container-header-grid'>
+            <div>
+                <h2 class='cart-header'>Order Placed Successfully</h2>
+                <p class='cart-header-sub'>Order # <%=purchase.id %></p>
+            </div>
+            <div class='address-small-checkout'>
+                <p><%= address.name%></p>
+                <br>
+                <p><%= address.street%></p>
+                <br>
+                <p><%= address.city%></p>
+                <br>
+                <p><%= address.zip%></p>
+                <br>
+                <p><%= address.state%></p>
+                <br>
+                <p>Phone Number: <%= address.number%></p>
+            </div>
+        </div>
         <div class='cart-main-grid'>
             <% loggedInUser.personalcart.forEach(elem =>{ %>
                 <div class='cart-main-grid-single-elem'>
@@ -36,7 +53,7 @@
             <p>Total Price:  <i class="fas fa-rupee-sign"></i> <%= purchase.totalPrice %></p>
         </div>
         <%}%>
-        <a cart-main-book-anchor href='/books'>Shop More</a>
+        <a class='cart-main-book-anchor' href='/books'>Shop More</a>
 
    </div>
   

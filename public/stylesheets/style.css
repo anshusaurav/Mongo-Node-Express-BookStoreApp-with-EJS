@@ -627,7 +627,7 @@ header {
     .books-container .search-res-header span {
       font-style: italic; }
   .books-container .books-main-grid {
-    margin: 1rem;
+    margin-top: 3rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-auto-rows: 440px;
@@ -715,7 +715,8 @@ header {
     .books-container .books-main-elem-misc .fab {
       color: #ff555e; }
     .books-container .books-main-elem-misc .fas {
-      color: #F1AC55; }
+      color: #F1AC55;
+      cursor: pointer; }
     .books-container .books-main-elem-misc button[type=submit] {
       outline: none;
       border: none;
@@ -879,6 +880,13 @@ header {
   position: relative;
   margin-bottom: 2rem;
   font-family: 'Roboto', sans-serif; }
+  .cart-container .cart-container-header-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); }
+    .cart-container .cart-container-header-grid .address-small-checkout {
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: #000; }
   .cart-container .cart-header {
     margin-top: 18px !important;
     margin-bottom: 18px !important;
@@ -932,7 +940,8 @@ header {
       margin-bottom: 0.5rem;
       font-weight: 500;
       color: #111111;
-      width: 100%; }
+      width: 100%;
+      line-height: 1.5; }
     .cart-container .cart-main-grid .books-book-author {
       overflow: hidden;
       display: inline-block;
@@ -942,7 +951,8 @@ header {
       font-size: 18px !important;
       font-weight: 400;
       color: #232323;
-      width: 100%; }
+      width: 100%;
+      line-height: 1.5; }
     .cart-container .cart-main-grid .books-book-quantity {
       overflow: hidden;
       display: inline-block;
@@ -952,7 +962,8 @@ header {
       font-size: 20px !important;
       font-weight: 400;
       color: #3d3d3d;
-      width: 100%; }
+      width: 100%;
+      line-height: 1.2; }
   .cart-container .cart-total-price-div {
     position: absolute;
     right: 1rem; }
@@ -962,7 +973,9 @@ header {
   .cart-container .cart-main-book-anchor {
     margin-top: 2rem;
     overflow: hidden;
+    display: inline-block;
     word-break: normal;
+    margin-top: 3rem;
     margin-bottom: 0.5rem;
     letter-spacing: 0.25px;
     font-size: 16px !important;
@@ -1233,16 +1246,16 @@ header {
 
 .alert-success {
   color: green;
-  background: white;
+  background: #2d2d2d;
   padding: 0.25rem 0.5rem;
   font-weight: 500;
   transition: all 0.25s ease-in-out;
   font-family: 'Source Code Pro', monospace; }
 
 .alert-error {
-  color: #8c0101;
+  color: #ba3737;
   padding: 0.25rem 0.5rem;
-  background: white;
+  background: #2d2d2d;
   font-weight: 500;
   font-size: 16px;
   transition: all 0.25s ease-in-out;
@@ -1250,7 +1263,7 @@ header {
 
 .flashes {
   z-index: 100;
-  background-color: whitesmoke;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center; }

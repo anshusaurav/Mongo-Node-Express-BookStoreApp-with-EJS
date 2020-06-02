@@ -13,7 +13,7 @@
             </div>
         </a>
     </div>
-    <form action='/users/checkout' method='GET'>
+    <form action='/users/checkout' method='POST'>
     <div class='saved-address-grid'>
     <% addresses.forEach((address, index) => { %> 
         <label class='address-main-grid-elem'>
@@ -21,7 +21,7 @@
                 <% if(user && user.hasDefaultAddress && user.defaultAddress == address.id){%> 
                     checked
                 <%}%>
-            />
+            required/>
             <div >
                 <% if(user && user.hasDefaultAddress && user.defaultAddress == address.id){%> 
                 <div class='is-default-address'><p>Default</p></div>
