@@ -20,6 +20,7 @@ router.get('/block/:id', async(req, res, next) =>{
     try{
         var id = req.params.id;
         var user = await User.findByIdAndUpdate(id, {$set:{isBlocked: true}} );
+        req.flash('success', 'User ' + user.name + ' is blocked successfully');
         res.redirect('/admin/user');
     }
     catch(error){
@@ -31,6 +32,7 @@ router.get('/unblock/:id', async(req, res, next) =>{
     try{
         var id = req.params.id;
         var user = await User.findByIdAndUpdate(id, {$set:{isBlocked: false}} );
+        req.flash('success', 'User ' + user.name + ' is unblocked successfully');
         res.redirect('/admin/user');
     }
     catch(error){
@@ -83,7 +85,8 @@ router.post('/book/add', async(req, res, next) =>{
                 return category.id;
             })
           );
-        res.redirect('/admin');
+        req.flash('success', 'Book ' + book.title + ' is added successfully');
+        res.redirect('/admin/book');
     }
     catch(error){
         return next(error);
@@ -94,7 +97,7 @@ router.get('/edit/:slug', async(req, res, next) =>{
         var {slug} = req.params.slug;
         console.log(slug);
         var book = await Book.findOne(slug);
-        console.log(book);
+        // console.log(book);
         res.render('editBook', {book: book});
     }
     catch(error){
@@ -109,6 +112,7 @@ router.post('/edit/:slug', async(req, res, next) =>{
             runValidators: true, 
             new:true 
         });
+        req.flash('success', 'Book ' + book.title + ' is edited successfully');
         res.redirect('/admin/book');
     }
     catch(error){
@@ -120,7 +124,23 @@ router.get('/delete/:slug', async(req, res, next) =>{
         
         var {slug} = req.params.slug;
         var book = await Book.findOneAndDelete(slug);
+        req.flash('success', 'Book ' + book.title + ' is deleted successfully');
         res.redirect('/admin/book');
+    }
+    catch(error){
+        return next(error);
+    }
+});
+
+
+router.get('/category/add', async(req, res, next) =>{
+    res.render('addCategory');
+});
+router.post('/category/add', async(req, res, next) =>{
+    try{
+        var category = await Category.create(req.body);
+        req.flash('success', 'Category ' + category.categoryName + ' is added successfully');
+        res.redirect('/admin');
     }
     catch(error){
         return next(error);

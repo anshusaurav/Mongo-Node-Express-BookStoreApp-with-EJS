@@ -1,0 +1,21 @@
+<%- include('partials/header') -%>
+<section class="admin-book-container">
+   <div class='admin-header-container'>
+     <a class='admin-header-anchor' href='/admin/book/add'>Add Book</a>
+     <a class='admin-header-anchor underline' href='/admin/category/add'>Add Category</a>
+     <a class='admin-header-anchor' href='/admin/book'>Manage Book</a>
+     <a class='admin-header-anchor' href='/admin/user'>Manage User</a>
+   </div>
+   <form id="form-box" method='POST' action='/admin/category/add'>
+      <div id="form-title">New Category</div>
+      
+      <div class="form-header">Category Name</div>
+      <input type="text" name="categoryName" class="form-input" id="addrs_1" placeholder="Title" required></input>
+      
+      <input id='button' class="btn" type="submit" name="next" value="Add Category" >
+      
+    </form>
+   
+</section>
+  
+<%- include('partials/footer') -%>

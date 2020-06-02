@@ -1,9 +1,26 @@
 <%- include('partials/header') -%>
 <div class='admin-book-container'>
+
 <div class='admin-header-container'>
     <a class='admin-header-anchor' href='/admin/book/add'>Add Book</a>
+    <a class='admin-header-anchor' href='/admin/category/add'>Add Category</a>
     <a class='admin-header-anchor' href='/admin/book'>Manage Book</a>
     <a class='admin-header-anchor' href='/admin/user'>Manage User</a>
+    
 </div>
+<div class="flashes">
+    <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
+    <% if (alerts.error) { %>
+        <% alerts.error.forEach(function(msg) { %>
+          <div class="alert alert-error "><%= msg %></div>
+        <% }); %>
+      <% } %>
+      <% if (alerts.success) { %>
+        <% alerts.success.forEach(function(msg) { %>
+          <div class="alert alert-success"><%= msg %></div>
+        <% }); %>
+      <% } %>
+    
+  </div>
 </div>
 <%- include('partials/footer') -%>

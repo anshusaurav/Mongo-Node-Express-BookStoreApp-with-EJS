@@ -1,11 +1,41 @@
+
 <%- include('partials/header') -%>
-   <form class='add-book-form' method='POST' action='/admin/edit/<%= book.slug %>'>
-    <input type='text' name='title' placeholder='title' value = '<%= book.title %>'>
-    <input type='text' name='author' placeholder='author' value = '<%= book.author %>'>
-    <input type='text' name='description' placeholder='description' value = '<%= book.description %>'>
-    <input type='text' name='thumbnailURL' placeholder='thumbnail' value = '<%= book.thumbnailURL %>'>
-    <input type='number' name='price' placeholder='price' value = '<%= book.price %>'>
-    <input type='number' name='quantity' placeholder='quantity' value = '<%= book.quantity %>'>
-    <input type='submit' value='Update book'>
-   </form>
+<section class="admin-book-container">
+   <div class='admin-header-container'>
+     <a class='admin-header-anchor underline' href='/admin/book/add'>Add Book</a>
+     <a class='admin-header-anchor' href='/admin/category/add'>Add Category</a>
+     <a class='admin-header-anchor' href='/admin/book'>Manage Book</a>
+     <a class='admin-header-anchor' href='/admin/user'>Manage User</a>
+   </div>
+   <form id="form-box" method='POST' action='/admin/edit/<%= book.slug %>'>
+      <div id="form-title">Edit Book</div>
+      
+      <div class="form-header">Title</div>
+      <input type="text" name="title" class="form-input" id="addrs_1" value = '<%= book.title %>' required></input>
+      
+      <div class="form-header">Author</div>
+      <input type="text"  name='author' class="form-input" id="addrs_2" value = '<%= book.author %>' required></input>
+      
+      <div class="form-header">Description</div>
+      <textarea class='description-text-area' name='description' rows="4" cols="50" ><%= book.description %>
+
+      </textarea>
+      <div class="form-header">Thumbnail URL</div>
+      <input type="text" name='thumbnailURL' class="form-input" id="suburb" value = '<%= book.thumbnailURL %>' required></input>
+      
+      <div class="form-header">Publisher</div>
+      <input type="text" name='publisher' class="form-input" id="suburb" value = '<%= book.publisher %>' required></input>
+
+      <div class="form-header">Price</div>
+      <input type="number" class="form-input" name="price" id="state" value = '<%= book.price %>' required></input>
+      
+      <div class="form-header">Qty to be added</div>
+      <input type="number" name="quantity" class="form-input" id="postcode" value = '<%= book.quantity %>' required></input>
+    
+      <input id='button' class="btn" type="submit" name="next" value="Save Book" >
+      
+    </form>
+   
+</section>
+   
 <%- include('partials/footer') -%>

@@ -7,6 +7,20 @@
       <a class='admin-header-anchor' href='/admin/book'>Manage Book</a>
       <a class='admin-header-anchor underline' href='/admin/user'>Manage User</a>
     </div>
+    <div class="flashes">
+      <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
+      <% if (alerts.error) { %>
+          <% alerts.error.forEach(function(msg) { %>
+            <div class="alert alert-error "><%= msg %></div>
+          <% }); %>
+        <% } %>
+        <% if (alerts.success) { %>
+          <% alerts.success.forEach(function(msg) { %>
+            <div class="alert alert-success"><%= msg %></div>
+          <% }); %>
+        <% } %>
+      
+    </div>
     <h2 class='admin-book-header'>All Users</h2>
     <table role="table" class="table">
       <thead role="rowgroup">
