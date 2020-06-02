@@ -1,6 +1,12 @@
 <%- include('partials/header') -%>
    
    <section class="admin-book-container">
+    <div class='admin-header-container'>
+      <a class='admin-header-anchor' href='/admin/book/add'>Add Book</a>
+      <a class='admin-header-anchor' href='/admin/category/add'>Add Category</a>
+      <a class='admin-header-anchor' href='/admin/book'>Manage Book</a>
+      <a class='admin-header-anchor underline' href='/admin/user'>Manage User</a>
+    </div>
     <h2 class='admin-book-header'>All Users</h2>
     <table role="table" class="table">
       <thead role="rowgroup">
@@ -14,16 +20,16 @@
       <tbody role="rowgroup">
         <% users.forEach(user => { %> 
             <tr role="row">
-            <td role="cell" data-title="Title"><%=user.name %></td>
-            <td role="cell" data-title="Author"><%=user.email %></td>
+            <td role="cell" data-title="Title"><p class='flex-admin-basic'><%=user.name %></p></td>
+            <td role="cell" data-title="Author"><p class='flex-admin-basic'><%=user.email %></p></td>
             <td role="cell" data-title="Delete">
                 <%if(user.isBlocked) {%>
-                <a class='flex-admin-basic ' href='/admin/unblock/<%=user.id %>'>
-                    <i class="fas fa-user-plus"></i>
+                <a class='unblock-green' href='/admin/unblock/<%=user.id %>'>
+                    Unblock
                 </a>
             <% } else {%>
-                <a class='flex-admin-basic' href='/admin/block/<%=user.id %>'>
-                    <i class="fas fa-user-minus"></i>
+                <a class='block-red' href='/admin/block/<%=user.id %>'>
+                    Block
                 </a>
             <%}%>
                 </td>

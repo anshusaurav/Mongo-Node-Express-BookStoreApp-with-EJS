@@ -1,39 +1,55 @@
 
 .admin-book-container {
-    background: #efefef;
+    background: #ffffff;
     width: 1300px;
     min-height: 82vh;
     height: auto;
     margin: 0 auto;
     font-family: 'Source Code Pro', monospace;
+    .admin-header-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        padding: 1rem;
+        font-size: 24px;
+        text-decoration: none;
+        text-align: center;
+        .admin-header-anchor{
+            font-weight: 600;
+            justify-self: start;
+        }
+    }
     .admin-book-header{
         font-size: 28px;
         font-weight: 500;
         padding: 1rem 0;
+        padding-left: 2rem;
     }
     table {
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.05),
         0px 20px 20px rgba(0, 0, 0, 0.05), 0px 30px 20px rgba(0, 0, 0, 0.05);
         font-size: 20px;
         width: 100%;
+        
     }
     .flex-admin-basic{
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .fa-user-minus{
+    .block-red{
         color: maroon;
     }
-    .fa-user-plus{
+    .unblock-green{
         color: greenyellow;
     }
     th {
         color: #ffffff;
-        background: #39a2fb;
+        background: #a764e6;
         font-weight: 700;
-        padding-top: 0.5rem;
-        // text-align: left;
+        vertical-align: center;
+        padding-top: 0.75rem;
+        padding-left: 1rem;
+        text-align: left;
     }
     
     tr {
@@ -44,15 +60,23 @@
     tr:hover {
         background: #f4f4f4;
     }
-    
+    tr:last-child{
+        border-bottom:2px solid #a764e6;
+    }
     td {
-        padding-top: 0.25rem;
-        
+        padding-top: 0.5rem;
+        padding-left: 0.5rem;
         word-wrap: break-word;
         border-bottom: 1px solid #ccc;
+        border-right:1px solid #a764e6;
+        border-left: 1px solid #a764e6;
     }
     thead{
         min-height: 48px;
+        
+    }
+    tbody{
+        border-bottom:1px solid #a764e6;
     }
     /*--------------------------------------------------------------
         # Small and medium screens
@@ -107,6 +131,162 @@
         font-weight: bold;
         text-align: left;
         }
+    }
+    form{
+        font-family: 'Open Sans', sans-serif;
+        textarea{
+            width: 70%;
+        }
+        .saved-address-grid{
+            display: grid;
+            grid-gap: 1rem 0.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            margin: 1rem;
+            .address-general-elem{
+                letter-spacing: 0.5px;
+                line-height: 1.7;
+                .address-elem-name{
+                    font-weight: 600;
+                }
+                li a{
+                    text-decoration: underline;
+                    font-weight: 400;
+                    cursor: pointer;
+                }
+            }
+            .is-default-address{
+                height: 40px;
+                // text-align: center;
+                opacity: 0.75;
+                font-weight: 600;
+                border: 1px solid #C7C7C7;
+                padding-left: 20px;
+                padding-top: 11px;
+            }
+            .not-default-address{
+                height: 40px;
+                border: none;
+            }
+            .address-elem-grid{
+                
+                display: grid;
+                grid-template-columns: 1fr;
+                padding: 0.5rem;
+                position: relative;
+                
+            }
+            input[type=radio]{
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                -ms-appearance: none;
+                -o-appearance: none;
+                appearance: none;
+            }
+            input[type=radio]:checked + div{
+                border: 1px solid #9147FF;
+                box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            }
+            input[type=radio]:not(:checked) + div{
+                border: 1px solid #C7C7C7;
+                box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            }
+            
+        }
+        .category-grid-admin{
+            display: flex;
+            flex-wrap: wrap;
+            width: 70%;
+            margin-top: 0.5rem;
+            justify-content: center;
+            margin: 0.25 0.5rem;
+            background-color: white;
+            border: 1px solid #777;
+        }
+        .category-add-btn{
+            color: black;
+            cursor: pointer;
+            background: transparent;
+            background-color: plum;
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            margin: 0.25rem 0.5rem;
+            
+        }
+        .address-main-grid-elem{
+            height: 266px;
+            // border-width: 1px;
+            box-sizing: border-box;
+            // border-color: #C7C7C7;
+            box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+            // border-style: solid;
+            
+        }
+        .cart-address {
+            display: block;
+            -webkit-appearance: button;
+            font-size: 15px;
+            width: 200px;
+            height: 36px;
+            background-color: #545BC4;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 3px;
+            margin-left: 1rem;
+            font-family: 'Roboto', sans-serif;
+        }
+    }
+
+    #form-box {
+        height: content;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        padding: 2em 3.5em;
+        border-top: 50px solid #E8E8E8;
+        border-left: 2px solid #E8E8E8;
+        border-right: 2px solid #E8E8E8;
+        border-bottom: 2px solid #E8E8E8;
+    }
+  
+    #form-title {
+        font-size: 1.6em;
+        padding-bottom: 6px;
+        margin-bottom: 25px;
+        border-bottom: 1.5px solid #E8E8E8;
+    }
+  
+    .form-header {
+        font-size: 10px;
+        margin-bottom: 2px;
+    }
+  
+    .form-input {
+        width: 70%;
+        height: 30px;
+        font-size: 16px;
+        padding-left: 6px;
+    }
+  
+    .form-input:not(:last-child) {
+        margin-bottom: 15px;
+    }
+  
+    input[type=submit] {
+        display: block;
+        -webkit-appearance: button;
+        font-size: 15px;
+        width: 135px;
+        height: 36px;
+        // margin-left: 254px;
+        background-color: #E18988;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 3px;
+    }
+  
+    /* Forces .form-input styles onto search type */
+    input[type=search] {
+        -webkit-appearance: textfield;
+        box-sizing: content-box;
     }
   }
   
