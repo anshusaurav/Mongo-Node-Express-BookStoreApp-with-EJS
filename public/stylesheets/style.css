@@ -1518,3 +1518,83 @@ header {
   .address-container input[type=search] {
     -webkit-appearance: textfield;
     box-sizing: content-box; }
+
+.admin-book-container {
+  background: #efefef;
+  width: 1300px;
+  min-height: 82vh;
+  height: auto;
+  margin: 0 auto;
+  font-family: 'Source Code Pro', monospace;
+  /*--------------------------------------------------------------
+        # Small and medium screens
+        --------------------------------------------------------------*/ }
+  .admin-book-container .admin-book-header {
+    font-size: 28px;
+    font-weight: 500;
+    padding: 1rem 0; }
+  .admin-book-container table {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 20px 20px rgba(0, 0, 0, 0.05), 0px 30px 20px rgba(0, 0, 0, 0.05);
+    font-size: 20px;
+    width: 100%; }
+  .admin-book-container .flex-admin-basic {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .admin-book-container .fa-user-minus {
+    color: maroon; }
+  .admin-book-container .fa-user-plus {
+    color: greenyellow; }
+  .admin-book-container th {
+    color: #ffffff;
+    background: #39a2fb;
+    font-weight: 700;
+    padding-top: 0.5rem; }
+  .admin-book-container tr {
+    background: #fff;
+    height: 40px; }
+  .admin-book-container tr:hover {
+    background: #f4f4f4; }
+  .admin-book-container td {
+    padding-top: 0.25rem;
+    word-wrap: break-word;
+    border-bottom: 1px solid #ccc; }
+  .admin-book-container thead {
+    min-height: 48px; }
+  @media all and (max-width: 900px) {
+    .admin-book-container table,
+    .admin-book-container thead,
+    .admin-book-container tbody,
+    .admin-book-container th,
+    .admin-book-container td,
+    .admin-book-container tr {
+      display: block; }
+    .admin-book-container thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px; }
+    .admin-book-container table {
+      box-shadow: none; }
+    .admin-book-container tr {
+      margin: 0 0 1rem 0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+      border-top: 5px solid #39a2fb;
+      border-radius: 7px;
+      padding-right: 5px; }
+    .admin-book-container tr:hover {
+      background: #fff; }
+    .admin-book-container td {
+      border: none;
+      position: relative;
+      padding-left: 50%;
+      text-align: right; }
+    .admin-book-container td:before {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      content: attr(data-title);
+      font-weight: bold;
+      text-align: left; } }

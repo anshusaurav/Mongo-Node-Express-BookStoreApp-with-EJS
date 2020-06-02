@@ -1,41 +1,31 @@
 <%- include('partials/header') -%>
-   <div>
-       <% books.forEach(book =>{ %>
-        <p>
-            <%= book.slug %>
-        </p>
-        <h1> 
-            <%= book.title %>
-        </h1>
-        <h2> 
-            <%= book.author %>
-        </h2>
-        <h3> 
-            <%= book.description %>
-        </h3>
-        <h4> 
-            <%= book.thumbnailURL %>
-        </h4>
-        <h5>
-            Categories
-        </h5>
-        <div>
-            <% book.categories.forEach(elem =>{ %>
-                <p><%=elem.categoryName %></p>
-            <%}) %>
-        </div>
-        <h5> 
-            <%= book.price %>
-        </h5>
-        <p> 
-            <%= book.quantity %>
-        </p>
-        <a href='/admin/edit/<%=book.slug %>'>
-            Edit Book
-        </a>
-        <a href='/admin/delete/<%=book.slug %>'>
-            Delete Book
-        </a>
-       <%}); %>
-   </div>
+
+   <section class="admin-book-container">
+    <h2 class='admin-book-header'>All Books</h2>
+    <table role="table" class="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th role="columnheader">Title</th>
+          <th role="columnheader">Author</th>
+          <th role="columnheader">Price</th>
+          <th role="columnheader">Quantity</th>
+          <th role="columnheader">Edit</th>
+          <th role="columnheader">Delete</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        <% books.forEach(book => { %> 
+            <tr role="row">
+            <td role="cell" data-title="Title"><%=book.title %></td>
+            <td role="cell" data-title="Author"><%=book.author %></td>
+            <td role="cell" data-title="Price"><%=book.price %></td>
+            <td role="cell" data-title="Quantity"><%=book.quantity %></td>
+            <td role="cell" data-title="Edit"><a class='flex-admin-basic' href='/admin/edit/<%=book.slug %>'><i class="far fa-edit"></i></a></td>
+            <td role="cell" data-title="Delete"><a class='flex-admin-basic' href='/admin/delete/<%=book.slug %>'><i class="far fa-trash-alt"></i></a></td>
+            </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </section>
+  
 <%- include('partials/footer') -%>

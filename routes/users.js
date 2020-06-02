@@ -134,59 +134,65 @@ router.get('/cart', auth.isLoggedin, async(req, res, next) =>{
 router.get('/checkout', auth.isLoggedin, async(req, res, next) =>{
   var id = req.session.userId;
   var addressOption = req.body.addressOption;
+  let ref = req.get('Referrer');
   console.log(addressOption);
   try{
     var loggedInUser = await User.findById(id).populate('personalcart.item');
     // console.log(loggedInUser);
     var userAddresses = await Address.find({user:id});
     var totalPrice = 0;
+    let success = true;
+    let strError = '';
     //Checks if its okay to proceed with order and calculates totalPrice
     loggedInUser.personalcart.forEach((elem,index)=>{
       if(elem.item.quantity <  elem.quantity) {
-        req.flash('error', 'Not enough quantity for '+ elem.item.title);
-      // res.locals.message = req.flash();
-        
-        res.redirect('/users/cart');
+        success = false;
+        strError = elem.item.title + elem.item.author + ' is not available';
       }
       else{
         totalPrice += elem.item.price*elem.quantity;
       }
     });
-
-    //Order ready to be processed remove from inventory
-    var updateBooks = await Promise.all(
-      loggedInUser.personalcart.map(async (elem) => {
-        var book = await Book.findByIdAndUpdate(elem.item.id, {
-          $inc:{
-            quantity: -elem.quantity
-          }
-        });
-        return book;
-      })
-    );
-    // console.log(updateBooks);
-    var purchase = await Purchase.create({
-      books: loggedInUser.personalcart.map(elem => {
-        return {
-          item: elem.item, 
-          quantity: elem.quantity,
-          addressShippedTo: userAddresses[addressOption], 
-        };
-      }), buyer: id, totalPrice: totalPrice
-    });
-    var updatedUser =  await User.findByIdAndUpdate(id, {
-      $set:{ 
-        personalcart: []
-      }
-    });
-    // console.log(updatedUser);
-    updatedUser = await User.findByIdAndUpdate(id,  {
-      $addToSet: {
-        purchases: purchase.id
-      }
-    });
-    // console.log(updatedUser);
-    res.render('checkout', {loggedInUser, purchase});
+    if(success){
+      //Order ready to be processed remove from inventory
+      var updateBooks = await Promise.all(
+        loggedInUser.personalcart.map(async (elem) => {
+          var book = await Book.findByIdAndUpdate(elem.item.id, {
+            $inc:{
+              quantity: -elem.quantity
+            }
+          });
+          return book;
+        })
+      );
+      // console.log(updateBooks);
+      var purchase = await Purchase.create({
+        books: loggedInUser.personalcart.map(elem => {
+          return {
+            item: elem.item, 
+            quantity: elem.quantity,
+            addressShippedTo: userAddresses[addressOption], 
+          };
+        }), buyer: id, totalPrice: totalPrice
+      });
+      var updatedUser =  await User.findByIdAndUpdate(id, {
+        $set:{ 
+          personalcart: []
+        }
+      });
+      // console.log(updatedUser);
+      updatedUser = await User.findByIdAndUpdate(id,  {
+        $addToSet: {
+          purchases: purchase.id
+        }
+      });
+    }
+    if(success)
+      res.render('checkout', {loggedInUser, purchase});
+    else{
+      req.flash('error', strError);
+      return res.redirect('/users/cart');
+    }
   }
   catch(error) {
     return next(error);

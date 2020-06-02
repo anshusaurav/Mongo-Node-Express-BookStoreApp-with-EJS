@@ -1,0 +1,114 @@
+
+.admin-book-container {
+    background: #efefef;
+    width: 1300px;
+    min-height: 82vh;
+    height: auto;
+    margin: 0 auto;
+    font-family: 'Source Code Pro', monospace;
+    .admin-book-header{
+        font-size: 28px;
+        font-weight: 500;
+        padding: 1rem 0;
+    }
+    table {
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.05),
+        0px 20px 20px rgba(0, 0, 0, 0.05), 0px 30px 20px rgba(0, 0, 0, 0.05);
+        font-size: 20px;
+        width: 100%;
+    }
+    .flex-admin-basic{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .fa-user-minus{
+        color: maroon;
+    }
+    .fa-user-plus{
+        color: greenyellow;
+    }
+    th {
+        color: #ffffff;
+        background: #39a2fb;
+        font-weight: 700;
+        padding-top: 0.5rem;
+        // text-align: left;
+    }
+    
+    tr {
+        background: #fff;
+        height: 40px;
+    }
+    
+    tr:hover {
+        background: #f4f4f4;
+    }
+    
+    td {
+        padding-top: 0.25rem;
+        
+        word-wrap: break-word;
+        border-bottom: 1px solid #ccc;
+    }
+    thead{
+        min-height: 48px;
+    }
+    /*--------------------------------------------------------------
+        # Small and medium screens
+        --------------------------------------------------------------*/
+    @media all and (max-width: 900px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+        display: block;
+        }
+    
+        thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        }
+    
+        table {
+        box-shadow: none;
+        }
+    
+        tr {
+        margin: 0 0 1rem 0;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+        border-top: 5px solid #39a2fb;
+        border-radius: 7px;
+        padding-right: 5px;
+        }
+    
+        tr:hover {
+        background: #fff;
+        }
+    
+        td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+        }
+    
+        td:before {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-title);
+        font-weight: bold;
+        text-align: left;
+        }
+    }
+  }
+  
+  
+  
