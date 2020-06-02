@@ -93,10 +93,11 @@ router.post('/book/add', async(req, res, next) =>{
     }
 });
 router.get('/edit/:slug', async(req, res, next) =>{
+    var slug = req.params.slug;
     try{
-        var {slug} = req.params.slug;
-        console.log(slug);
-        var book = await Book.findOne(slug);
+        // var {slug} = req.params.slug;
+        // console.log(slug);
+        var book = await Book.findOne({slug});
         // console.log(book);
         res.render('editBook', {book: book});
     }
@@ -106,9 +107,9 @@ router.get('/edit/:slug', async(req, res, next) =>{
 });
 
 router.post('/edit/:slug', async(req, res, next) =>{
+    var slug = req.params.slug;
     try{
-        var {slug} = req.params.slug;
-        var book = await Book.findOneAndUpdate(slug, req.body,{ 
+        var book = await Book.findOneAndUpdate({slug}, req.body,{ 
             runValidators: true, 
             new:true 
         });

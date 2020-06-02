@@ -12,7 +12,7 @@ router.get('/', async(req, res, next) =>{
     var id = req.session.userId;
     // console.log('purchases');
     try{
-        var purchases = await Purchase.find({buyer: id}).populate('books.item');
+        var purchases = await Purchase.find({buyer: id}).populate('books.item').sort({createdAt: -1});
         // console.log(purchases);
         purchases.forEach(purchase =>{
             purchase.books.forEach(book =>{

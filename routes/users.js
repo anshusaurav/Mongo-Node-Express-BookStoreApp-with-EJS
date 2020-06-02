@@ -1,5 +1,4 @@
 var express = require('express');
-const mongoose = require("mongoose");
 var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
@@ -194,7 +193,7 @@ router.post('/checkout', auth.isLoggedin, async(req, res, next) =>{
       });
     }
     if(success){
-      req.flash('success', 'Order placed successfully')
+      //req.flash('success', 'Order placed successfully')
       res.render('checkout', {loggedInUser, purchase, address});
     }
     else{

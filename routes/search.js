@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
-var Category = require('../models/category');
 var Book = require('../models/book');
 
 router.post('/', async(req, res, next) =>{

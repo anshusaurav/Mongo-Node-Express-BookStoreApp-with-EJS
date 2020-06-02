@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var Category = require('../models/category');
-var Book = require('../models/book');
 var Address = require('../models/address');
 
 router.get('/', async(req, res, next) =>{

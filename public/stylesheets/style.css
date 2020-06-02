@@ -733,6 +733,10 @@ header {
       margin: 0;
       transition: 0.3s;
       box-shadow: inset 0 0 0 none; }
+    .books-container .books-main-elem-misc input[type=number]::-webkit-inner-spin-button,
+    .books-container .books-main-elem-misc input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0; }
 
 .books-main-grid-elem-div {
   height: 280px;
@@ -884,8 +888,8 @@ header {
     display: grid;
     grid-template-columns: repeat(2, 1fr); }
     .cart-container .cart-container-header-grid .address-small-checkout {
-      font-size: 10px;
-      letter-spacing: 0.5px;
+      padding: 1rem 0;
+      font-size: 12px;
       color: #000; }
   .cart-container .cart-header {
     margin-top: 18px !important;
@@ -1749,3 +1753,7 @@ header {
   .admin-book-container input[type=search] {
     -webkit-appearance: textfield;
     box-sizing: content-box; }
+  .admin-book-container input[type=number]::-webkit-inner-spin-button,
+  .admin-book-container input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
