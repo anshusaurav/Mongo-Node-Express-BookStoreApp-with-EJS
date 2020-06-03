@@ -16,12 +16,13 @@
     </div>
     <div>
         <button class='sort-by-name'>Sort By Name(A-Z)</button>
-        <button class='sort-by-rating'>Sort By Avg CustomerRating</button>
+        <button class='sort-by-rating'>Sort By Avg Customer Rating</button>
         <button class='sort-by-date'>Sort By Date Added</button>
         <button class='sort-by-price'>Sort By Price</button>
     </div>
     <div class="s-result-info-bar">
         <p class='count-info-bar'>Showing <%= books.length %> books</p>
+        
         <div class='switch-view-two-div'>
             <div class='switch-options'>
                 <i class="list-view fas fa-align-justify"></i>
@@ -150,6 +151,25 @@
     var s = htmlDecode(bookList);
     s=s.replace(/(\r\n|\n|\r)/gm," ");
     var bookArr = JSON.parse(s);
+    bookArr.forEach(book =>{
+        var isRated = false;
+        if(book.ratings.length > 0)
+            isRated = true;
+        var sum = 0;
+        var cnt = 0;
+        book.ratings.forEach(elem =>{
+            sum += elem.rating;
+            cnt++;
+        })    
+        if(isRated) {
+            book.isRated = true;
+            book.averageRating = Math.round(sum/cnt);
+        } else {
+            book.isRated = false;
+            book.averageRating = 0;
+        }
+        
+    });
     /*
     class='sortByName'>Sort By Name(A-Z)</button>
         <button class='sortByRating'>Sort By Avg CustomerRating</button>
@@ -157,17 +177,44 @@
         <button class='sortByPrice*/
     var sortByNameBtn = document.querySelector('.sort-by-name');
     var sortByNameArr = bookArr;
-    sortByNameArr.sort((a,b) => a.price - b.price);
+    
     sortByNameBtn.addEventListener('click', sortByName);
     function sortByName(event){
+        sortByNameArr.sort((a,b) => a.title.localeCompare(b.slug));
         repaint(sortByNameArr);
     }
-    sortByNameArr.forEach(book =>{
-        console.log(book.title + ' ' + book.price + ' '+ typeof book.averageRating);
-    });
+    
+    var sortByRatingBtn = document.querySelector('.sort-by-rating');
+    var sortByRatingArr = bookArr;
+    
+    sortByRatingBtn.addEventListener('click', sortByRating);
+    function sortByRating(event){
+        sortByRatingArr.sort((a,b) => b.averageRating - a.averageRating);
+        repaint(sortByRatingArr);
+    }
+
+    var sortByDateBtn = document.querySelector('.sort-by-date');
+    var sortByDateArr = bookArr;
+    
+    sortByDateBtn.addEventListener('click', sortByDate);
+    function sortByDate(event){
+        sortByDateArr.sort((a,b) => b.createdAt - a.createdAt);
+        repaint(sortByDateArr);
+    }
+
+    var sortByPriceBtn = document.querySelector('.sort-by-price');
+    var sortByPriceArr = bookArr;
+    
+    sortByPriceBtn.addEventListener('click', sortByPrice);
+    function sortByPrice(event){
+        sortByPriceArr.sort((a,b) => a.price - b.price);
+        repaint(sortByPriceArr);
+    }
+
     function repaint(bookTempArr) {
         var newHTML = '';
         bookTempArr.forEach(book =>{
+            
             newHTML+= `<div class='books-main-grid-elem'>
                 <div class='books-main-grid-elem-div'>
                     <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
@@ -195,10 +242,10 @@
                     <li>`;
                     if(book.isRated) { 
                         newHTML+=`<div class="rate-grid">`
-                                for(var i = 0; i < Number(book.averageRating); i++) {
+                                for(var i = 0; i < book.averageRating; i++) {
                                     newHTML+= `<i class="fas fa-star star-filled"></i>`;
                                 }
-                                for(var i = 0; i < 5-Number(book.averageRating); i++) {
+                                for(var i = 0; i < 5-book.averageRating; i++) {
                                     newHTML+=`<i class="fas fa-star star-unfilled"></i>`;
                                 } 
                                 newHTML += `<a href='/books/${book.slug}#Reviews'class='rategrid-count-num'>(${book.ratings.length})</a>
@@ -225,7 +272,7 @@
     }
 
 
-
+    
 
 
 

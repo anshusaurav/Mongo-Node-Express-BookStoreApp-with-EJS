@@ -659,6 +659,59 @@ header {
         cursor: pointer; }
       .books-container .s-result-info-bar .switch-options .gal-view {
         color: #c48657; }
+    .books-container .s-result-info-bar .wrapper-sort {
+      margin: 30px auto;
+      max-width: 600px; }
+    .books-container .s-result-info-bar .dropdownbox-sort {
+      margin: 0 auto;
+      width: 400px;
+      margin-top: 40px;
+      background: #816f7f;
+      color: #feeedf;
+      cursor: pointer; }
+    .books-container .s-result-info-bar .dropdownbox-sort > p {
+      padding: 5px 10px;
+      font-size: 1.25em;
+      line-height: 1.4em;
+      user-select: none;
+      -moz-user-select: none;
+      /* Safari */
+      -khtml-user-select: none; }
+    .books-container .s-result-info-bar ul.menu-sort {
+      position: relative;
+      margin: 0 auto;
+      width: 400px;
+      overflow: hidden;
+      height: 0;
+      margin-top: 10px;
+      -webkit-transition: all 0.3s ease-in;
+      -moz-transition: all 0.3s ease-in;
+      -o-transition: all 0.3s ease-in;
+      transition: all 0.3s ease-in;
+      /*-moz-transform:scale(0); */
+      background: #816f7f;
+      color: #feeedf;
+      cursor: pointer;
+      user-select: none;
+      -moz-user-select: none;
+      /* Safari */
+      -khtml-user-select: none; }
+    .books-container .s-result-info-bar ul.menu-sort li {
+      padding: 2px 10px;
+      font-size: 1.25em;
+      line-height: 1.4em;
+      -webkit-transition: all 0.3s ease-in;
+      -moz-transition: all 0.3s ease-in;
+      -o-transition: all 0.3s ease-in;
+      transition: all 0.3s ease-in;
+      border-bottom: 1px dotted #feeedf; }
+    .books-container .s-result-info-bar ul.menu-sort li:hover {
+      padding-left: 20px;
+      color: #816f7f;
+      background: #feeedf; }
+    .books-container .s-result-info-bar .menu-sort.showMenu {
+      /*-moz-transform:scale(1);*/
+      height: 165px; }
   .books-container .books-main-grid {
     margin-top: 3rem;
     display: grid;
