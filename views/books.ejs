@@ -14,9 +14,14 @@
           <% } %>
         
     </div>
-    
+    <div>
+        <button class='sort-by-name'>Sort By Name(A-Z)</button>
+        <button class='sort-by-rating'>Sort By Avg CustomerRating</button>
+        <button class='sort-by-date'>Sort By Date Added</button>
+        <button class='sort-by-price'>Sort By Price</button>
+    </div>
     <div class="s-result-info-bar">
-        <p class='count-info-bar'>Showing <%= books.length %> books.</p>
+        <p class='count-info-bar'>Showing <%= books.length %> books</p>
         <div class='switch-view-two-div'>
             <div class='switch-options'>
                 <i class="list-view fas fa-align-justify"></i>
@@ -85,6 +90,7 @@
 <script>
     
     //Switch View Gallery View, List View
+
     var current = false;
     var mainGrid = document.querySelector('.books-main-grid');
     var allElemGrid = Array.from(document.querySelectorAll('.books-main-grid-elem'));
@@ -116,7 +122,7 @@
     function switchViewTrue(event) {
         if(!current){
             mainGrid.style.gridTemplateColumns = '1fr';
-            mainGrid.style.gridAutoRows= '360px';
+            mainGrid.style.gridAutoRows= 'auto';
             allElemGrid.forEach(elem =>{
                 elem.style.display = 'grid';
                 elem.style.gridTemplateColumns = '0.75fr 3fr 1fr';
@@ -133,7 +139,95 @@
         }
         
     }
+    //Sort Implementation
+    //Getting values
+    var bookList = "<%= JSON.stringify(books)%>";
+    function htmlDecode(s) {
+        var el = document.createElement("div");
+        el.innerHTML = s;
+        return el.innerText || el.textContent;
+    }
+    var s = htmlDecode(bookList);
+    s=s.replace(/(\r\n|\n|\r)/gm," ");
+    var bookArr = JSON.parse(s);
+    /*
+    class='sortByName'>Sort By Name(A-Z)</button>
+        <button class='sortByRating'>Sort By Avg CustomerRating</button>
+        <button class='sortByDate'>Sort By Date Added</button>
+        <button class='sortByPrice*/
+    var sortByNameBtn = document.querySelector('.sort-by-name');
+    var sortByNameArr = bookArr;
+    sortByNameArr.sort((a,b) => a.price - b.price);
+    sortByNameBtn.addEventListener('click', sortByName);
+    function sortByName(event){
+        repaint(sortByNameArr);
+    }
+    sortByNameArr.forEach(book =>{
+        console.log(book.title + ' ' + book.price + ' '+ typeof book.averageRating);
+    });
+    function repaint(bookTempArr) {
+        var newHTML = '';
+        bookTempArr.forEach(book =>{
+            newHTML+= `<div class='books-main-grid-elem'>
+                <div class='books-main-grid-elem-div'>
+                    <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
+                        <img class='books-main-single-image' src='${book.thumbnailURL}'>
+                    </a> 
+                </div>  
 
-    
+                <ul class='ul-books-grid'>
+                    <li>
+                        <a class='books-book-name' href='/books/${book.slug}'><h2> 
+                            ${book.title}
+                        </h2></a>
+                    </li>   
+                    <li>
+                        <h2 class='books-book-author'> 
+                            ${book.author}
+                        </h2>
+                    </li>
+                    <li> 
+                        <div class='book-price-div'>
+                            <i class="fas fa-rupee-sign"></i>
+                            <p class='books-book-price'>${book.price}</p>
+                        </div>
+                    </li>
+                    <li>`;
+                    if(book.isRated) { 
+                        newHTML+=`<div class="rate-grid">`
+                                for(var i = 0; i < Number(book.averageRating); i++) {
+                                    newHTML+= `<i class="fas fa-star star-filled"></i>`;
+                                }
+                                for(var i = 0; i < 5-Number(book.averageRating); i++) {
+                                    newHTML+=`<i class="fas fa-star star-unfilled"></i>`;
+                                } 
+                                newHTML += `<a href='/books/${book.slug}#Reviews'class='rategrid-count-num'>(${book.ratings.length})</a>
+                            </div>`
+                            }else{
+                                newHTML += `<div class="rate-grid">
+                                </div>`
+                        } 
+                    newHTML+=`</li>
+                    </ul>
+                    
+                    <div class='books-main-elem-misc'>
+                        <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
+                            <input type="number" placeholder="1" value="1" name="quantity">
+                            <button type="submit"><i class="fas fa-cart-plus"></i></button>
+                        </form>
+                        <a class='books-main-gatipay-elem' href='/books/${book.slug}/wish'>
+                            <i class="fab fa-gratipay"></i>
+                        </a>
+                    </div>
+                </div>`;
+        });
+        mainGrid.innerHTML = newHTML;
+    }
+
+
+
+
+
+
 </script>
 <%- include('partials/footer') -%>

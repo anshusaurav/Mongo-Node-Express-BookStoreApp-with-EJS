@@ -647,7 +647,8 @@ header {
     padding: 0 1rem; }
     .books-container .s-result-info-bar .count-info-bar {
       font-size: 12px;
-      line-height: 1.5; }
+      line-height: 1.5;
+      letter-spacing: 1px; }
     .books-container .s-result-info-bar .switch-options {
       display: grid;
       grid-template-columns: 1fr 1fr;

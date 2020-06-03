@@ -3,7 +3,6 @@ var router = express.Router();
 var Book = require('../models/book');
 var Purchase = require('../models/purchase');
 var Review = require('../models/review');
-var auth = require('../middlewares/auth');
 
 router.get('/', (req, res, next) =>{
     res.render('review');
@@ -22,13 +21,11 @@ router.get('/pending', async(req, res, next) =>{
         
     });
     
-    console.log(setBook);
     //get all review posted by user
     var booksReviewPosted = [];
     var booksReviewPending = [];
     var arrSetBook = Array.from(setBook);
     var reviewsPosted = await Review.find({buyer: id});
-    console.log(reviewsPosted.length);
     //get two arrays one for books whose review is posted one for whose not
     reviewsPosted.forEach(review =>{
         booksReviewPosted.push(''+review.book);
@@ -37,8 +34,6 @@ router.get('/pending', async(req, res, next) =>{
         if(!booksReviewPosted.includes(''+book))
             booksReviewPending.push(''+book);
     })
-    console.log("Posted", booksReviewPosted);
-    console.log("Pending", booksReviewPending);
     
     
     //show all books whose reviews are pending
@@ -48,7 +43,6 @@ router.get('/pending', async(req, res, next) =>{
           return book;
         })
       );
-    console.log(arrBooks);
     res.render('pendingReviews',{arrBooks});
     } catch(error) {
         return next(error);
@@ -68,14 +62,11 @@ router.get('/posted', async(req, res, next) =>{
             })
             
         });
-        
-        console.log(setBook);
         //get all review posted by user
         var booksReviewPosted = [];
         var booksReviewPending = [];
         var arrSetBook = Array.from(setBook);
         var reviewsPosted = await Review.find({buyer: id});
-        console.log(reviewsPosted.length);
         //get two arrays one for books whose review is posted one for whose not
         reviewsPosted.forEach(review =>{
             booksReviewPosted.push(''+review.book);
@@ -83,9 +74,7 @@ router.get('/posted', async(req, res, next) =>{
         arrSetBook.forEach(book =>{
             if(!booksReviewPosted.includes(''+book))
                 booksReviewPending.push(''+book);
-        })
-        console.log("Posted", booksReviewPosted);
-        console.log("Pending", booksReviewPending);
+        });
         
         
         //show all books whose reviews are pending
@@ -97,10 +86,13 @@ router.get('/posted', async(req, res, next) =>{
         );
         var reviews = await Promise.all(
             arrBooks.map(async (elem) =>{
-                var review = await Review.findOne({buyer: id, book: elem.id})
+                var review = await Review.findOne({
+                    buyer: id, 
+                    book: elem.id
+                });
                 return review;
             })
-        )
+        );
         console.log(arrBooks);
         var ratings = arrBooks.map(book =>{
             var rate;
@@ -125,7 +117,6 @@ router.get('/posted', async(req, res, next) =>{
                 book.isRated = false;
             }
         })
-        console.log(ratings);
         res.render('postedReviews',{arrBooks, reviews, ratings });
     }catch(error) {
         return next(error);
@@ -153,7 +144,6 @@ router.post('/:slug', async(req, res, next) =>{
         var book = await Book.findOne({slug});
         req.body.book = book.id;
         req.body.buyer = id;
-        console.log(rating);
         var review = await Review.create(req.body);
         book = await Book.findOneAndUpdate({slug}, {$addToSet: {reviews: review.id}});
         book = await Book.findOneAndUpdate({slug}, {$addToSet: {ratings:{buyer: id, rating: rating}}});
@@ -165,7 +155,6 @@ router.post('/:slug', async(req, res, next) =>{
     }
 });
 router.get('/:slug/delete', async(req, res, next) =>{
-    console.log('HERE WEGO');
     var id = req.session.userId;
     var slug = req.params.slug;
     try{

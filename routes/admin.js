@@ -19,7 +19,11 @@ router.get('/user', async(req, res, next) =>{
 router.get('/block/:id', async(req, res, next) =>{
     try{
         var id = req.params.id;
-        var user = await User.findByIdAndUpdate(id, {$set:{isBlocked: true}} );
+        var user = await User.findByIdAndUpdate(id, {
+            $set: {
+                isBlocked: true
+            }
+        });
         req.flash('success', 'User ' + user.name + ' is blocked successfully');
         res.redirect('/admin/user');
     }
@@ -31,7 +35,11 @@ router.get('/block/:id', async(req, res, next) =>{
 router.get('/unblock/:id', async(req, res, next) =>{
     try{
         var id = req.params.id;
-        var user = await User.findByIdAndUpdate(id, {$set:{isBlocked: false}} );
+        var user = await User.findByIdAndUpdate(id, {
+            $set: {
+                isBlocked: false
+            }
+        });
         req.flash('success', 'User ' + user.name + ' is unblocked successfully');
         res.redirect('/admin/user');
     }
