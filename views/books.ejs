@@ -14,9 +14,16 @@
           <% } %>
         
     </div>
-    
+    <div class='books-top-custom-div'>
+        <buttom class='switch-view-btn'> Switch</buttom>
+    </div>
+    <div class="s-result-info-bar">
+        <p>Showing <%= books.length %> books.</p>
+        <div>
+            
+        </div>
+    </div>
     <div class='books-main-grid'>
-       
         <% books.forEach(book =>{ %>
             <div class='books-main-grid-elem'>
                 <div class='books-main-grid-elem-div'>
@@ -42,21 +49,24 @@
                             <p class='books-book-price'><%= book.price %></p>
                         </div>
                     </li>
+                    <li>
+                        <% if(book.isRated) { %>
+                            <div class="rate-grid">
+                                <% for(var i = 0; i < Number(book.averageRating); i++) {%>
+                                    <i class="fas fa-star star-filled"></i>
+                                <%} %>
+                                <% for(var i = 0; i < 5-Number(book.averageRating); i++) {%>
+                                    <i class="fas fa-star star-unfilled"></i>
+                                <%} %>
+                                <a href='/books/<%=book.slug %>#Reviews'class='rategrid-count-num'>(<%=book.ratings.length%>)</a>
+                            </div>
+                            <%}else{ %>
+                                <div class="rate-grid">
+                                </div>
+                        <%} %>
+                    </li>
                 </ul>
-                <% if(book.isRated) { %>
-                <div class="rate-grid">
-                    <% for(var i = 0; i < Number(book.averageRating); i++) {%>
-                        <i class="fas fa-star star-filled"></i>
-                    <%} %>
-                    <% for(var i = 0; i < 5-Number(book.averageRating); i++) {%>
-                        <i class="fas fa-star star-unfilled"></i>
-                    <%} %>
-                    <a href='/books/<%=book.slug %>#Reviews'class='rategrid-count-num'>(<%=book.ratings.length%>)</a>
-                </div>
-                <%}else{ %>
-                    <div class="rate-grid">
-                    </div>
-                <%} %>
+                
                 <div class='books-main-elem-misc'>
                     <form class='add-to-cart' method="POST" action="/books/<%= book.slug %>/add">
                         <input type="number" placeholder="1" value="1" name="quantity">
@@ -70,7 +80,44 @@
         <%}); %>
     </div>
 </div>
-   <div>
-       
-   </div>
+<script>
+    var current = false;
+    var btnElem = document.querySelector('.switch-view-btn');
+    var mainGrid = document.querySelector('.books-main-grid');
+    var allElemGrid = Array.from(document.querySelectorAll('.books-main-grid-elem'));
+    var ulElems = Array.from(document.querySelectorAll('ul'));
+    var cartElems = Array.from(document.querySelectorAll('.books-main-elem-misc'));
+    btnElem.addEventListener('click', switchView);
+    function switchView(event) {
+        if(!current){
+            mainGrid.style.gridTemplateColumns = '1fr';
+            mainGrid.style.gridAutoRows= '360px';
+            allElemGrid.forEach(elem =>{
+                elem.style.display = 'grid';
+                elem.style.gridTemplateColumns = '0.75fr 3fr 1fr';
+            });
+            ulElems.forEach(elem =>{
+                elem.style.padding = '1.5rem 1rem';
+            });
+            cartElems.forEach(elem =>{
+                elem.style.padding = "2.5rem 1rem"
+            });
+        }
+        else {
+            mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
+            mainGrid.style.gridAutoRows= '440px';
+            allElemGrid.forEach(elem =>{
+                elem.style.display = 'block';
+            });
+            ulElems.forEach(elem =>{
+                elem.style.padding = '0rem';
+            });
+            cartElems.forEach(elem =>{
+                elem.style.padding = "0rem";
+            });
+        }
+        current = !current;
+    }
+    
+</script>
 <%- include('partials/footer') -%>

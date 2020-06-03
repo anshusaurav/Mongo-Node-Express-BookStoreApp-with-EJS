@@ -398,7 +398,7 @@ header {
   font-size: 28px; }
 
 .footer-content-bottom {
-  background: #9147FF;
+  background: #90D2C3;
   min-height: 40px;
   width: 100%;
   text-align: center; }
@@ -406,7 +406,7 @@ header {
 .footer {
   text-align: center;
   letter-spacing: 1px;
-  background: #9147FF;
+  background: #90D2C3;
   color: #fff;
   font-size: 12px;
   font-family: Rubik, sans-serif;
@@ -518,7 +518,7 @@ header {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 1.15px;
-  background-color: #9147FF;
+  background-color: #90D2C3;
   color: #f9f9f9;
   box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9;
   border: none;
@@ -617,7 +617,7 @@ header {
   max-width: 1300px;
   min-height: 82vh;
   height: auto;
-  margin: 0 auto;
+  margin: 1rem auto;
   line-height: 1.2; }
   .books-container .search-res-header {
     margin-top: 18px !important;
@@ -629,12 +629,21 @@ header {
     padding-bottom: 4px; }
     .books-container .search-res-header span {
       font-style: italic; }
+  .books-container .s-result-info-bar {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 0 10px #ddd;
+    -webkit-box-shadow: 0 0 10px #ddd;
+    -moz-box-shadow: 0 0 10px #ddd;
+    margin-bottom: 14px !important;
+    min-height: 24px;
+    width: 100%; }
   .books-container .books-main-grid {
     margin-top: 3rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, 240px);
     grid-auto-rows: 440px;
-    grid-gap: 1.5rem;
+    grid-gap: 1.5rem 0.5rem;
     font-family: 'Roboto', sans-serif; }
     .books-container .books-main-grid .books-book-name {
       overflow: hidden;
@@ -680,9 +689,6 @@ header {
         overflow: hidden;
         height: 100%; }
     .books-container .books-main-grid .rate-grid {
-      position: absolute;
-      top: 370px;
-      left: 8px;
       padding: 0.5rem 0;
       width: 220px;
       height: 32px;
@@ -699,9 +705,6 @@ header {
         justify-self: center;
         font-weight: 500; }
   .books-container .books-main-elem-misc {
-    position: absolute;
-    top: 408px;
-    left: 8px;
     height: 28px;
     display: grid;
     grid-template-columns: 2fr 1fr;
