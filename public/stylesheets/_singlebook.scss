@@ -12,13 +12,11 @@
         .book-single-img-div{
             
             padding: 1rem;
-            display: flex;
-            overflow: hidden;
-            justify-content: center;
-            align-items: center;
+            position: relative;
              .book-single-img{
-                width: 100%;
-                
+                width: 90%;
+                position: absolute;
+                top: 1.5rem;
              }
         }
         .books-book-name{
@@ -85,7 +83,7 @@
         width: 220px;
         height: 32px;
         display: grid;
-        grid-template-columns: repeat(5, 24px);
+        grid-template-columns: 24px 24px 24px 24px 24px auto;
         .star-filled{
             color: #FFC700;
         }
@@ -94,6 +92,12 @@
         }
         .fa-star{
             font-size: 20px;
+        }
+        .rategrid-count-num{
+            align-self: end;
+            justify-self: center;
+            font-weight: 500;
+            // margin-left: 
         }
     }
     .review-book-self{

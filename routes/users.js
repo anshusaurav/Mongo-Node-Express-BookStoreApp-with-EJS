@@ -19,7 +19,7 @@ router.get('/:id/activate/:code', async(req, res, next) =>{
     console.log(user);
     if(user.activeToken == code) {
       user = await User.findByIdAndUpdate(id, {isActive: true});
-      req.flash('success', 'Activation successfully. Please login')
+      req.flash('success', 'Activated successfully. Please login')
       res.redirect('/users/login');
     }
     else{

@@ -3,20 +3,20 @@
             <div class="login-main">
                 <div class="log-container a-container" id="a-container">
                 <form class="form" id="a-form" method="POST" action="/users/register">
-                    <div class="flashes">
-                        <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
-                        <% if (alerts.error) { %>
-                            <% alerts.error.forEach(function(msg) { %>
-                              <div class="alert alert-error "><%= msg %></div>
-                            <% }); %>
-                          <% } %>
-                          <% if (alerts.success) { %>
-                            <% alerts.success.forEach(function(msg) { %>
-                              <div class="alert alert-success"><%= msg %></div>
-                            <% }); %>
-                          <% } %>
-                        
-                      </div>
+                  <div class="flashes">
+                    <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 5000); </script>
+                    <% if (alerts.error) { %>
+                        <% alerts.error.forEach(function(msg) { %>
+                          <div class="alert alert-error "><%= msg %></div>
+                        <% }); %>
+                      <% } %>
+                      <% if (alerts.success) { %>
+                        <% alerts.success.forEach(function(msg) { %>
+                          <div class="alert alert-success"><%= msg %></div>
+                        <% }); %>
+                      <% } %>
+                    
+                </div>
                     <h2 class="form_title title">Create Account</h2>
                     <input class="form__input" name="name" type="text" placeholder="Name" required>
                     <input class="form__input" type="text" name="email" placeholder="Email" required>

@@ -630,7 +630,7 @@ header {
   .books-container .books-main-grid {
     margin-top: 3rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, 240px);
     grid-auto-rows: 440px;
     grid-gap: 1.5rem;
     font-family: 'Roboto', sans-serif; }
@@ -685,13 +685,17 @@ header {
       width: 220px;
       height: 32px;
       display: grid;
-      grid-template-columns: repeat(5, 24px); }
+      grid-template-columns: repeat(6, 24px); }
       .books-container .books-main-grid .rate-grid .star-filled {
         color: #FFC700; }
       .books-container .books-main-grid .rate-grid .star-unfilled {
         color: #CCCCCC; }
       .books-container .books-main-grid .rate-grid .fa-star {
         font-size: 20px; }
+      .books-container .books-main-grid .rate-grid .rategrid-count-num {
+        align-self: end;
+        justify-self: center;
+        font-weight: 500; }
   .books-container .books-main-elem-misc {
     position: absolute;
     top: 408px;
@@ -755,12 +759,11 @@ header {
     grid-template-columns: 1fr 3fr 1fr; }
     .book-single-container .book-single-grid .book-single-img-div {
       padding: 1rem;
-      display: flex;
-      overflow: hidden;
-      justify-content: center;
-      align-items: center; }
+      position: relative; }
       .book-single-container .book-single-grid .book-single-img-div .book-single-img {
-        width: 100%; }
+        width: 90%;
+        position: absolute;
+        top: 1.5rem; }
     .book-single-container .book-single-grid .books-book-name {
       overflow: hidden;
       display: inline-block;
@@ -813,13 +816,17 @@ header {
     width: 220px;
     height: 32px;
     display: grid;
-    grid-template-columns: repeat(5, 24px); }
+    grid-template-columns: 24px 24px 24px 24px 24px auto; }
     .book-single-container .rate-grid .star-filled {
       color: #FFC700; }
     .book-single-container .rate-grid .star-unfilled {
       color: #CCCCCC; }
     .book-single-container .rate-grid .fa-star {
       font-size: 20px; }
+    .book-single-container .rate-grid .rategrid-count-num {
+      align-self: end;
+      justify-self: center;
+      font-weight: 500; }
   .book-single-container .review-book-self {
     overflow: hidden;
     display: inline-block;
@@ -1254,18 +1261,19 @@ header {
 
 .alert-success {
   color: green;
-  background: #2d2d2d;
+  background: #e0a1f7;
   padding: 0.25rem 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 18px;
   transition: all 0.25s ease-in-out;
   font-family: 'Source Code Pro', monospace; }
 
 .alert-error {
   color: #ba3737;
   padding: 0.25rem 0.5rem;
-  background: #2d2d2d;
-  font-weight: 500;
-  font-size: 16px;
+  background: #e0a1f7;
+  font-weight: 600;
+  font-size: 18px;
   transition: all 0.25s ease-in-out;
   font-family: 'Source Code Pro', monospace; }
 

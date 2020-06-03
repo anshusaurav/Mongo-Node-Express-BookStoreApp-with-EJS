@@ -51,6 +51,7 @@
                     <% for(var i = 0; i < 5-Number(book.averageRating); i++) {%>
                         <i class="fas fa-star star-unfilled"></i>
                     <%} %>
+                    <a href='/books/<%=book.slug %>#Reviews'class='rategrid-count-num'>(<%=book.ratings.length%>)</a>
                 </div>
                 <%}else{ %>
                     <div class="rate-grid">

@@ -1,9 +1,9 @@
 .alert-success{
     color: green;
-    background: rgb(45, 45, 45);
+    background: rgb(224, 161, 247);
     padding: 0.25rem 0.5rem;
-    font-weight: 500;
-    
+    font-weight: 600;
+    font-size: 18px;
     transition: all 0.25s ease-in-out;
     font-family: 'Source Code Pro', monospace;
 
@@ -11,9 +11,9 @@
   .alert-error{
     color: rgb(186, 55, 55);
     padding: 0.25rem 0.5rem;
-    background: rgb(45, 45, 45);
-    font-weight: 500;
-    font-size: 16px;
+    background: rgb(224, 161, 247);
+    font-weight: 600;
+    font-size: 18px;
     transition: all 0.25s ease-in-out;
     font-family: 'Source Code Pro', monospace;
   }
