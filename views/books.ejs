@@ -14,15 +14,17 @@
           <% } %>
         
     </div>
-    <div class='books-top-custom-div'>
-        <buttom class='switch-view-btn'> Switch</buttom>
-    </div>
+    
     <div class="s-result-info-bar">
-        <p>Showing <%= books.length %> books.</p>
-        <div>
-            
+        <p class='count-info-bar'>Showing <%= books.length %> books.</p>
+        <div class='switch-view-two-div'>
+            <div class='switch-options'>
+                <i class="list-view fas fa-align-justify"></i>
+                <i class="gal-view fas fa-border-all"></i>
+            </div>
         </div>
     </div>
+
     <div class='books-main-grid'>
         <% books.forEach(book =>{ %>
             <div class='books-main-grid-elem'>
@@ -32,7 +34,7 @@
                     </a> 
                 </div>  
 
-                <ul>
+                <ul class='ul-books-grid'>
                     <li>
                         <a class='books-book-name' href='/books/<%=book.slug%>'><h2> 
                             <%= book.title %>
@@ -81,14 +83,37 @@
     </div>
 </div>
 <script>
+    
+    //Switch View Gallery View, List View
     var current = false;
-    var btnElem = document.querySelector('.switch-view-btn');
     var mainGrid = document.querySelector('.books-main-grid');
     var allElemGrid = Array.from(document.querySelectorAll('.books-main-grid-elem'));
-    var ulElems = Array.from(document.querySelectorAll('ul'));
+    var ulElems = Array.from(document.querySelectorAll('.ul-books-grid'));
     var cartElems = Array.from(document.querySelectorAll('.books-main-elem-misc'));
-    btnElem.addEventListener('click', switchView);
-    function switchView(event) {
+    listViewElem = document.querySelector('.list-view');
+    galleryViewElem = document.querySelector('.gal-view');
+    listViewElem.addEventListener('click', switchViewTrue);
+    galleryViewElem.addEventListener('click', switchViewFalse);
+    
+    function switchViewFalse(event) {
+        if(current) {
+            mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
+            mainGrid.style.gridAutoRows= '440px';
+            allElemGrid.forEach(elem =>{
+                elem.style.display = 'inline-block';
+            });
+            ulElems.forEach(elem =>{
+                elem.style.padding = '0rem';
+            });
+            cartElems.forEach(elem =>{
+                elem.style.padding = "0rem";
+            });
+            current = !current;
+            galleryViewElem.style.color = 'rgb(196, 134, 87)';
+            listViewElem.style.color = '#444';
+        }
+    }
+    function switchViewTrue(event) {
         if(!current){
             mainGrid.style.gridTemplateColumns = '1fr';
             mainGrid.style.gridAutoRows= '360px';
@@ -102,22 +127,13 @@
             cartElems.forEach(elem =>{
                 elem.style.padding = "2.5rem 1rem"
             });
+            current = !current;
+            galleryViewElem.style.color = '#444';
+            listViewElem.style.color = 'rgb(196, 134, 87)';
         }
-        else {
-            mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
-            mainGrid.style.gridAutoRows= '440px';
-            allElemGrid.forEach(elem =>{
-                elem.style.display = 'block';
-            });
-            ulElems.forEach(elem =>{
-                elem.style.padding = '0rem';
-            });
-            cartElems.forEach(elem =>{
-                elem.style.padding = "0rem";
-            });
-        }
-        current = !current;
+        
     }
+
     
 </script>
 <%- include('partials/footer') -%>

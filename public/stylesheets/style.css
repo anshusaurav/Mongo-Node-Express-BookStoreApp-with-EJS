@@ -66,7 +66,8 @@ header {
   width: 100%;
   z-index: 500;
   background: white;
-  font-family: "Rubik", sans-serif; }
+  font-family: "Rubik", sans-serif;
+  max-height: 140px; }
 
 .header-content-top {
   background: #90D2C3;
@@ -618,7 +619,8 @@ header {
   min-height: 82vh;
   height: auto;
   margin: 1rem auto;
-  line-height: 1.2; }
+  line-height: 1.2;
+  position: relative; }
   .books-container .search-res-header {
     margin-top: 18px !important;
     margin-bottom: 18px !important;
@@ -630,14 +632,32 @@ header {
     .books-container .search-res-header span {
       font-style: italic; }
   .books-container .s-result-info-bar {
+    font-family: 'Roboto', sans-serif;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     box-shadow: 0 0 10px #ddd;
     -webkit-box-shadow: 0 0 10px #ddd;
     -moz-box-shadow: 0 0 10px #ddd;
     margin-bottom: 14px !important;
-    min-height: 24px;
-    width: 100%; }
+    min-height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem; }
+    .books-container .s-result-info-bar .count-info-bar {
+      font-size: 12px;
+      line-height: 1.5; }
+    .books-container .s-result-info-bar .switch-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 0.5rem; }
+      .books-container .s-result-info-bar .switch-options .list-view, .books-container .s-result-info-bar .switch-options .gal-view {
+        font-size: 24px;
+        color: #444;
+        cursor: pointer; }
+      .books-container .s-result-info-bar .switch-options .gal-view {
+        color: #c48657; }
   .books-container .books-main-grid {
     margin-top: 3rem;
     display: grid;
@@ -996,7 +1016,8 @@ header {
   .cart-container .cart-total-price-div {
     position: absolute;
     right: 1rem;
-    padding-left: 2rem; }
+    padding-left: 2rem;
+    widows: 240px; }
     @media (max-width: 600px) {
       .cart-container .cart-total-price-div {
         width: 100%; } }
@@ -1303,9 +1324,15 @@ header {
 .flashes {
   z-index: 100;
   background-color: white;
+  position: absolute;
+  top: 0rem;
+  left: 30vw;
+  text-align: center;
+  opacity: 0.75;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  transition: all 0.25s ease-in-out; }
 
 .purchases-container {
   max-width: 1300px;

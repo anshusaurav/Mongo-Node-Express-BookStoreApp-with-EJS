@@ -7,7 +7,7 @@ var auth = require('../middlewares/auth');
 
 router.get('/', async(req, res, next) =>{
     try{
-        var books = await Book.find().populate('categories');
+        var books = await Book.find().populate('categories').sort({createdAt: -1});
         books.forEach(book =>{
             var sum = 0;
             var cnt = 0;
