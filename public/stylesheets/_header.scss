@@ -2,7 +2,7 @@
     box-sizing: border-box;
   }
   
-  $blue: #9147FF;
+  $blue: #90D2C3;
   $font: 'Rubik', sans-serif;
   $color-text: #555;
   $shadow: 2px 9px 49px -17px rgba(0,0,0,0.3);
@@ -77,7 +77,7 @@
     width: 100%;
   // logo
     .logo {
-      color: #545bc4;
+      color: #251E3E;
       font-size: 40px;
       line-height: 20px;         
       padding-right: 15px;
@@ -237,6 +237,8 @@
               &:hover {
                 background: #545bc4;
                 a {
+                  display: inline-block;
+                  width:100%;
                   color: #fff;
                 }
               }

@@ -33,9 +33,7 @@
                             Qty: <%= elem.quantity %>
                         </p>
                         <div>
-                            <a class='cart-main-book-anchor' href='/books/<%= elem.item.slug %>/remove'>
-                                Remove from cart  
-                            </a>
+                            
                         </div>
                         
                     </div>
@@ -44,7 +42,9 @@
                             <i class="fas fa-rupee-sign"></i>
                             <p class='books-book-price'><%= elem.quantity*elem.item.price %></p>
                         </div>
-                        
+                        <a class='cart-main-book-anchor' href='/books/<%= elem.item.slug %>/remove'>
+                            Remove from cart  
+                        </a>
                     </div>
                 </div>
             <%}); %>

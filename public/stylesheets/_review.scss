@@ -4,6 +4,8 @@
     height: auto;
     margin: 0 auto;
     position: relative;
+    padding-left: 1rem;
+    padding-right: 1rem;
     // border: 1px solid blueviolet;
     font-family: 'Roboto', sans-serif;
     .review-header-container{
@@ -23,6 +25,9 @@
             padding: 1rem 0;
             display: grid;
             grid-template-columns: 1fr 4fr;
+            @media(max-width: 600px){
+                grid-template-columns: 1fr;
+              }
             .review-single-img-div{
                 overflow: hidden;
             }
@@ -300,4 +305,8 @@
         left: 4.25rem;
         top: 280px
     }
+}
+
+.nothing-to-show-header{
+    margin-left: 2rem;
 }

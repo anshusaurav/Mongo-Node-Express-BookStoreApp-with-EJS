@@ -5,6 +5,8 @@
     margin: 0 auto;
     position: relative;
     margin-bottom:2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     // border: 1px solid blueviolet;
     font-family: 'Roboto', sans-serif;
     .cart-container-header-grid{
@@ -35,6 +37,9 @@
             padding: 1rem 0;
             display: grid;
             grid-template-columns: 1fr 3fr 1fr;
+            @media(max-width: 600px){
+                grid-template-columns: 1fr;
+              }
             .cart-single-img-div{
                 
                 overflow: hidden;
@@ -54,6 +59,7 @@
                 justify-content: center;
                 font-family: 'Roboto', sans-serif;
                 margin-right: 0.5rem;
+                
                 .book-price-div{
                     width: 100%;
                     display: grid;
@@ -61,6 +67,10 @@
                     margin-bottom: 3rem;
                     justify-content: center;
                     align-content: start;
+                    @media(max-width: 600px){
+                        justify-content: start;
+                        align-content: start;
+                      }
                     i{
                         justify-self: center;
                         font-size: 16px;
@@ -117,6 +127,7 @@
     .cart-total-price-div{
         position: absolute;
         right: 1rem;
+        padding-left: 2rem;
         @media(max-width: 600px){
             width: 100%;
           }
