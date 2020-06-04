@@ -113,10 +113,10 @@
               <div class="category-second-list">
                 <ul class="category-second-list-ul">
                   <% singCategory.books.forEach(singCatBook =>{ %>
-                  <li class="category-second-item"><a href="/books/<%= singCatBook.slug %>"><%= singCatBook.title %></a></li>
+                  <li class="category-second-item" data-image='<%=singCatBook.thumbnailURL%>'><a href="/books/<%= singCatBook.slug %>"><%= singCatBook.title %></a></li>
                   <% }) %>
                 </ul>
-  
+                
               </div>
             </li>
             <%})%>
@@ -145,7 +145,24 @@
           elem.style.color= '#fff';
         }
       });
+      // var imgDecElem = document.querySelector('.img-product-menu');
+      // document.addEventListener('mouseover', showBookImage);
+      // function showBookImage(event){
+      //   let elem = event.target.closest('.category-second-item');
+      //   console.log(elem);
+        
+      //   if(!elem)
+      //     return;
+      //   if(!elem.classList.contains('category-second-item'))
+      //     return;
+      //   console.log(elem);
+      //   console.log(elem.dataset.image);
+      //   imgDecElem.src = elem.dataset.image;
+      // }
+      //img-product-menu
+      //category-second-item
 
+      //<div class="img-product-menu"><img src="https://i.ibb.co/Vvndkmy/banner.jpg"></div>	
     </script>
   </header>
   

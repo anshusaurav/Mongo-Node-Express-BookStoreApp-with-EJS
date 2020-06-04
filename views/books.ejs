@@ -24,12 +24,13 @@
                 <option name="" id="">Avg. Customer Rating</option>
                 <option name="" id="" selected>Date Added</option>
                 <option name="" id="">Price(Low-High)</option>
+                <option name="" id="">Price(High-Low)</option>
             </select>
             <div class='switch-view-two-div'>   
                 <form class='switch-radio-div'>
                     <input type='radio' name='view-books' id='list-radio-id' value='list'>
                     <label for='list-radio-id'><i class="fas fa-align-justify"></i></label>
-                    <input type='radio' name='view-books' id='gallery-radio-id' value='gallery' checked>
+                    <input type='radio' name='view-books' id='gallery-radio-id' value='gallery' selected>
                     <label for='gallery-radio-id'><i class="fas fa-border-all"></i></label>
                     
                 </form>
@@ -109,21 +110,22 @@
     //Switch View Gallery View, List View
 
     var current = false;
+    var currBooks;  
     var currentView = 'gallery';
     var mainGrid = document.querySelector('.books-main-grid');
     var allElemGrid = Array.from(document.querySelectorAll('.books-main-grid-elem'));
     var ulElems = Array.from(document.querySelectorAll('.ul-books-grid'));
     var cartElems = Array.from(document.querySelectorAll('.books-main-elem-misc'));
     var bookExtElems = Array.from(document.querySelectorAll('.books-book-extend'));
-    
+
     class UserView {
         constructor(sortSel, viewSel) { 
             this.sortSel = sortSel; 
             this.viewSel = viewSel;
-        }
-
+        } 
         
     }
+    
     function switchView() {
         if(currentView === 'gallery') {
             currentView = 'list';
@@ -134,31 +136,32 @@
         if(currentView ==='list') {
             mainGrid.style.gridTemplateColumns = '1fr';
             mainGrid.style.gridAutoRows= 'auto';
-            allElemGrid.forEach(elem =>{
-                elem.style.display = 'grid';
-                elem.style.gridTemplateColumns = '0.75fr 3fr 1fr';
-            });
-            ulElems.forEach(elem =>{
-                elem.style.padding = '1.5rem 1rem';
-            });
-            cartElems.forEach(elem =>{
-                elem.style.padding = "2.5rem 1rem"
-            });
+            // allElemGrid.forEach(elem =>{
+            //     elem.style.display = 'grid';
+            //     elem.style.gridTemplateColumns = '0.75fr 3fr 1fr';
+            // });
+            // ulElems.forEach(elem =>{
+            //     elem.style.padding = '1.5rem 1rem';
+            // });
+            // cartElems.forEach(elem =>{
+            //     elem.style.padding = "2.5rem 1rem"
+            // });
+            repaint(currBooks)
             
         }
         else{
             mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
             mainGrid.style.gridAutoRows= '440px';
-            allElemGrid.forEach(elem =>{
-                elem.style.display = 'inline-block';
-            });
-            ulElems.forEach(elem =>{
-                elem.style.padding = '0rem';
-            });
-            cartElems.forEach(elem =>{
-                elem.style.padding = "0rem";
-            });
-            
+            // allElemGrid.forEach(elem =>{
+            //     elem.style.display = 'inline-block';
+            // });
+            // ulElems.forEach(elem =>{
+            //     elem.style.padding = '0rem';
+            // });
+            // cartElems.forEach(elem =>{
+            //     elem.style.padding = "0rem";
+            // });
+            repaint(currBooks)
             
         }
         
@@ -198,18 +201,31 @@
             book.dt = dt;
         }
     });
-    function repaint(bookTempArr) {
+    currBooks = bookArr;
+    function repaint() {
         var newHTML = '';
         if(currentView ==='gallery') {
-            bookTempArr.forEach(book =>{
-                newHTML+= `<div class='books-main-grid-elem' style="display: inline-block;">
+            currBooks.forEach(book =>{
+                newHTML+= `
+                <style>
+                    .books-main-grid-elem {
+                        display: inline-block;
+                    }
+                    .ul-books-grid{
+                        padding: 0rem;
+                    }
+                    .books-main-elem-misc{
+                        padding: 0rem;
+                    }
+                </style>
+                <div class='books-main-grid-elem'>
                     <div class='books-main-grid-elem-div'>
                         <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
                             <img class='books-main-single-image' src='${book.thumbnailURL}'>
                         </a> 
                     </div>  
 
-                    <ul class='ul-books-grid' style="padding: 0rem;">
+                    <ul class='ul-books-grid'>
                         <li>
                             <a class='books-book-name' href='/books/${book.slug}'><h2> 
                                 ${book.title}
@@ -244,7 +260,7 @@
                         newHTML+=`</li>
                         </ul>
                         
-                        <div class='books-main-elem-misc' style="padding: 0rem;">
+                        <div class='books-main-elem-misc'>
                             <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
                                 <input type="number" placeholder="1" value="1" name="quantity">
                                 <button type="submit"><i class="fas fa-cart-plus"></i></button>
@@ -255,10 +271,25 @@
                         </div>
                     </div>`;
             });
+            
         }
         else{
-            bookTempArr.forEach(book =>{
-                newHTML+= `<div class='books-main-grid-elem' style="display: grid; grid-template-columns: 0.75fr 3fr 1fr;">
+            currBooks.forEach(book =>{
+                newHTML+= `
+                <style>
+                    .books-main-grid-elem {
+                        display: grid;
+                        grid-template-columns: 0.75fr 3fr 1fr;
+                    }
+                    .ul-books-grid{
+                        padding: 1.5rem 1rem;
+                    }
+                    .books-main-elem-misc{
+                        padding: 2.5rem 1rem;
+                    }
+                </style>
+                
+                <div class='books-main-grid-elem'>
                     <div class='books-main-grid-elem-div'>
                         <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
                             <img class='books-main-single-image' src='${book.thumbnailURL}'>
@@ -300,7 +331,7 @@
                         newHTML+=`</li>
                         </ul>
                         
-                        <div class='books-main-elem-misc' style="padding: 2.5rem 1rem;">
+                        <div class='books-main-elem-misc'>
                             <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
                                 <input type="number" placeholder="1" value="1" name="quantity">
                                 <button type="submit"><i class="fas fa-cart-plus"></i></button>
@@ -325,7 +356,8 @@
         case 'Avg. Customer Rating':
             var sortByRatingArr = bookArr;
             sortByRatingArr.sort((a,b) => b.averageRating - a.averageRating);
-            repaint(sortByRatingArr);
+            currBooks = sortByRatingArr;
+            repaint();
             break;
         case 'Name(A-Z)':
             var sortByNameArr = bookArr;
@@ -335,12 +367,20 @@
         case 'Date Added':
             var sortByDateArr = bookArr;
             sortByDateArr.sort((a,b) => a.dt - b.dt);
-            repaint(sortByDateArr);
+            currBooks = sortByDateArr;
+            repaint();
             break;
         case 'Price(Low-High)':
             var sortByPriceArr = bookArr;
             sortByPriceArr.sort((a,b) => a.price - b.price);
-            repaint(sortByPriceArr);
+            currBooks = sortByPriceArr;
+            repaint();
+            break;
+        case 'Price(High-Low)':
+            var sortByPriceArr = bookArr;
+            sortByPriceArr.sort((a,b) => b.price - a.price);
+            currBooks = sortByPriceArr;
+            repaint();
             break;
         default:
             console.log(`Sorry, we are out of options.`);
