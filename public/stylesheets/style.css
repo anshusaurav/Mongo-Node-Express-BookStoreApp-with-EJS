@@ -733,6 +733,7 @@ header {
     .books-container .books-main-grid .books-main-grid-elem-img {
       width: 100%;
       overflow: hidden;
+      display: inline-block;
       box-sizing: border-box;
       align-self: center; }
       .books-container .books-main-grid .books-main-grid-elem-img .books-main-single-image {
@@ -801,7 +802,9 @@ header {
 
 .books-main-grid-elem-div {
   height: 280px;
-  margin: 0.5rem; }
+  margin: 0.5rem;
+  overflow: hidden;
+  border: 0.5px solid #999; }
 
 .book-single-container {
   max-width: 1300px;

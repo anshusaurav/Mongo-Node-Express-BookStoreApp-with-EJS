@@ -30,7 +30,7 @@
                 <form class='switch-radio-div'>
                     <input type='radio' name='view-books' id='list-radio-id' value='list'>
                     <label for='list-radio-id'><i class="fas fa-align-justify"></i></label>
-                    <input type='radio' name='view-books' id='gallery-radio-id' value='gallery' selected>
+                    <input type='radio' name='view-books' id='gallery-radio-id' value='gallery' checked>
                     <label for='gallery-radio-id'><i class="fas fa-border-all"></i></label>
                     
                 </form>
@@ -117,15 +117,7 @@
     var ulElems = Array.from(document.querySelectorAll('.ul-books-grid'));
     var cartElems = Array.from(document.querySelectorAll('.books-main-elem-misc'));
     var bookExtElems = Array.from(document.querySelectorAll('.books-book-extend'));
-
-    class UserView {
-        constructor(sortSel, viewSel) { 
-            this.sortSel = sortSel; 
-            this.viewSel = viewSel;
-        } 
-        
-    }
-    
+    var imgContElems = Array.from(document.querySelectorAll('.books-main-grid-elem-div'));
     function switchView() {
         if(currentView === 'gallery') {
             currentView = 'list';
@@ -136,33 +128,12 @@
         if(currentView ==='list') {
             mainGrid.style.gridTemplateColumns = '1fr';
             mainGrid.style.gridAutoRows= 'auto';
-            // allElemGrid.forEach(elem =>{
-            //     elem.style.display = 'grid';
-            //     elem.style.gridTemplateColumns = '0.75fr 3fr 1fr';
-            // });
-            // ulElems.forEach(elem =>{
-            //     elem.style.padding = '1.5rem 1rem';
-            // });
-            // cartElems.forEach(elem =>{
-            //     elem.style.padding = "2.5rem 1rem"
-            // });
             repaint(currBooks)
-            
         }
         else{
             mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
             mainGrid.style.gridAutoRows= '440px';
-            // allElemGrid.forEach(elem =>{
-            //     elem.style.display = 'inline-block';
-            // });
-            // ulElems.forEach(elem =>{
-            //     elem.style.padding = '0rem';
-            // });
-            // cartElems.forEach(elem =>{
-            //     elem.style.padding = "0rem";
-            // });
             repaint(currBooks)
-            
         }
         
     }
@@ -170,7 +141,6 @@
     //Sort Implementation
     //Getting values
     var bookList = "<%= JSON.stringify(books)%>";
-    // console.log(bookList);
     function htmlDecode(s) {
         var el = document.createElement("div");
         el.innerHTML = s;
@@ -216,6 +186,9 @@
                     }
                     .books-main-elem-misc{
                         padding: 0rem;
+                    }
+                    .books-main-grid-elem-div{
+                        overflow: hidden;
                     }
                 </style>
                 <div class='books-main-grid-elem'>
@@ -286,6 +259,9 @@
                     }
                     .books-main-elem-misc{
                         padding: 2.5rem 1rem;
+                    }
+                    .books-main-grid-elem-div{
+                        overflow: inherit;
                     }
                 </style>
                 
