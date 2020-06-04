@@ -57,6 +57,16 @@
                             <%= book.author %>
                         </h2>
                     </li>
+                    <li>
+                        <h3 class='books-book-extend'> 
+                            <strong>Publisher</strong> <%= book.publisher %>
+                        </h3>
+                    </li>
+                    <li>
+                        <h3 class='books-book-extend'> 
+                            <strong>Description</strong> <%= book.description %>
+                        </h3>
+                    </li>
                     <li> 
                         <div class='book-price-div'>
                             <i class="fas fa-rupee-sign"></i>
@@ -104,9 +114,16 @@
     var allElemGrid = Array.from(document.querySelectorAll('.books-main-grid-elem'));
     var ulElems = Array.from(document.querySelectorAll('.ul-books-grid'));
     var cartElems = Array.from(document.querySelectorAll('.books-main-elem-misc'));
-    // var bookExtElems = Array.from(document.querySelectorAll('.books-book-extend'));
+    var bookExtElems = Array.from(document.querySelectorAll('.books-book-extend'));
     
+    class UserView {
+        constructor(sortSel, viewSel) { 
+            this.sortSel = sortSel; 
+            this.viewSel = viewSel;
+        }
 
+        
+    }
     function switchView() {
         if(currentView === 'gallery') {
             currentView = 'list';
@@ -127,7 +144,7 @@
             cartElems.forEach(elem =>{
                 elem.style.padding = "2.5rem 1rem"
             });
-           
+            
         }
         else{
             mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
@@ -141,7 +158,8 @@
             cartElems.forEach(elem =>{
                 elem.style.padding = "0rem";
             });
-           
+            
+            
         }
         
     }
@@ -184,15 +202,14 @@
         var newHTML = '';
         if(currentView ==='gallery') {
             bookTempArr.forEach(book =>{
-                
-                newHTML+= `<div class='books-main-grid-elem'>
+                newHTML+= `<div class='books-main-grid-elem' style="display: inline-block;">
                     <div class='books-main-grid-elem-div'>
                         <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
                             <img class='books-main-single-image' src='${book.thumbnailURL}'>
                         </a> 
                     </div>  
 
-                    <ul class='ul-books-grid'>
+                    <ul class='ul-books-grid' style="padding: 0rem;">
                         <li>
                             <a class='books-book-name' href='/books/${book.slug}'><h2> 
                                 ${book.title}
@@ -227,7 +244,7 @@
                         newHTML+=`</li>
                         </ul>
                         
-                        <div class='books-main-elem-misc'>
+                        <div class='books-main-elem-misc' style="padding: 0rem;">
                             <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
                                 <input type="number" placeholder="1" value="1" name="quantity">
                                 <button type="submit"><i class="fas fa-cart-plus"></i></button>
@@ -239,11 +256,10 @@
                     </div>`;
             });
         }
-        else {
+        else{
             bookTempArr.forEach(book =>{
-                
-                newHTML+= `<div class='books-main-grid-elem' style="grid-template-columns: 1fr; grid-auto-rows: auto;">
-                    <div class='books-main-grid-elem-div' style="display: grid; grid-template-columns: 0.75fr 3fr 1fr;">
+                newHTML+= `<div class='books-main-grid-elem' style="display: grid; grid-template-columns: 0.75fr 3fr 1fr;">
+                    <div class='books-main-grid-elem-div'>
                         <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
                             <img class='books-main-single-image' src='${book.thumbnailURL}'>
                         </a> 
@@ -329,7 +345,8 @@
         default:
             console.log(`Sorry, we are out of options.`);
         }   
-        
+        console.log('Sort: ' + currentView);
+        // switchViewEventHandler();
     }
     let switchRadio = document.querySelector('.switch-radio-div');
     console.dir(switchRadio);

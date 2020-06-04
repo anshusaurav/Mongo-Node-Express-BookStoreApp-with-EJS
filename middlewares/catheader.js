@@ -6,7 +6,7 @@ exports.fetchAllCategories = async(req, res, next) =>{
         next();
     }
     catch(error) {
-        return next('invalid userId in schema');
+        return next('invalid Category in schema');
 
     }
 }
