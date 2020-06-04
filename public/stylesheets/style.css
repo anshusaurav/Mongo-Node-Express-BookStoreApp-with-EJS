@@ -631,6 +631,21 @@ header {
     padding-bottom: 4px; }
     .books-container .search-res-header span {
       font-style: italic; }
+  .books-container .switch-radio-div {
+    display: flex;
+    justify-content: space-around; }
+    .books-container .switch-radio-div input[type="radio"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -o-appearance: none;
+      appearance: none; }
+    .books-container .switch-radio-div input[type='radio'] + label {
+      font-size: 24px;
+      color: #444;
+      cursor: pointer; }
+    .books-container .switch-radio-div input[type='radio']:checked + label {
+      color: #c48657; }
   .books-container .s-result-info-bar {
     font-family: 'Roboto', sans-serif;
     border-top: 1px solid #ccc;
@@ -645,6 +660,10 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 1rem; }
+    .books-container .s-result-info-bar .sort-filter-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-gap: 2rem; }
     .books-container .s-result-info-bar .count-info-bar {
       font-size: 12px;
       line-height: 1.5;
@@ -659,59 +678,6 @@ header {
         cursor: pointer; }
       .books-container .s-result-info-bar .switch-options .gal-view {
         color: #c48657; }
-    .books-container .s-result-info-bar .wrapper-sort {
-      margin: 30px auto;
-      max-width: 600px; }
-    .books-container .s-result-info-bar .dropdownbox-sort {
-      margin: 0 auto;
-      width: 400px;
-      margin-top: 40px;
-      background: #816f7f;
-      color: #feeedf;
-      cursor: pointer; }
-    .books-container .s-result-info-bar .dropdownbox-sort > p {
-      padding: 5px 10px;
-      font-size: 1.25em;
-      line-height: 1.4em;
-      user-select: none;
-      -moz-user-select: none;
-      /* Safari */
-      -khtml-user-select: none; }
-    .books-container .s-result-info-bar ul.menu-sort {
-      position: relative;
-      margin: 0 auto;
-      width: 400px;
-      overflow: hidden;
-      height: 0;
-      margin-top: 10px;
-      -webkit-transition: all 0.3s ease-in;
-      -moz-transition: all 0.3s ease-in;
-      -o-transition: all 0.3s ease-in;
-      transition: all 0.3s ease-in;
-      /*-moz-transform:scale(0); */
-      background: #816f7f;
-      color: #feeedf;
-      cursor: pointer;
-      user-select: none;
-      -moz-user-select: none;
-      /* Safari */
-      -khtml-user-select: none; }
-    .books-container .s-result-info-bar ul.menu-sort li {
-      padding: 2px 10px;
-      font-size: 1.25em;
-      line-height: 1.4em;
-      -webkit-transition: all 0.3s ease-in;
-      -moz-transition: all 0.3s ease-in;
-      -o-transition: all 0.3s ease-in;
-      transition: all 0.3s ease-in;
-      border-bottom: 1px dotted #feeedf; }
-    .books-container .s-result-info-bar ul.menu-sort li:hover {
-      padding-left: 20px;
-      color: #816f7f;
-      background: #feeedf; }
-    .books-container .s-result-info-bar .menu-sort.showMenu {
-      /*-moz-transform:scale(1);*/
-      height: 165px; }
   .books-container .books-main-grid {
     margin-top: 3rem;
     display: grid;
@@ -724,8 +690,8 @@ header {
       display: inline-block;
       position: relative;
       word-break: normal;
-      font-size: 16px !important;
-      font-weight: 400;
+      font-size: 16px;
+      font-weight: 500;
       color: #111111;
       width: 100%; }
     .books-container .books-main-grid .books-book-author {
@@ -733,10 +699,21 @@ header {
       display: inline-block;
       position: relative;
       word-break: normal;
-      font-size: 14px !important;
-      font-weight: 300;
+      font-size: 15px;
+      font-weight: 400;
       color: #272727;
       width: 100%; }
+    .books-container .books-main-grid .books-book-extend {
+      overflow: hidden;
+      position: relative;
+      word-break: normal;
+      font-size: 14px;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+      font-weight: 400;
+      color: #272727;
+      width: 100%;
+      display: none; }
     .books-container .books-main-grid .book-price-div {
       display: grid;
       grid-template-columns: 14px auto;
@@ -1378,9 +1355,6 @@ header {
 .flashes {
   z-index: 100;
   background-color: white;
-  position: absolute;
-  top: 0rem;
-  left: 30vw;
   text-align: center;
   opacity: 0.75;
   display: flex;

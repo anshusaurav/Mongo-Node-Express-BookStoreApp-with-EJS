@@ -15,18 +15,24 @@
         
     </div>
     
+    
     <div class="s-result-info-bar">
         <p class='count-info-bar'>Showing <%= books.length %> books</p>
-        <select class='sort-select'>
-            <option name="" id="">Name(A-Z)</option>
-            <option name="" id="">Avg. Customer Rating</option>
-            <option name="" id="" selected>Date Added</option>
-            <option name="" id="">Price(Low-High)</option>
-        </select>
-        <div class='switch-view-two-div'>
-            <div class='switch-options'>
-                <i class="list-view fas fa-align-justify"></i>
-                <i class="gal-view fas fa-border-all"></i>
+        <div class='sort-filter-container'>
+            <select class='sort-select'>
+                <option name="" id="">Name(A-Z)</option>
+                <option name="" id="">Avg. Customer Rating</option>
+                <option name="" id="" selected>Date Added</option>
+                <option name="" id="">Price(Low-High)</option>
+            </select>
+            <div class='switch-view-two-div'>   
+                <form class='switch-radio-div'>
+                    <input type='radio' name='view-books' id='list-radio-id' value='list'>
+                    <label for='list-radio-id'><i class="fas fa-align-justify"></i></label>
+                    <input type='radio' name='view-books' id='gallery-radio-id' value='gallery' checked>
+                    <label for='gallery-radio-id'><i class="fas fa-border-all"></i></label>
+                    
+                </form>
             </div>
         </div>
     </div>
@@ -93,35 +99,22 @@
     //Switch View Gallery View, List View
 
     var current = false;
+    var currentView = 'gallery';
     var mainGrid = document.querySelector('.books-main-grid');
     var allElemGrid = Array.from(document.querySelectorAll('.books-main-grid-elem'));
     var ulElems = Array.from(document.querySelectorAll('.ul-books-grid'));
     var cartElems = Array.from(document.querySelectorAll('.books-main-elem-misc'));
-    listViewElem = document.querySelector('.list-view');
-    galleryViewElem = document.querySelector('.gal-view');
-    listViewElem.addEventListener('click', switchViewTrue);
-    galleryViewElem.addEventListener('click', switchViewFalse);
+    // var bookExtElems = Array.from(document.querySelectorAll('.books-book-extend'));
     
-    function switchViewFalse(event) {
-        if(current) {
-            mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
-            mainGrid.style.gridAutoRows= '440px';
-            allElemGrid.forEach(elem =>{
-                elem.style.display = 'inline-block';
-            });
-            ulElems.forEach(elem =>{
-                elem.style.padding = '0rem';
-            });
-            cartElems.forEach(elem =>{
-                elem.style.padding = "0rem";
-            });
-            current = !current;
-            galleryViewElem.style.color = 'rgb(196, 134, 87)';
-            listViewElem.style.color = '#444';
+
+    function switchView() {
+        if(currentView === 'gallery') {
+            currentView = 'list';
         }
-    }
-    function switchViewTrue(event) {
-        if(!current){
+        else {
+            currentView = 'gallery';
+        }
+        if(currentView ==='list') {
             mainGrid.style.gridTemplateColumns = '1fr';
             mainGrid.style.gridAutoRows= 'auto';
             allElemGrid.forEach(elem =>{
@@ -134,15 +127,29 @@
             cartElems.forEach(elem =>{
                 elem.style.padding = "2.5rem 1rem"
             });
-            current = !current;
-            galleryViewElem.style.color = '#444';
-            listViewElem.style.color = 'rgb(196, 134, 87)';
+           
+        }
+        else{
+            mainGrid.style.gridTemplateColumns = 'repeat(auto-fit, 240px)';
+            mainGrid.style.gridAutoRows= '440px';
+            allElemGrid.forEach(elem =>{
+                elem.style.display = 'inline-block';
+            });
+            ulElems.forEach(elem =>{
+                elem.style.padding = '0rem';
+            });
+            cartElems.forEach(elem =>{
+                elem.style.padding = "0rem";
+            });
+           
         }
         
     }
+   
     //Sort Implementation
     //Getting values
     var bookList = "<%= JSON.stringify(books)%>";
+    // console.log(bookList);
     function htmlDecode(s) {
         var el = document.createElement("div");
         el.innerHTML = s;
@@ -172,76 +179,131 @@
             book.averageRating = 0;
             book.dt = dt;
         }
-        
-
-        
     });
-
     function repaint(bookTempArr) {
         var newHTML = '';
-        bookTempArr.forEach(book =>{
-            
-            newHTML+= `<div class='books-main-grid-elem'>
-                <div class='books-main-grid-elem-div'>
-                    <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
-                        <img class='books-main-single-image' src='${book.thumbnailURL}'>
-                    </a> 
-                </div>  
+        if(currentView ==='gallery') {
+            bookTempArr.forEach(book =>{
+                
+                newHTML+= `<div class='books-main-grid-elem'>
+                    <div class='books-main-grid-elem-div'>
+                        <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
+                            <img class='books-main-single-image' src='${book.thumbnailURL}'>
+                        </a> 
+                    </div>  
 
-                <ul class='ul-books-grid'>
-                    <li>
-                        <a class='books-book-name' href='/books/${book.slug}'><h2> 
-                            ${book.title}
-                        </h2></a>
-                    </li>   
-                    <li>
-                        <h2 class='books-book-author'> 
-                            ${book.author}
-                        </h2>
-                    </li>
-                    <li> 
-                        <div class='book-price-div'>
-                            <i class="fas fa-rupee-sign"></i>
-                            <p class='books-book-price'>${book.price}</p>
-                        </div>
-                    </li>
-                    <li>`;
-                    if(book.isRated) { 
-                        newHTML+=`<div class="rate-grid">`
-                                for(var i = 0; i < book.averageRating; i++) {
-                                    newHTML+= `<i class="fas fa-star star-filled"></i>`;
-                                }
-                                for(var i = 0; i < 5-book.averageRating; i++) {
-                                    newHTML+=`<i class="fas fa-star star-unfilled"></i>`;
-                                } 
-                                newHTML += `<a href='/books/${book.slug}#Reviews'class='rategrid-count-num'>(${book.ratings.length})</a>
-                            </div>`
-                            }else{
-                                newHTML += `<div class="rate-grid">
+                    <ul class='ul-books-grid'>
+                        <li>
+                            <a class='books-book-name' href='/books/${book.slug}'><h2> 
+                                ${book.title}
+                            </h2></a>
+                        </li>   
+                        <li>
+                            <h2 class='books-book-author'> 
+                                ${book.author}
+                            </h2>
+                        </li>
+                        <li> 
+                            <div class='book-price-div'>
+                                <i class="fas fa-rupee-sign"></i>
+                                <p class='books-book-price'>${book.price}</p>
+                            </div>
+                        </li>
+                        <li>`;
+                        if(book.isRated) { 
+                            newHTML+=`<div class="rate-grid">`
+                                    for(var i = 0; i < book.averageRating; i++) {
+                                        newHTML+= `<i class="fas fa-star star-filled"></i>`;
+                                    }
+                                    for(var i = 0; i < 5-book.averageRating; i++) {
+                                        newHTML+=`<i class="fas fa-star star-unfilled"></i>`;
+                                    } 
+                                    newHTML += `<a href='/books/${book.slug}#Reviews'class='rategrid-count-num'>(${book.ratings.length})</a>
                                 </div>`
-                        } 
-                    newHTML+=`</li>
-                    </ul>
-                    
-                    <div class='books-main-elem-misc'>
-                        <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
-                            <input type="number" placeholder="1" value="1" name="quantity">
-                            <button type="submit"><i class="fas fa-cart-plus"></i></button>
-                        </form>
-                        <a class='books-main-gatipay-elem' href='/books/${book.slug}/wish'>
-                            <i class="fab fa-gratipay"></i>
-                        </a>
-                    </div>
-                </div>`;
-        });
+                                }else{
+                                    newHTML += `<div class="rate-grid">
+                                    </div>`
+                            } 
+                        newHTML+=`</li>
+                        </ul>
+                        
+                        <div class='books-main-elem-misc'>
+                            <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
+                                <input type="number" placeholder="1" value="1" name="quantity">
+                                <button type="submit"><i class="fas fa-cart-plus"></i></button>
+                            </form>
+                            <a class='books-main-gatipay-elem' href='/books/${book.slug}/wish'>
+                                <i class="fab fa-gratipay"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            });
+        }
+        else {
+            bookTempArr.forEach(book =>{
+                
+                newHTML+= `<div class='books-main-grid-elem' style="grid-template-columns: 1fr; grid-auto-rows: auto;">
+                    <div class='books-main-grid-elem-div' style="display: grid; grid-template-columns: 0.75fr 3fr 1fr;">
+                        <a class='books-main-grid-elem-img' href='/books/${book.slug}'>
+                            <img class='books-main-single-image' src='${book.thumbnailURL}'>
+                        </a> 
+                    </div>  
+
+                    <ul class='ul-books-grid' style="padding: 1.5rem 1rem;">
+                        <li>
+                            <a class='books-book-name' href='/books/${book.slug}'><h2> 
+                                ${book.title}
+                            </h2></a>
+                        </li>   
+                        <li>
+                            <h2 class='books-book-author'> 
+                                ${book.author}
+                            </h2>
+                        </li>
+                        <li> 
+                            <div class='book-price-div'>
+                                <i class="fas fa-rupee-sign"></i>
+                                <p class='books-book-price'>${book.price}</p>
+                            </div>
+                        </li>
+                        <li>`;
+                        if(book.isRated) { 
+                            newHTML+=`<div class="rate-grid">`
+                                    for(var i = 0; i < book.averageRating; i++) {
+                                        newHTML+= `<i class="fas fa-star star-filled"></i>`;
+                                    }
+                                    for(var i = 0; i < 5-book.averageRating; i++) {
+                                        newHTML+=`<i class="fas fa-star star-unfilled"></i>`;
+                                    } 
+                                    newHTML += `<a href='/books/${book.slug}#Reviews'class='rategrid-count-num'>(${book.ratings.length})</a>
+                                </div>`
+                                }else{
+                                    newHTML += `<div class="rate-grid">
+                                    </div>`
+                            } 
+                        newHTML+=`</li>
+                        </ul>
+                        
+                        <div class='books-main-elem-misc' style="padding: 2.5rem 1rem;">
+                            <form class='add-to-cart' method="POST" action="/books/${book.slug}/add">
+                                <input type="number" placeholder="1" value="1" name="quantity">
+                                <button type="submit"><i class="fas fa-cart-plus"></i></button>
+                            </form>
+                            <a class='books-main-gatipay-elem' href='/books/${book.slug}/wish'>
+                                <i class="fab fa-gratipay"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            });
+        }
         mainGrid.innerHTML = newHTML;
+        
     }
 
 
     var sortSelectElem = document.querySelector('.sort-select');
-    // console.dir(sortSelectElem);
-    sortSelectElem.addEventListener('change', select);
-    function select(event){
+    sortSelectElem.addEventListener('change', selectSort);
+    function selectSort(event){
         var sortCriteria = (event.target.value);
         switch (sortCriteria) {
         case 'Avg. Customer Rating':
@@ -258,7 +320,6 @@
             var sortByDateArr = bookArr;
             sortByDateArr.sort((a,b) => a.dt - b.dt);
             repaint(sortByDateArr);
-            // expected output: "Mangoes and papayas are $2.79 a pound."
             break;
         case 'Price(Low-High)':
             var sortByPriceArr = bookArr;
@@ -266,10 +327,24 @@
             repaint(sortByPriceArr);
             break;
         default:
-            console.log(`Sorry, we are out of.`);
-        }
+            console.log(`Sorry, we are out of options.`);
+        }   
+        
     }
-
+    let switchRadio = document.querySelector('.switch-radio-div');
+    console.dir(switchRadio);
+    switchRadio.addEventListener('change', switchViewEventHandler);
+    function switchViewEventHandler(event){
+        var data = new FormData(switchRadio);
+        var output = "";
+        for (const entry of data) {
+            output = entry[1];
+        };
+        console.log(output);
+        if(output !== currentView){
+            switchView();
+        }   
+    }
 
 </script>
 <%- include('partials/footer') -%>

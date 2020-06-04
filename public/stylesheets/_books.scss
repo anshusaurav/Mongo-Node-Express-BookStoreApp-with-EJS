@@ -18,6 +18,27 @@
             font-style: italic;
         }
     }
+    .switch-radio-div{
+        display: flex;
+        justify-content: space-around;
+        // align-items: center;
+        input[type="radio"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                -ms-appearance: none;
+                -o-appearance: none;
+                appearance: none;
+
+        }
+        input[type='radio']+label{
+            font-size: 24px;
+            color: #444;
+            cursor: pointer;
+        }
+        input[type='radio']:checked+label{
+            color: rgb(196, 134, 87);
+        }
+    }
     .s-result-info-bar{
         font-family: 'Roboto', sans-serif;
         border-top: 1px solid #ccc;
@@ -32,6 +53,11 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 1rem;
+        .sort-filter-container{
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-gap: 2rem;
+        }
         // padding: 0.25rem;
         .count-info-bar{
             font-size: 12px;
@@ -66,8 +92,8 @@
             display: inline-block;
             position: relative;
             word-break: normal;
-            font-size: 16px!important;
-            font-weight: 400;
+            font-size: 16px;
+            font-weight: 500;
             color: rgb(17,17,17);
             width: 100%;
             
@@ -77,10 +103,23 @@
             display: inline-block;
             position: relative;
             word-break: normal;
-            font-size: 14px!important;
-            font-weight: 300;
+            font-size: 15px;
+            font-weight: 400;
             color: rgb(39, 39, 39);
             width: 100%;
+        }
+        .books-book-extend {
+            overflow: hidden;
+            // display: inline-block;
+            position: relative;
+            word-break: normal;
+            font-size: 14px;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            font-weight: 400;
+            color: rgb(39, 39, 39);
+            width: 100%;
+            display: none;
         }
         .book-price-div{
             display: grid;

@@ -126,8 +126,10 @@ router.get('/posted', async(req, res, next) =>{
 router.get('/:slug', async(req, res, next) =>{
     var slug = req.params.slug;
     var id = req.session.userId;
+    
     try{
         var book = await Book.findOne({slug});
+        console.log(book.title);
         res.render('addReview', {book}); 
     }
     catch(error){
