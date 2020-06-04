@@ -14,15 +14,15 @@
           <% } %>
         
     </div>
-    <div>
-        <button class='sort-by-name'>Sort By Name(A-Z)</button>
-        <button class='sort-by-rating'>Sort By Avg Customer Rating</button>
-        <button class='sort-by-date'>Sort By Date Added</button>
-        <button class='sort-by-price'>Sort By Price</button>
-    </div>
+    
     <div class="s-result-info-bar">
         <p class='count-info-bar'>Showing <%= books.length %> books</p>
-        
+        <select class='sort-select'>
+            <option name="" id="">Name(A-Z)</option>
+            <option name="" id="">Avg. Customer Rating</option>
+            <option name="" id="" selected>Date Added</option>
+            <option name="" id="">Price(Low-High)</option>
+        </select>
         <div class='switch-view-two-div'>
             <div class='switch-options'>
                 <i class="list-view fas fa-align-justify"></i>
@@ -161,55 +161,21 @@
             sum += elem.rating;
             cnt++;
         })    
+        var dt = new Date(book.createdAt);
+        // console.log(dt);
         if(isRated) {
             book.isRated = true;
             book.averageRating = Math.round(sum/cnt);
+            book.dt = dt;
         } else {
             book.isRated = false;
             book.averageRating = 0;
+            book.dt = dt;
         }
         
+
+        
     });
-    /*
-    class='sortByName'>Sort By Name(A-Z)</button>
-        <button class='sortByRating'>Sort By Avg CustomerRating</button>
-        <button class='sortByDate'>Sort By Date Added</button>
-        <button class='sortByPrice*/
-    var sortByNameBtn = document.querySelector('.sort-by-name');
-    var sortByNameArr = bookArr;
-    
-    sortByNameBtn.addEventListener('click', sortByName);
-    function sortByName(event){
-        sortByNameArr.sort((a,b) => a.title.localeCompare(b.slug));
-        repaint(sortByNameArr);
-    }
-    
-    var sortByRatingBtn = document.querySelector('.sort-by-rating');
-    var sortByRatingArr = bookArr;
-    
-    sortByRatingBtn.addEventListener('click', sortByRating);
-    function sortByRating(event){
-        sortByRatingArr.sort((a,b) => b.averageRating - a.averageRating);
-        repaint(sortByRatingArr);
-    }
-
-    var sortByDateBtn = document.querySelector('.sort-by-date');
-    var sortByDateArr = bookArr;
-    
-    sortByDateBtn.addEventListener('click', sortByDate);
-    function sortByDate(event){
-        sortByDateArr.sort((a,b) => b.createdAt - a.createdAt);
-        repaint(sortByDateArr);
-    }
-
-    var sortByPriceBtn = document.querySelector('.sort-by-price');
-    var sortByPriceArr = bookArr;
-    
-    sortByPriceBtn.addEventListener('click', sortByPrice);
-    function sortByPrice(event){
-        sortByPriceArr.sort((a,b) => a.price - b.price);
-        repaint(sortByPriceArr);
-    }
 
     function repaint(bookTempArr) {
         var newHTML = '';
@@ -272,8 +238,37 @@
     }
 
 
-    
-
+    var sortSelectElem = document.querySelector('.sort-select');
+    // console.dir(sortSelectElem);
+    sortSelectElem.addEventListener('change', select);
+    function select(event){
+        var sortCriteria = (event.target.value);
+        switch (sortCriteria) {
+        case 'Avg. Customer Rating':
+            var sortByRatingArr = bookArr;
+            sortByRatingArr.sort((a,b) => b.averageRating - a.averageRating);
+            repaint(sortByRatingArr);
+            break;
+        case 'Name(A-Z)':
+            var sortByNameArr = bookArr;
+            sortByNameArr.sort((a,b) => a.title.localeCompare(b.title));
+            repaint(sortByNameArr);
+            break;
+        case 'Date Added':
+            var sortByDateArr = bookArr;
+            sortByDateArr.sort((a,b) => a.dt - b.dt);
+            repaint(sortByDateArr);
+            // expected output: "Mangoes and papayas are $2.79 a pound."
+            break;
+        case 'Price(Low-High)':
+            var sortByPriceArr = bookArr;
+            sortByPriceArr.sort((a,b) => a.price - b.price);
+            repaint(sortByPriceArr);
+            break;
+        default:
+            console.log(`Sorry, we are out of.`);
+        }
+    }
 
 
 </script>
