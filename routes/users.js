@@ -37,20 +37,15 @@ router.get("/register", (req, res) => {
   res.render("signup");
 });
 router.post('/register', async(req, res, next) =>{
-  // console.log('HEREEERE');
-  // console.log(req.body);
-  // console.log(process.env.Email);
   let {email} = req.body;
   try{
     var user = await User.findOne({email},'-password');
     if(user){
       req.flash('error', 'Email already registered');
-      // res.locals.message = req.flash();
-      res.redirect('/');
+      res.redirect('/users/register');
     }
     if (!user) {
       var rand = Math.floor((Math.random() * 100) + 54);
-      // var vc = await VerificationCode.create({code: rand, user: user.id});
       req.body.activeToken = rand;
       user = await User.create(req.body);
       var link = `http://localhost:3000/users/${user.id}/activate/${rand}`;
@@ -75,9 +70,7 @@ router.post('/register', async(req, res, next) =>{
         }
         console.log('Message sent: ' + info.response);
       });
-      
-      // console.log(user);
-      req.flash('success', 'Registered successfully. Please Confirm email');
+      req.flash('success', 'Registered successfully. Please check email for verification link');
       return res.redirect('/users/login');
     }
   }

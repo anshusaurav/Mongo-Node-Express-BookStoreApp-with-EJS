@@ -116,7 +116,7 @@
                   <li class="category-second-item" data-image='<%=singCatBook.thumbnailURL%>'><a href="/books/<%= singCatBook.slug %>"><%= singCatBook.title %></a></li>
                   <% }) %>
                 </ul>
-                
+                <div class="img-product-menu"><img class='img-product-img-sub' src="https://i.ibb.co/Vvndkmy/banner.jpg"></div>	
               </div>
             </li>
             <%})%>
@@ -145,20 +145,24 @@
           elem.style.color= '#fff';
         }
       });
-      // var imgDecElem = document.querySelector('.img-product-menu');
-      // document.addEventListener('mouseover', showBookImage);
-      // function showBookImage(event){
-      //   let elem = event.target.closest('.category-second-item');
-      //   console.log(elem);
+      var imgDecElem = document.querySelector('.img-product-img-sub');
+      document.addEventListener('mouseover', showBookImage);
+      function showBookImage(event){
+        let elem = event.target.closest('.category-second-item');
+        // let dom= event.target;
+        // console.log(elem);
         
-      //   if(!elem)
-      //     return;
-      //   if(!elem.classList.contains('category-second-item'))
-      //     return;
-      //   console.log(elem);
-      //   console.log(elem.dataset.image);
-      //   imgDecElem.src = elem.dataset.image;
-      // }
+        if(!elem)
+          return;
+        if(!elem.dataset.image)
+          return;
+        // if(!elem.classList.contains('category-second-item'))
+        //   return;
+        // console.log(elem);
+        // console.log(elem.dataset.image);
+        imgDecElem.setAttribute('src',elem.dataset.image);// = elem.dataset.image;
+        // console.log(imgDecElem.src);
+      }
       //img-product-menu
       //category-second-item
 
