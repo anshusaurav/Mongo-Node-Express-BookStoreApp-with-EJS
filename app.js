@@ -10,10 +10,12 @@ var mongoose = require('mongoose');
 var session = require("express-session");
 var MongoStore = require('connect-mongo')(session);
 var sassMiddleware = require('node-sass-middleware');
+const Razorpay = require('razorpay');
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
-var Category = require('./models/category');
+const credentials = {
+    key_id: "rzp_test_JE3MJ3VRzgt7cF",
+    key_secret: "BwLBt4RpN6bsUNmyuKo35Ndh"
+}
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
@@ -41,7 +43,7 @@ mongoose.connect('mongodb://localhost/pustaka-db',
 })
 
 var app = express();
-
+const rzr = new Razorpay(credentials); //initialization
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -100,6 +102,22 @@ app.use('/category', categoryRouter);
 app.use('/search', searchRouter);
 const auth = require('./middlewares/auth');
 
+//route for generating order_id
+app.post('/order', async (req, res, next) => {
+
+  const order = await rzr.orders.create({
+      amount: req.body.amount * 100,
+      currency: "INR"
+  });
+
+  res.send(order.id);
+})
+
+//route for saving the data after successfull payment
+app.post('/success', async (req, res,next) => {
+  fs.writeFile(`./payments/${req.body.order_id}.json`, JSON.stringify(body), () => { });
+  res.send(200);
+})
 
 app.use('/admin',  auth.isAdminUser, adminRouter);
 app.use('/review', auth.isLoggedin, reviewRouter);

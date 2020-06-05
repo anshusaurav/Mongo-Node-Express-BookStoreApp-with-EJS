@@ -7,8 +7,15 @@ var Address = require('../models/address');
 var auth = require('../middlewares/auth');
 var nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
-
-//Account activate route
+require("dotenv").config();
+const Razorpay = require('razorpay');
+const razorpay = new Razorpay({
+	key_id: ''+process.env.RAZOR_PAY_PUBLIC_KEY,
+  key_secret: ''+process.env.RAZOR_PAY_PRIVATE_KEY ,
+  image: 'https://i.imgur.com/d0C2l5L.png',
+})
+//https://imgur.com/d0C2l5L
+// Account activate route
 router.get('/:id/activate/:code', async(req, res, next) =>{
   let id = req.params.id;
   let code = req.params.code;

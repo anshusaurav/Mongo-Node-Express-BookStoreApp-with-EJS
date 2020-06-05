@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Address = require('../models/address');
-
+var RazorPay = require('razorpay');
 router.get('/', async(req, res, next) =>{
     var id = req.session.userId;
     try{
@@ -116,8 +116,13 @@ router.get('/cartaddress', async(req, res, next) =>{
     var id = req.session.userId;
     try{
         var addresses = await Address.find({user: id});
-        
-        res.render('cartAddress', {addresses});
+        var user = await User.findById(id).populate('personalcart.item');
+        var totalPrice = 0;
+        user.personalcart.forEach((elem,index)=>{    
+              totalPrice += elem.item.price*elem.quantity;
+        });
+        // console.log()
+        res.render('cartAddress', {addresses, totalPrice});
     } catch(error) {
         return next(error);
     }
@@ -129,7 +134,7 @@ router.post('/cartaddress', async(req, res, next) =>{
     var id = req.session.userId;
     try{
         var addresses = await Address.find({user: id});
-        var user = await User.findById(id).populate('personalCart.item');
+        var user = await User.findById(id).populate('personalcart.item');
         var totalPrice = 0;
         user.personalcart.forEach((elem,index)=>{    
               totalPrice += elem.item.price*elem.quantity;

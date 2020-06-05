@@ -25,6 +25,9 @@
         grid-gap: 1rem 0.5rem;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         margin: 1rem;
+        .razorpay-payment-button{
+            display: none;
+        }
         .address-main-grid-elem{
             height: 266px;
             border-width: 1px;

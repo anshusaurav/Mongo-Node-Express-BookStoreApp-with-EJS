@@ -1,4 +1,6 @@
 <%- include('partials/header') -%>
+<% console.log(totalPrice) %>
+
 <div class='address-container'>
     <h2 class='address-header'>Your Addresses</h2>
     <div class='address-main-grid'>
@@ -13,8 +15,23 @@
             </div>
         </a>
     </div>
-    <form action='/users/checkout' method='POST'>
-    <div class='saved-address-grid'>
+    <form action='/success' method='POST' onsubmit="checkout(event)">
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_JE3MJ3VRzgt7cF" // Enter the Key ID generated from the Dashboard
+            data-amount="<%= totalPrice*100%>" // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            data-currency="INR"
+            data-buttontext="Pay with Razorpay"
+            data-name="Pustaka"
+            data-description="Test transaction"
+            data-image="https://i.imgur.com/d0C2l5L.png"
+            data-prefill.name="<%= user.name %>"
+            data-prefill.email="<%= user.email %>"
+            data-prefill.contact="9667694292"
+            data-theme.color="#F37254"
+        ></script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+        <div class='saved-address-grid'>
     <% addresses.forEach((address, index) => { %> 
         <label class='address-main-grid-elem'>
             <input type='radio' name='addressOption' value='<%=index %>' 
@@ -22,6 +39,7 @@
                     checked
                 <%}%>
             required/>
+            
             <div >
                 <% if(user && user.hasDefaultAddress && user.defaultAddress == address.id){%> 
                 <div class='is-default-address'><p>Default</p></div>
@@ -55,48 +73,58 @@
         </label>
         <%})%>
         </div>
-        <button type='submit' class='cart-address' value=''>Select Address and Proceed</button>
-    </form>
+        <input type="hidden" name="amount" value="<%= totalPrice%>" />
         
+    </form>
+    <script src="https://checkout.razorpay.com/v1/razorpay.js"></script>    
     <script>
-        // var createCheckoutSession = function () {
-        //     // var inputEl = document.getElementById('quantity-input');
-        //     var quantity = 1;
+        
+        async function checkout(e){
+            e.preventDefault();
+            const form = new FormData(e.target);
+            console.dir(form);
+            //Generates an order_id required to create razorpay pop up
+            const id = await (await fetch('http://localhost:3000/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amount: form.get("amount") })
+            })).text();
 
-        //     return fetch('/create-checkout-session', {
-        //         method: 'POST',
-        //         headers: {
-        //         'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //         locale: i18next.language.toLowerCase().split('-')[0],
-        //         }),
-        //     }).then(function (result) {
-        //         return result.json();
-        //     });
-        // };
 
-        // /* Get your Stripe publishable key to initialize Stripe.js */
-        // fetch('/config')
-        // .then(function (result) {
-        //     return result.json();
-        // })
-        // .then(function (json) {
-        //     window.config = json;
-        //     var stripe = Stripe(config.publicKey);
-        //     updateQuantity();
-        //     // Setup event handler to create a Checkout Session on submit
-        //     document.querySelector('.cart-address').addEventListener('click', function (evt) {
-                
-        //     createCheckoutSession().then(function (data) {
-        //         stripe
-        //         .redirectToCheckout({
-        //             sessionId: data.sessionId,
-        //         })
-        //         .then(handleResult);
-        //     });
-        //     }, true);
-        // });
+            const postPaymentProcess = (res) => {
+                fetch('http://localhost:3000/success', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount: form.get("amount"),
+                        payment_id: res.razorpay_payment_id,
+                        order_id: res.razorpay_order_id,
+                        signature: res.razorpay_signature
+                    })
+                })
+            };//Function for saving the data to database
+
+            const options = {
+                key: "rzp_test_JE3MJ3VRzgt7cF",
+                amount: form.get("amount"),
+                currency: "INR",
+                name: "Pustaka",
+                description: "Test Transaction",
+                order_id: id,
+                handler: postPaymentProcess // executed after successfull payment
+            }
+
+            //creates and triggers the popup
+            const razor = new Razorpay(options);
+            razor.open();
+
+        }
+
+
     </script>
 </div>  
 <%- include('partials/footer') -%>
