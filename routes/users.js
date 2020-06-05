@@ -8,15 +8,12 @@ var auth = require('../middlewares/auth');
 var nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
 
-
+//Account activate route
 router.get('/:id/activate/:code', async(req, res, next) =>{
-  console.log('HERE');
   let id = req.params.id;
   let code = req.params.code;
-  console.log(id, code);
   try{
     var user = await User.findById(id);
-    console.log(user);
     if(user.activeToken == code) {
       user = await User.findByIdAndUpdate(id, {isActive: true});
       req.flash('success', 'Activated successfully. Please login')
@@ -31,11 +28,14 @@ router.get('/:id/activate/:code', async(req, res, next) =>{
     return next(error);
   }
 });
-//// get login
 
+
+// get register
 router.get("/register", (req, res) => {
   res.render("signup");
 });
+
+//post register
 router.post('/register', async(req, res, next) =>{
   let {email} = req.body;
   try{
@@ -224,13 +224,16 @@ router.post('/checkout', auth.isLoggedin, async(req, res, next) =>{
           personalcart: []
         }
       });
+      
       // console.log(updatedUser);
       updatedUser = await User.findByIdAndUpdate(id,  {
         $addToSet: {
           purchases: purchase.id
         }
       });
+      
     }
+
     if(success){
       //req.flash('success', 'Order placed successfully')
       res.render('checkout', {loggedInUser, purchase, address});

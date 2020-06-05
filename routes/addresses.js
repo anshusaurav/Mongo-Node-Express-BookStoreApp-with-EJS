@@ -129,8 +129,12 @@ router.post('/cartaddress', async(req, res, next) =>{
     var id = req.session.userId;
     try{
         var addresses = await Address.find({user: id});
-        
-        res.render('cartAddress', {addresses});
+        var user = await User.findById(id).populate('personalCart.item');
+        var totalPrice = 0;
+        user.personalcart.forEach((elem,index)=>{    
+              totalPrice += elem.item.price*elem.quantity;
+        });
+        res.render('cartAddress', {addresses, totalPrice});
     } catch(error) {
         return next(error);
     }

@@ -11,6 +11,8 @@ var session = require("express-session");
 var MongoStore = require('connect-mongo')(session);
 var sassMiddleware = require('node-sass-middleware');
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 var Category = require('./models/category');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -48,12 +50,21 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
+
+// app.use(
+//   express.json({
+//     // We need the raw body to verify webhook signatures.
+//     // Let's compute it only when hitting the Stripe webhook endpoint.
+//     verify: function(req, res, buf) {
+//       if (req.originalUrl.startsWith("/webhook")) {
+//         req.rawBody = buf.toString();
+//       }
+//     }
+//   })
+// );
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
 
 var srcPath = __dirname + '/public';
 var destPath = __dirname + '/public';
@@ -87,7 +98,9 @@ app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 app.use('/category', categoryRouter);
 app.use('/search', searchRouter);
-var auth = require('./middlewares/auth');
+const auth = require('./middlewares/auth');
+
+
 app.use('/admin',  auth.isAdminUser, adminRouter);
 app.use('/review', auth.isLoggedin, reviewRouter);
 app.use('/purchases', auth.isLoggedin, purchasesRouter);
