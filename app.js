@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var flash = require('connect-flash');
-
+const fs = require('fs');
 require("dotenv").config();
 var mongoose = require('mongoose');
 var session = require("express-session");
@@ -53,17 +53,6 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 
-// app.use(
-//   express.json({
-//     // We need the raw body to verify webhook signatures.
-//     // Let's compute it only when hitting the Stripe webhook endpoint.
-//     verify: function(req, res, buf) {
-//       if (req.originalUrl.startsWith("/webhook")) {
-//         req.rawBody = buf.toString();
-//       }
-//     }
-//   })
-// );
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -101,24 +90,6 @@ app.use('/books', booksRouter);
 app.use('/category', categoryRouter);
 app.use('/search', searchRouter);
 const auth = require('./middlewares/auth');
-
-//route for generating order_id
-app.post('/order', async (req, res, next) => {
-
-  const order = await rzr.orders.create({
-      amount: req.body.amount * 100,
-      currency: "INR"
-  });
-
-  res.send(order.id);
-})
-
-//route for saving the data after successfull payment
-app.post('/success', async (req, res,next) => {
-  fs.writeFile(`./payments/${req.body.order_id}.json`, JSON.stringify(body), () => { });
-  res.send(200);
-})
-
 app.use('/admin',  auth.isAdminUser, adminRouter);
 app.use('/review', auth.isLoggedin, reviewRouter);
 app.use('/purchases', auth.isLoggedin, purchasesRouter);
