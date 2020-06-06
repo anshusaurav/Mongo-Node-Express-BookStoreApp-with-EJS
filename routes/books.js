@@ -33,8 +33,34 @@ router.get('/', async(req, res, next) =>{
 router.get('/:slug', async(req, res, next) =>{
     var slug = req.params.slug;
     try{
-        var book = await Book.findOne({slug}).populate('categories');
+
+
+        var book = await Book.findOne({slug});
         console.log(book);
+        var suggestedBooks = [];
+        var moreBooks = await Book.find({
+            $or : 
+                [
+                    { 
+                        author: book.author
+                    },
+                    { 
+                        categories: {
+                            $elemMatch: { 
+                                $in: book.categories 
+                            } 
+                        } 
+                    }
+                ]
+            });
+        console.log(book.title , book.categories , book.author);
+        moreBooks.forEach(elem=>{
+            if(elem.id != book.id)
+                suggestedBooks.push(elem);
+        });
+
+        book = await Book.findOne({slug}).populate('categories');
+        // console.log(book);
         var reviews = await Review.find({book: book.id}).populate('buyer');
         // console.log(book);
         var sum = 0;
@@ -50,11 +76,9 @@ router.get('/:slug', async(req, res, next) =>{
         else{
             book.isRated = false;
         }
-       
-        console.log(book);
-        console.log(reviews);
-        console.log( cnt, sum);
-        res.render('book',{book, reviews});
+        
+        //console.log( cnt, sum);
+        res.render('book',{book, reviews, suggestedBooks});
     }
     catch(error){
         return next(error);

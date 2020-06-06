@@ -1,5 +1,6 @@
 <%- include('partials/header') -%>
 <div class='book-single-container'>
+    <% console.log(suggestedBooks) %>
     <div class="flashes">
         <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
         <% if (alerts.error) { %>
@@ -69,5 +70,70 @@
             </div>
         </div>
     </div>
+    <div class="ag-container-shops">
+        <h2>More Like This</h2>
+        <div class="js-flickity-slider">
+        <% suggestedBooks.forEach(elem =>{%>
+          <div class="js-carousel-cell">
+            <div class="ag-shop-card_box-wrap">
+              <div class="ag-shop-card_box">
+                <div class="ag-shop-card_body">
+                  <div class="js-card-bg ag-card-bg" style='background-image: url("<%= elem.thumbnailURL%>");'></div>
+                  </div>
+                <div class="ag-shop-card_footer">
+                  <span class="ag-shop-card-footer_title"><a href='/books/<%= elem.slug %>'><%=elem.title%></a></span>
+                  <span class="ag-shop-card-footer_products"><%=elem.author %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% })%> 
+           
+        </div>
+    </div>
 </div>
+<script src='https://unpkg.com/flickity@2.2.1/dist/flickity.pkgd.min.js'></script>
+  <script>
+      (function ($) {
+  $(function () {
+
+    var agSlideFlickity = $('.js-flickity-slider').flickity({
+      autoPlay: 2000,
+      imagesLoaded: true,
+      percentPosition: false,
+      prevNextButtons: false,
+      initialIndex: 5,
+      pageDots: false,
+      groupCells: 1
+    });
+
+    var agCard = agSlideFlickity.find('.js-carousel-cell .js-card-bg'),
+      agTransform = 'string' == typeof document.documentElement.style.transform ? 'transform' : 'WebkitTransform',
+      agSlide = agSlideFlickity.data('flickity');
+
+    agSlideFlickity.on('scroll.flickity', function () {
+      agSlide.slides.forEach(function (t, e) {
+        var n = agCard[e],
+          i = -1 * (t.target + agSlide.x) / 3;
+
+        n.style[agTransform] = 'translateX(' + i + 'px)';
+      });
+    });
+
+    agSlideFlickity.on('dragStart.flickity', function (t, e) {
+      document.ontouchmove = function (t) {
+        t.preventDefault();
+      }
+    });
+
+    agSlideFlickity.on('dragEnd.flickity', function (t, e) {
+      document.ontouchmove = function (t) {
+        return true;
+      }
+    });
+
+  });
+})(jQuery);
+
+  </script>
 <%- include('partials/footer') -%>
