@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-
+    <div>
     <div class='books-main-grid'>
         <% books.forEach(book =>{ %>
             <div class='books-main-grid-elem'>
@@ -103,6 +103,9 @@
                 </div>
             </div>
         <%}); %>
+    </div>
+
+        <button id="load-more-comments">Load More</button>
     </div>
 </div>
 <script>
@@ -378,6 +381,34 @@
             switchView();
         }   
     }
+    
+    var parent = document.querySelector('.books-main-grid'),
+        items  = parent.querySelectorAll('.books-main-grid-elem'),
+        loadMoreBtn =  document.querySelector('#load-more-comments'),
+        maxItems = 10,
+        hiddenClass = "visually-hidden";
 
+
+    [].forEach.call(items, function(item, idx){
+        if (idx > maxItems - 1) {
+            item.classList.add(hiddenClass);
+        }
+    });
+
+    loadMoreBtn.addEventListener('click', function(){
+
+    [].forEach.call(document.querySelectorAll('.' + hiddenClass), function(item, idx){
+        console.log(item);
+        if (idx < maxItems  ) {
+            item.classList.remove(hiddenClass);
+        }
+
+        if ( document.querySelectorAll('.' + hiddenClass).length === 0) {
+            loadMoreBtn.style.display = 'none';
+        }
+
+    });
+
+    });
 </script>
 <%- include('partials/footer') -%>

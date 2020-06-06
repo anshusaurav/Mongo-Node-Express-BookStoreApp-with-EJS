@@ -689,6 +689,15 @@ header {
     grid-auto-rows: 440px;
     grid-gap: 1.5rem 0.5rem;
     font-family: 'Roboto', sans-serif; }
+    .books-container .books-main-grid .visually-hidden {
+      position: absolute;
+      overflow: hidden;
+      clip-path: rect(0 0 0 0);
+      height: 1px;
+      width: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0; }
     .books-container .books-main-grid .books-book-name {
       overflow: hidden;
       display: inline-block;
@@ -805,7 +814,8 @@ header {
   height: 280px;
   margin: 0.5rem;
   overflow: hidden;
-  border: 0.5px solid #999; }
+  border: 0.5px solid #999;
+  transition: clip 0.5s ease-in-out; }
 
 .book-single-container {
   max-width: 1300px;
