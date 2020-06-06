@@ -43,7 +43,7 @@
             <div class='books-main-grid-elem'>
                 <div class='books-main-grid-elem-div'>
                     <a class='books-main-grid-elem-img' href='/books/<%=book.slug%>'>
-                        <img class='books-main-single-image' src='<%=book.thumbnailURL %>'>
+                        <div class='books-main-single-image' style='background-image: url("<%= book.thumbnailURL%>");'></div>
                     </a> 
                 </div>  
 

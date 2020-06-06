@@ -17,7 +17,7 @@
       </div>
     <div class='book-single-grid'>
         <div class='book-single-img-div'>
-            <img class='book-single-img' src='<%=book.thumbnailURL %>'>
+            <div class='book-single-img' style='background-image: url("<%= book.thumbnailURL%>");'></div>
         </div>
         <div class='book-single-desc-div'>
             <p class='books-book-name'><%= book.title %></p>
@@ -92,48 +92,4 @@
         </div>
     </div>
 </div>
-<script src='https://unpkg.com/flickity@2.2.1/dist/flickity.pkgd.min.js'></script>
-  <script>
-      (function ($) {
-  $(function () {
-
-    var agSlideFlickity = $('.js-flickity-slider').flickity({
-      autoPlay: 2000,
-      imagesLoaded: true,
-      percentPosition: false,
-      prevNextButtons: false,
-      initialIndex: 5,
-      pageDots: false,
-      groupCells: 1
-    });
-
-    var agCard = agSlideFlickity.find('.js-carousel-cell .js-card-bg'),
-      agTransform = 'string' == typeof document.documentElement.style.transform ? 'transform' : 'WebkitTransform',
-      agSlide = agSlideFlickity.data('flickity');
-
-    agSlideFlickity.on('scroll.flickity', function () {
-      agSlide.slides.forEach(function (t, e) {
-        var n = agCard[e],
-          i = -1 * (t.target + agSlide.x) / 3;
-
-        n.style[agTransform] = 'translateX(' + i + 'px)';
-      });
-    });
-
-    agSlideFlickity.on('dragStart.flickity', function (t, e) {
-      document.ontouchmove = function (t) {
-        t.preventDefault();
-      }
-    });
-
-    agSlideFlickity.on('dragEnd.flickity', function (t, e) {
-      document.ontouchmove = function (t) {
-        return true;
-      }
-    });
-
-  });
-})(jQuery);
-
-  </script>
 <%- include('partials/footer') -%>

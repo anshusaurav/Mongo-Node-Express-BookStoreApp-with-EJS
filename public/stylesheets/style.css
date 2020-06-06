@@ -735,15 +735,12 @@ header {
       .books-container .books-main-grid .books-main-grid-elem:hover {
         box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11); }
     .books-container .books-main-grid .books-main-grid-elem-img {
-      width: 100%;
-      overflow: hidden;
-      display: inline-block;
-      box-sizing: border-box;
       align-self: center; }
       .books-container .books-main-grid .books-main-grid-elem-img .books-main-single-image {
+        height: 100%;
         width: 100%;
-        overflow: hidden;
-        height: 100%; }
+        background-size: cover;
+        background-repeat: no-repeat; }
     .books-container .books-main-grid .rate-grid {
       padding: 0.5rem 0;
       width: 220px;
@@ -824,9 +821,10 @@ header {
       padding: 1rem;
       position: relative; }
       .book-single-container .book-single-grid .book-single-img-div .book-single-img {
-        width: 90%;
-        position: absolute;
-        top: 1.5rem; }
+        height: 100%;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat; }
     .book-single-container .book-single-grid .books-book-name {
       overflow: hidden;
       display: inline-block;
@@ -860,7 +858,8 @@ header {
       padding: 1rem; }
     .book-single-container .book-single-grid .book-single-price-div {
       border-radius: 4px;
-      padding: 0.5rem; }
+      padding: 0.5rem;
+      padding-top: 1.5rem; }
     @media (max-width: 600px) {
       .book-single-container .book-single-grid {
         grid-template-columns: 1fr; } }
@@ -954,19 +953,20 @@ header {
     width: 1200px;
     margin: 0 auto;
     background: #000; }
+  .book-single-container .js-flickity-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 420px; }
   .book-single-container .flickity-viewport {
     border: none; }
   .book-single-container .ag-container-shops {
-    padding: 60px 0;
+    padding: 90px 0;
     overflow: hidden; }
   .book-single-container .ag-card-bg {
     height: 100%;
-    width: 200%;
-    background-position: 50%;
+    width: 100%;
     background-size: cover;
-    position: absolute;
-    top: 0;
-    left: -50%;
+    background-repeat: no-repeat;
     -webkit-transition: height .6s;
     -moz-transition: height .6s;
     -o-transition: height .6s;
@@ -990,14 +990,7 @@ header {
   .book-single-container .ag-shop-card_body {
     display: block;
     height: 320px;
-    width: 250px;
-    background-position: 50%;
-    background-size: cover;
     overflow: hidden;
-    -webkit-transition: .4s;
-    -moz-transition: .4s;
-    -o-transition: .4s;
-    transition: .4s;
     position: relative; }
   .book-single-container .ag-shop-card-body_img {
     max-width: 100%; }
@@ -1712,6 +1705,7 @@ header {
     font-size: 15px;
     width: 135px;
     height: 36px;
+    margin-left: 1rem;
     background-color: #E18988;
     color: #FFFFFF;
     border: none;

@@ -149,16 +149,14 @@
             // display: flex;
         }
         .books-main-grid-elem-img {
-            width: 100%;
-            overflow: hidden;
-            display: inline-block;
-            box-sizing: border-box;
-            // max-height: 306px;
+            
             align-self: center;
             .books-main-single-image{
-                width: 100%;
-                overflow: hidden;
                 height: 100%;
+                width: 100%;
+                // background-position: 50%;
+                background-size: cover;
+                background-repeat: no-repeat;
                     
             }
         }
