@@ -14,8 +14,9 @@
         grid-template-columns: repeat(2,1fr);
         .address-small-checkout{
             padding: 1rem 0;
-            font-size: 12px;
-            color: #000;
+            font-size: 14px;
+            letter-spacing: 0.75px;
+            color: #222;
             
         }
     }
@@ -170,6 +171,15 @@
         margin-left:1rem;
         font-weight: 400;
         font-size: 20px;
+        line-height: 1.2;
+        padding-bottom: 4px;
+    }
+    .cart-header-sub-razor{
+        margin-top: 12px!important;
+        margin-bottom: 12px!important;
+        margin-left:1rem;
+        font-weight: 400;
+        font-size: 14px;
         line-height: 1.2;
         padding-bottom: 4px;
     }

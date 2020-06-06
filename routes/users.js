@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 var User = require('../models/user');
 var Book = require('../models/book');
@@ -8,6 +9,7 @@ var auth = require('../middlewares/auth');
 var nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
 require("dotenv").config();
+const ejs = require('ejs');
 const Razorpay = require('razorpay');
 const razorpay = new Razorpay({
 	key_id: ''+process.env.RAZOR_PAY_PUBLIC_KEY,
@@ -223,7 +225,7 @@ router.post('/checkout', auth.isLoggedin, async(req, res, next) =>{
             quantity: elem.quantity,
              
           };
-        }), buyer: id, totalPrice: totalPrice,addressShippedTo: userAddresses[addressOption].id,
+        }), buyer: id, totalPrice: totalPrice,addressShippedTo: userAddresses[addressOption].id, razorPayId: req.body.razorpay_payment_id
       });
       console.log(purchase);
       var updatedUser =  await User.findByIdAndUpdate(id, {
@@ -238,6 +240,32 @@ router.post('/checkout', auth.isLoggedin, async(req, res, next) =>{
           purchases: purchase.id
         }
       });
+      var transport = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.Email,
+          pass: process.env.Password,
+        }
+      }))
+      // console.log(process.env.Email);
+      //views\purchase.ejs
+      const data = await ejs.renderFile(path.join(__dirname, '/../views') + "/purchase.ejs", { purchase });
+      // ejs.renderFile(path.join(__dirname, '/../views') + "/purchase.ejs", { purchase}, function (err, data) {
+      
+      var mailOptions = {
+        from: process.env.Email,
+        to: loggedInUser.email,
+        subject: "Order Placed successfully",
+        html: data
+      };
+      transport.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+      });
+        
+      
       
     }
 

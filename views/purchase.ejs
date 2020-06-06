@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation Email</title>
+    <style>
+        .purchases-container {
+            max-width: 1300px;
+            min-height: 82vh;
+            height: auto;
+            margin: 0 auto;
+            font-family: "Roboto", sans-serif;
+        }
+        .purchases-container .purchases-outer-grid {
+            margin: 1rem;
+            padding: 1rem 0;
+        }
+        .purchases-container .purchases-single-elem-supp {
+            padding: 0.75rem;
+            border: 1px solid #c7c7c7;
+            border-bottom: none;
+        }
+        .purchases-container .purchases-header {
+            margin-top: 18px !important;
+            margin-bottom: 18px !important;
+            margin-left: 1rem;
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 1.2;
+            padding-bottom: 4px;
+        }
+        .purchases-container .books-book-name {
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            font-size: 16px !important;
+            font-weight: 400;
+            color: #111111;
+            width: 100%;
+        }
+        .purchases-container .books-book-author {
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            font-size: 14px !important;
+            font-weight: 300;
+            color: #272727;
+            width: 100%;
+        }
+        .purchases-container .books-book-qty {
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            word-break: normal;
+            font-size: 14px !important;
+            font-weight: 400;
+            color: black;
+            width: 100%;
+        }
+        .purchases-container .book-price-div {
+            display: grid;
+            grid-template-columns: 14px auto;
+            justify-content: start;
+        }
+        .purchases-container .book-price-div i {
+            justify-self: center;
+            font-size: 12px;
+        }
+        .purchases-container .books-book-name:hover {
+            color: #C45500;
+        }
+        .purchases-container .books-book-price {
+            font-size: 20px;
+        }
+        .purchases-container .purchases-main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: 440px;
+            grid-gap: 1.5rem;
+            border: 1px solid #c7c7c7;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.16);
+        }
+        .purchases-container .purchases-main-grid .books-purchases-grid-elem {
+            padding: 0.5rem;
+            position: relative;
+        }
+        .purchases-container .purchases-main-grid .books-purchases-grid-elem-img {
+            width: 75%;
+            overflow: hidden;
+            max-height: 306px;
+            align-self: center;
+        }
+        .purchases-container .purchases-main-grid .books-purchases-grid-elem-img .books-purchases-single-image {
+            width: 100%;
+        }
+        .purchases-container .purchases-main-grid .rate-grid {
+            position: absolute;
+            top: 390px;
+            left: 8px;
+            padding: 0.5rem 0;
+            width: 220px;
+            height: 32px;
+            display: grid;
+            grid-template-columns: repeat(5, 24px);
+        }
+        .purchases-container .purchases-main-grid .rate-grid .star-filled {
+            color: #FFC700;
+        }
+        .purchases-container .purchases-main-grid .rate-grid .star-unfilled {
+            color: #CCCCCC;
+        }
+        .purchases-container .purchases-main-grid .rate-grid .fa-star {
+            font-size: 20px;
+        }
+        .purchases-container .purchase-single-header > p, .purchases-container span > p {
+            opacity: 0.8;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .books-purchases-grid-elem-div {
+            margin: 0.5rem;
+        }
+
+/*# sourceMappingURL=main.css.map */
+
+    </style>
+</head>
+<body>
+    <div class='purchases-container'>
+        <h2 class='purchases-header'>Prder Placed Successfully</h2>
+        <div class='purchases-outer-grid'>
+            <div class='purchases-single-elem-supp'>
+                <h2 class='purchase-single-header'>Order Details <p>OrderId: <%=purchase.id %></p></h2>
+                <span>Total Price: <i class="fas fa-rupee-sign"></i> <p><%=purchase.totalPrice %></p></span>
+                <span>Order Date: <p><%=purchase.createdAt.toString().substr(4,11)%></p></span>
+            </div>
+            <div class='purchases-main-grid'>
+                <% purchase.books.forEach(book =>{ %>
+                    <div class='books-purchases-grid-elem'>
+                        <div class='books-purchases-grid-elem-div'>
+                            <a class='books-purchases-grid-elem-img' href='/books/<%=book.item.slug%>'>
+                                <img class='books-purchases-single-image' src='<%=book.item.thumbnailURL %>'>
+                            </a> 
+                        </div>  
+                        <a  class='books-book-name' href='/books/<%=book.item.slug%>'>
+                            <%= book.item.title %>
+                        </a>
+    
+                        <h2 class='books-book-author'> 
+                            <%= book.item.author %>
+                        </h2>
+                        
+                        <h2 class='books-book-qty'>
+                            Qty: <%= book.quantity%>
+                        </h2>
+                        <% if(book.item.isRated) { %>
+                        <div class="rate-grid">
+                            <% for(var i = 0; i < Number(book.item.averageRating); i++) {%>
+                                <i class="fas fa-star star-filled"></i>
+                            <%} %>
+                            <% for(var i = 0; i < 5-Number(book.item.averageRating); i++) {%>
+                                <i class="fas fa-star star-unfilled"></i>
+                            <%} %>
+                        </div>
+                        <%}%>
+                        
+                    </div>
+                <%}); %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

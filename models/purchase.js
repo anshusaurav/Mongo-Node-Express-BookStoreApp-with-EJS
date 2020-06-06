@@ -26,6 +26,9 @@ var purchaseSchema = new Schema({
     addressShippedTo:{
         type: Schema.Types.ObjectId,
         ref: "Address"
+    },
+    razorPayId:{
+        type:"String"
     }
     
 },{timestamps: true});
