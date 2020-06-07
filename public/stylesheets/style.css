@@ -689,15 +689,6 @@ header {
     grid-auto-rows: 440px;
     grid-gap: 1.5rem 0.5rem;
     font-family: 'Roboto', sans-serif; }
-    .books-container .books-main-grid .visually-hidden {
-      position: absolute;
-      overflow: hidden;
-      clip-path: rect(0 0 0 0);
-      height: 1px;
-      width: 1px;
-      margin: -1px;
-      padding: 0;
-      border: 0; }
     .books-container .books-main-grid .books-book-name {
       overflow: hidden;
       display: inline-block;
@@ -739,12 +730,26 @@ header {
     .books-container .books-main-grid .books-book-price {
       font-size: 20px; }
     .books-container .books-main-grid .books-main-grid-elem {
-      padding: 0.5rem;
-      position: relative; }
+      position: relative;
+      -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 35, 0.25);
+      -moz-box-shadow: 0 10px 20px 0 rgba(0, 0, 35, 0.25);
+      -o-box-shadow: 0 10px 20px 0 rgba(0, 0, 35, 0.25);
+      box-shadow: 0 10px 20px 0 rgba(0, 0, 35, 0.25);
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      -o-transition: .4s;
+      transition: .4s; }
       .books-container .books-main-grid .books-main-grid-elem:hover {
         box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11); }
+      .books-container .books-main-grid .books-main-grid-elem .ul-books-grid {
+        padding: 0.5rem;
+        padding-top: 0; }
     .books-container .books-main-grid .books-main-grid-elem-img {
-      align-self: center; }
+      align-self: center;
+      padding-bottom: 0.5rem; }
       .books-container .books-main-grid .books-main-grid-elem-img .books-main-single-image {
         height: 100%;
         width: 100%;
@@ -774,11 +779,13 @@ header {
     .books-container .books-main-elem-misc .add-to-cart {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 0.2rem; }
+      grid-gap: 0.2rem;
+      margin-left: 0.5rem; }
     .books-container .books-main-elem-misc .books-main-gatipay-elem {
       display: flex;
       justify-content: center;
-      align-items: center; }
+      align-items: center;
+      margin-right: 0.5rem; }
     .books-container .books-main-elem-misc .fab, .books-container .books-main-elem-misc .fas {
       font-size: 20px;
       border: none;
@@ -811,11 +818,14 @@ header {
       margin: 0; }
 
 .books-main-grid-elem-div {
-  height: 280px;
-  margin: 0.5rem;
+  height: 300px;
   overflow: hidden;
-  border: 0.5px solid #999;
   transition: clip 0.5s ease-in-out; }
+
+.footer-content-top {
+  margin-top: 1.5rem;
+  max-width: 1300px;
+  width: 100%; }
 
 .book-single-container {
   max-width: 1300px;

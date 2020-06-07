@@ -96,6 +96,8 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
         // console.log(book.title, book.id);
         var quantityPresent = 0;
         var user = await User.findById(id);
+        // var success = true;
+        
         user.personalcart.forEach(elem =>{
             if(elem.item == book.id)
                 quantityPresent = elem.quantity;
@@ -105,6 +107,10 @@ router.post('/:slug/add', auth.isLoggedin, async(req, res, next) =>{
         if(quantity+ quantityPresent > book.quantity){
             success = false;
             strError = 'Not Enough Qty available for Book ' + book.title;
+        }
+        if(user.isAdmin) {
+            success = false;
+            strError = 'You are admin, We suggest to create invidual buyer account';
         }
         if(success) {
             user = await User.findByIdAndUpdate(id, 
