@@ -26,7 +26,7 @@ var purchasesRouter = require('./routes/purchases');
 var searchRouter = require('./routes/search');
 var addressesRouter = require('./routes/addresses');
 //'mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||
-mongoose.connect('mongodb://localhost/pustaka-db',
+mongoose.connect('mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||'mongodb://localhost/pustaka-db',
 {useNewUrlParser: true, useUnifiedTopology: true},
  (err, db)=>{
   // var cats = ["Literature & Fiction", 
