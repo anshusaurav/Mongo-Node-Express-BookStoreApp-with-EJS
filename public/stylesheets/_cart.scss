@@ -32,6 +32,7 @@
     }
     .cart-main-grid {
         display: grid;
+        grid-auto-rows: 360px;
         grid-template-columns: 1fr;
         .cart-main-grid-single-elem{
             border-top: 1px solid #eee;
@@ -42,10 +43,14 @@
                 grid-template-columns: 1fr;
               }
             .cart-single-img-div{
-                
-                overflow: hidden;
+                // align-self: center;
+                padding-bottom: 0.5rem;
                 .cart-single-img{
+                    height: 100%;
                     width: 100%;
+                    // background-position: 50%;
+                    background-size: cover;
+                    background-repeat: no-repeat;
                     
                 }  
             }

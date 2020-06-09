@@ -19,9 +19,11 @@
         <div class='cart-main-grid'>
             <% loggedInUser.personalcart.forEach(elem =>{ %>
                 <div class='cart-main-grid-single-elem'>
-                    <div class='cart-single-img-div'>
-                        <img class='cart-single-img' src='<%= elem.item.thumbnailURL %>'>
-                    </div>
+                    <a class='cart-single-img-div'  href='/books/<%=elem.item.slug%>'>
+                        <% console.log(elem.item.title) %>
+                        <div class='cart-single-img' style='background-image: url("<%= elem.item.thumbnailURL%>");'>
+                        </div>
+                    </a>
                     <div class='cart-single-desc-div'>
                         <p class='books-book-name'>
                             <%= elem.item.title %>
@@ -50,6 +52,13 @@
             <%}); %>
                 <div class='cart-main-grid-single-elem'>
                     <div class='cart-single-img-div'>
+                        <% if(totalPrice > 0) {%> 
+                            <a class='cart-main-book-anchor' href='/addresses/cartaddress'>Buy Now</a>
+                        <% } %>
+                        <%} else { %>
+                                <p class='empty-cart-p'>Cart is empty</p>
+                            <%} %>
+                        <a class='cart-main-book-anchor' href='/books'>Shop More</a>
                     </div>
                     <div class='cart-single-desc-div'>
                         <p class='books-book-author'>Total Qty: <%= loggedInUser.personalcart.reduce((acc, elem) => acc + Number(elem.quantity), 0)%></p>
@@ -66,13 +75,7 @@
                 </div>
         </div>
         
-        <% if(totalPrice > 0) {%> 
-            <a class='cart-main-book-anchor' href='/addresses/cartaddress'>Buy Now</a>
-        <% } %>
-        <%} else { %>
-                <p class='empty-cart-p'>Cart is empty</p>
-            <%} %>
-        <a class='cart-main-book-anchor' href='/books'>Shop More</a>
+        
 
    </div>
 <%- include('partials/footer') -%>
