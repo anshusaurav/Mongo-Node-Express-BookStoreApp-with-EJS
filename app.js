@@ -26,9 +26,10 @@ var purchasesRouter = require('./routes/purchases');
 var searchRouter = require('./routes/search');
 var addressesRouter = require('./routes/addresses');
 //'mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||
-mongoose.connect('mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||'mongodb://localhost/pustaka-db',
+// mongoose.connect('mongodb+srv://anshusaurav:3BpDAwgNI64FfiOC@cluster0-qizxp.mongodb.net/pustaka-db?retryWrites=true&w=majority'||'mongodb://localhost/pustaka-db',
+mongoose.connect("mongodb://anshu:qwerty1@ds137488.mlab.com:37488/pustaka-db",
 {useNewUrlParser: true, useUnifiedTopology: true},
- (err, db)=>{
+ (err)=>{
   // var cats = ["Literature & Fiction", 
   //             "Self-Help",
   //             "Business & Economics",
